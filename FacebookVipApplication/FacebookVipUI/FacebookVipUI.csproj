@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A02D0DC7-AE8B-44C0-9141-47A1846DFDEB}</ProjectGuid>
+    <ProjectGuid>{8EFABA07-C613-4C8C-98E5-7EE235ACDF42}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>FacebookVipApplication</RootNamespace>
-    <AssemblyName>FacebookVipApplication</AssemblyName>
+    <RootNamespace>FacebookVipUI</RootNamespace>
+    <AssemblyName>FacebookVipUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\FacebookVipInfrastructure\FBApi\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="FbGraphApiWrapper">
+      <HintPath>..\FacebookVipInfrastructure\FBApi\FbGraphApiWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
