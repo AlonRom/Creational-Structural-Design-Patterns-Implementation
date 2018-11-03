@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FacebookVipInfrastructure")]
+[assembly: AssemblyTitle("FacebookVip.API")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FacebookVipInfrastructure")]
+[assembly: AssemblyProduct("FacebookVip.API")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2b0c8e16-cd53-412d-834b-929fea1275c3")]
+[assembly: Guid("30b4be19-d6a7-4e07-a190-ac944ed78d45")]
 
 // Version information for an assembly consists of the following four values:
 //

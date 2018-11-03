@@ -1,4 +1,4 @@
-﻿namespace FacebookVipUI
+﻿namespace FacebookVip.UI
 {
     partial class Form1
     {

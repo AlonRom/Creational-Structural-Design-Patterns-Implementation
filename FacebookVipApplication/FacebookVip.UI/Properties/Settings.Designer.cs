@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacebookVipUI.Properties
+namespace FacebookVip.UI.Properties
 {
 
 

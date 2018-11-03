@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookVipUI", "FacebookVipUI\FacebookVipUI.csproj", "{8EFABA07-C613-4C8C-98E5-7EE235ACDF42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookVip.UI", "FacebookVip.UI\FacebookVip.UI.csproj", "{D8524E10-457F-4DB9-B1EE-B23539C847EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookVipInfrastructure", "FacebookVipInfrastructure\FacebookVipInfrastructure.csproj", "{2B0C8E16-CD53-412D-834B-929FEA1275C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookVip.API", "FacebookVip.API\FacebookVip.API.csproj", "{30B4BE19-D6A7-4E07-A190-AC944ED78D45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookVip.Model", "FacebookVip.Model\FacebookVip.Model.csproj", "{97C5A450-043E-4B6D-B8C3-FCEFD195DD0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookVip.Logic", "FacebookVip.Logic\FacebookVip.Logic.csproj", "{763ACB67-84F3-47C6-B161-860FE4936476}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8EFABA07-C613-4C8C-98E5-7EE235ACDF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EFABA07-C613-4C8C-98E5-7EE235ACDF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EFABA07-C613-4C8C-98E5-7EE235ACDF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EFABA07-C613-4C8C-98E5-7EE235ACDF42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B0C8E16-CD53-412D-834B-929FEA1275C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B0C8E16-CD53-412D-834B-929FEA1275C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B0C8E16-CD53-412D-834B-929FEA1275C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B0C8E16-CD53-412D-834B-929FEA1275C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8524E10-457F-4DB9-B1EE-B23539C847EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8524E10-457F-4DB9-B1EE-B23539C847EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8524E10-457F-4DB9-B1EE-B23539C847EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8524E10-457F-4DB9-B1EE-B23539C847EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30B4BE19-D6A7-4E07-A190-AC944ED78D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B4BE19-D6A7-4E07-A190-AC944ED78D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B4BE19-D6A7-4E07-A190-AC944ED78D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B4BE19-D6A7-4E07-A190-AC944ED78D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C5A450-043E-4B6D-B8C3-FCEFD195DD0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C5A450-043E-4B6D-B8C3-FCEFD195DD0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C5A450-043E-4B6D-B8C3-FCEFD195DD0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C5A450-043E-4B6D-B8C3-FCEFD195DD0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{763ACB67-84F3-47C6-B161-860FE4936476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763ACB67-84F3-47C6-B161-860FE4936476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763ACB67-84F3-47C6-B161-860FE4936476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763ACB67-84F3-47C6-B161-860FE4936476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
