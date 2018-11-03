@@ -81,9 +81,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Gifs\Spinner.gif" />
     <Content Include="Resources\Icons\logo.png" />
     <Content Include="Resources\Icons\logo_inside_out.png" />
-    <None Include="Resources\logo_inside_out.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
