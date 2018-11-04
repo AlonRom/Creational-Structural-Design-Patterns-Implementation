@@ -82,8 +82,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Gifs\Spinner.gif" />
+    <Content Include="Resources\Icons\checkin.png" />
+    <Content Include="Resources\Icons\events.png" />
+    <Content Include="Resources\Icons\friends.png" />
+    <Content Include="Resources\Icons\gold.png" />
+    <Content Include="Resources\Icons\like.png" />
+    <Content Include="Resources\Icons\login.png" />
     <Content Include="Resources\Icons\logo.png" />
     <Content Include="Resources\Icons\logo_inside_out.png" />
+    <Content Include="Resources\Icons\pencil.png" />
+    <Content Include="Resources\Icons\settings.png" />
+    <Content Include="Resources\Icons\statistics.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

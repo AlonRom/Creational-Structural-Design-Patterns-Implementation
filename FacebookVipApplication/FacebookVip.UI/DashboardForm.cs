@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,54 +12,202 @@ namespace FacebookVip.UI
         public DashboardForm()
         {
             InitializeComponent();
-            setFormStyle();
-            setCustomHeader();
+            setFormStyle();  
         }
 
         private void setFormStyle()
         {
             TopMost = true;
-            //WindowState = FormWindowState.Maximized;
-            Width = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.7);
-            Height = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.7);
+            resizeForm(); 
             CenterToScreen();
-            ShowIcon = false;
-            Spinner.Visible = false;
+            centerSpinnerInPanel();
+            customHeaderLayout();
+            spinner.Visible = false;
         }
 
-        private void setCustomHeader()
+        private void resizeForm()
         {
-            //customHeaderPictureBox.Location = Location; // assign the location to the form location
+            Width = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.6);
+            Height = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.7);
             customHeaderPictureBox.Width = Screen.GetWorkingArea(this).Width; // make it the same width as the form
-
         }
 
-        private async void sideMenuListViewSelectedIndexChanged(object i_Sender, System.EventArgs i_EventArgs)
+        private void centerSpinnerInPanel()
+        {
+            spinner.Location = new Point(
+                                   spinner.Parent.ClientSize.Width/2 - spinner.Width/2,
+                                   spinner.Parent.ClientSize.Height/2 - spinner.Height/2);
+            spinner.Refresh();
+        }
+
+
+        private void customHeaderLayout()
+        {
+            ShowIcon = false;
+
+            Point headerFacebookLabelPosition = PointToScreen(headerFacebookLabel.Location);
+            headerFacebookLabelPosition = customHeaderPictureBox.PointToClient(headerFacebookLabelPosition);
+            headerFacebookLabel.Parent = customHeaderPictureBox;
+            headerFacebookLabel.Location = headerFacebookLabelPosition;
+
+            Point headerTitleLabelPosition = PointToScreen(headerTitleLabel.Location);
+            headerTitleLabelPosition = customHeaderPictureBox.PointToClient(headerTitleLabelPosition);
+            headerTitleLabel.Parent = customHeaderPictureBox;
+            headerTitleLabel.Location = headerTitleLabelPosition;
+
+            Point logoInsideOutImagePosition = PointToScreen(logoInsideOutImage.Location);
+            logoInsideOutImagePosition = customHeaderPictureBox.PointToClient(logoInsideOutImagePosition);
+            logoInsideOutImage.Parent = customHeaderPictureBox;
+            logoInsideOutImage.Location = logoInsideOutImagePosition;
+        }
+
+
+        private async void loginButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
-                Spinner.Visible = true;
+                spinner.Visible = true;
                 await Task.Delay(5000);
 
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
             finally
             {
-                Spinner.Visible = false;
+                spinner.Visible = false;
             }
         }
 
-        //private string getImagePathByName(string i_ImageName)
-        //{
-        //    string baseDirectory =
-        //        Path.GetDirectoryName(
-        //            Path.GetDirectoryName(
-        //                Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
+        private async void friendsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
 
-        //    return baseDirectory + @"\Resources\Icons\" + i_ImageName; 
-        //}
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
+        private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
+        private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
+        private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
+
+        private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
+
+        private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
+
+        private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                spinner.Visible = true;
+                await Task.Delay(5000);
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                spinner.Visible = false;
+            }
+        }
+
     }
 }
