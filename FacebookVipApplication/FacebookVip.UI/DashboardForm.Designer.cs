@@ -31,6 +31,7 @@
             this.headerTitleLabel = new System.Windows.Forms.Label();
             this.headerFacebookLabel = new System.Windows.Forms.Label();
             this.contentPanel = new System.Windows.Forms.Panel();
+            this.spinner = new System.Windows.Forms.PictureBox();
             this.statsButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.likesButton = new System.Windows.Forms.Button();
@@ -39,9 +40,9 @@
             this.postsButton = new System.Windows.Forms.Button();
             this.friendsButton = new System.Windows.Forms.Button();
             this.loginButton = new System.Windows.Forms.Button();
-            this.spinner = new System.Windows.Forms.PictureBox();
             this.logoInsideOutImage = new System.Windows.Forms.PictureBox();
             this.customHeaderPictureBox = new System.Windows.Forms.PictureBox();
+            this.buttonLogin = new System.Windows.Forms.Button();
             this.contentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).BeginInit();
@@ -79,6 +80,17 @@
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(800, 600);
             this.contentPanel.TabIndex = 5;
+            // 
+            // spinner
+            // 
+            this.spinner.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.spinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
+            this.spinner.Location = new System.Drawing.Point(325, 160);
+            this.spinner.Name = "spinner";
+            this.spinner.Size = new System.Drawing.Size(148, 148);
+            this.spinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.spinner.TabIndex = 0;
+            this.spinner.TabStop = false;
             // 
             // statsButton
             // 
@@ -248,17 +260,6 @@
             this.loginButton.UseVisualStyleBackColor = false;
             this.loginButton.Click += new System.EventHandler(this.loginButtonClick);
             // 
-            // spinner
-            // 
-            this.spinner.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.spinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
-            this.spinner.Location = new System.Drawing.Point(325, 160);
-            this.spinner.Name = "spinner";
-            this.spinner.Size = new System.Drawing.Size(148, 148);
-            this.spinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.spinner.TabIndex = 0;
-            this.spinner.TabStop = false;
-            // 
             // logoInsideOutImage
             // 
             this.logoInsideOutImage.BackColor = System.Drawing.Color.Transparent;
@@ -281,12 +282,23 @@
             this.customHeaderPictureBox.TabIndex = 0;
             this.customHeaderPictureBox.TabStop = false;
             // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Location = new System.Drawing.Point(713, 14);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
+            this.buttonLogin.TabIndex = 37;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.loginButtonClick);
+            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 537);
+            this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.statsButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.likesButton);
@@ -327,6 +339,7 @@
         private System.Windows.Forms.Button likesButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button statsButton;
+        private System.Windows.Forms.Button buttonLogin;
     }
 }
 

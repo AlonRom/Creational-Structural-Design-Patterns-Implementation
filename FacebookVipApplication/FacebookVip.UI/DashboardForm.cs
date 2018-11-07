@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacebookVip.API;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
@@ -66,8 +67,29 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
-                await Task.Delay(5000);
+                //spinner.Visible = true;
+                //await Task.Delay(5000);
+                var login = new Login();
+
+                string o_Status;
+                bool success = login.loginAndInit(out o_Status);
+                
+
+                if (success)
+                {
+                    //this.buttonLogin.Visible = false;
+                    this.buttonLogin.Text = "Log Out";
+
+                    // Do log out
+                    //this.buttonLogin.Click += new System.EventHandler(this.loginOutButtonClick);
+                    MessageBox.Show(o_Status);
+
+                    //
+                }
+                else
+                {
+                    MessageBox.Show(o_Status);
+                }
 
             }
             catch (Exception)
@@ -208,6 +230,5 @@ namespace FacebookVip.UI
                 spinner.Visible = false;
             }
         }
-
     }
 }

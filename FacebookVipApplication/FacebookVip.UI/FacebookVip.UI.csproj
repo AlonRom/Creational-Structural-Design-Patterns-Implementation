@@ -94,5 +94,11 @@
     <Content Include="Resources\Icons\settings.png" />
     <Content Include="Resources\Icons\statistics.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FacebookVip.API\FacebookVip.API.csproj">
+      <Project>{30b4be19-d6a7-4e07-a190-ac944ed78d45}</Project>
+      <Name>FacebookVip.API</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
