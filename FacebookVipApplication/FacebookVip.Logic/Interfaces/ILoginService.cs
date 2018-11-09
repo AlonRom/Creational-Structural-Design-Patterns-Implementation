@@ -13,6 +13,8 @@ namespace FacebookVip.Logic.Interfaces
 
         LoginResult Login();
 
+        Task LogOut();
+
         Task SetUserData();
     }
 }
