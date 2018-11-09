@@ -291,5 +291,16 @@ namespace FacebookVip.UI
                 spinner.Visible = false;
             }
         }
+
+        protected override void Dispose(bool i_Disposing)
+        {
+            if (i_Disposing)
+            {
+                components?.Dispose();
+                Resize -= resizeFormEvent;
+            }
+
+            base.Dispose(i_Disposing);
+        }
     }
 }
