@@ -32,7 +32,7 @@ namespace FacebookVip.UI
 
         private void setFormStyle()
         {
-            TopMost = true;
+            //TopMost = true;
             setFormSize(); 
             CenterToScreen();
             customHeaderLayout();
@@ -62,7 +62,6 @@ namespace FacebookVip.UI
             i_Control.BringToFront();
             i_Control.Refresh();
         }
-
 
         private void customHeaderLayout()
         {
@@ -101,6 +100,15 @@ namespace FacebookVip.UI
             centerControlInParent(contentSpinner);
         }
 
+        private void logoutButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            m_LoginService.Logout();
+            loginLabel.Click += new System.EventHandler(this.loginButtonClick);
+            loginLabel.Text = @"Login";
+            setLayoutVisible(false);
+            m_LoginService.LoggedInUser = null;
+        }
+
         private void loginButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
@@ -114,17 +122,17 @@ namespace FacebookVip.UI
                 if (!string.IsNullOrEmpty(loginResult.AccessToken))
                 {
                     m_LoginService.LoggedInUser = loginResult.LoggedInUser;
-                    setLayoutVisible();
+                    setLayoutVisible(true);
 
                     userImage.Visible = true;
                     userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
                     loginLabel.Text = @"Logout";
+                    loginLabel.Click += new System.EventHandler(logoutButtonClick);
                 }
                 else
                 {
                     MessageBox.Show(loginResult.ErrorMessage);
                 }
-
             }
             catch (Exception)
             {
@@ -136,12 +144,12 @@ namespace FacebookVip.UI
             }
         }
 
-        private void setLayoutVisible()
+        private void setLayoutVisible(bool i_Visible)
         {
-            contentPanel.Visible = true;
+            contentPanel.Visible = i_Visible;
             foreach (Button button in Controls.OfType<Button>())
             {
-                button.Visible = true;
+                button.Visible = i_Visible;
             }
         }
 
@@ -277,6 +285,27 @@ namespace FacebookVip.UI
             try
             {
                 contentSpinner.Visible = true;
+
+                var user_likes_photos = new Dictionary<string, int>();
+
+                var photos = m_LoginService.LoggedInUser.PhotosTaggedIn;
+                foreach (var photo in photos)
+                {
+                    var likes = photo.LikedBy;
+                    foreach (var like in likes)
+                    {
+                        string friend_name = like.FirstName;
+                        if (friend_name == null) continue;
+                        if (!user_likes_photos.ContainsKey(friend_name))
+                        {
+                            user_likes_photos[friend_name] = 0;
+                        }
+                        user_likes_photos[friend_name] += 1;
+                    }
+                }
+
+
+
                 await Task.Delay(5000);
 
             }

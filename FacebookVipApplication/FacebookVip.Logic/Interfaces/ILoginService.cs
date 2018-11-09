@@ -12,6 +12,8 @@ namespace FacebookVip.Logic.Interfaces
 
         LoginResult Login();
 
+        void Logout();
+
         Task<Profile> GetUserProfile();
 
         Task<List<Friend>> GetUserFriends();

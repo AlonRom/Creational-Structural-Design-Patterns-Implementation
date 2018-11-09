@@ -11,6 +11,11 @@ namespace FacebookVip.Logic.Services
     public class LoginService : ILoginService
     {
         public User LoggedInUser { get; set; }
+    
+        public void Logout()
+        {
+            FacebookService.Logout(null);
+        }
 
         public LoginResult Login()
         {
