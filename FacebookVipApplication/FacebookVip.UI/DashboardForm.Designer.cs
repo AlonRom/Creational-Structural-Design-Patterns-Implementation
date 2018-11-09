@@ -30,11 +30,14 @@
             this.logoInsideOutImage = new System.Windows.Forms.PictureBox();
             this.customHeaderPictureBox = new System.Windows.Forms.PictureBox();
             this.userImage = new System.Windows.Forms.PictureBox();
-            this.spinner = new System.Windows.Forms.PictureBox();
+            this.contentSpinner = new System.Windows.Forms.PictureBox();
+            this.loginSpinner = new System.Windows.Forms.PictureBox();
+            this.contentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customHeaderPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contentSpinner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginSpinner)).BeginInit();
             this.SuspendLayout();
             // 
             // headerTitleLabel
@@ -63,6 +66,7 @@
             // contentPanel
             // 
             this.contentPanel.BackColor = System.Drawing.Color.White;
+            this.contentPanel.Controls.Add(this.contentSpinner);
             this.contentPanel.Location = new System.Drawing.Point(210, 66);
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(800, 594);
@@ -293,17 +297,28 @@
             this.userImage.TabStop = false;
             this.userImage.Visible = false;
             // 
-            // spinner
+            // contentSpinner
             // 
-            this.spinner.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.spinner.BackColor = System.Drawing.SystemColors.Control;
-            this.spinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
-            this.spinner.Location = new System.Drawing.Point(53, 414);
-            this.spinner.Name = "spinner";
-            this.spinner.Size = new System.Drawing.Size(148, 148);
-            this.spinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.spinner.TabIndex = 0;
-            this.spinner.TabStop = false;
+            this.contentSpinner.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.contentSpinner.BackColor = System.Drawing.Color.White;
+            this.contentSpinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
+            this.contentSpinner.Location = new System.Drawing.Point(199, 167);
+            this.contentSpinner.Name = "contentSpinner";
+            this.contentSpinner.Size = new System.Drawing.Size(148, 148);
+            this.contentSpinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.contentSpinner.TabIndex = 0;
+            this.contentSpinner.TabStop = false;
+            // 
+            // loginSpinner
+            // 
+            this.loginSpinner.BackColor = System.Drawing.Color.Transparent;
+            this.loginSpinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
+            this.loginSpinner.Location = new System.Drawing.Point(366, -27);
+            this.loginSpinner.Name = "loginSpinner";
+            this.loginSpinner.Size = new System.Drawing.Size(113, 114);
+            this.loginSpinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.loginSpinner.TabIndex = 40;
+            this.loginSpinner.TabStop = false;
             // 
             // DashboardForm
             // 
@@ -311,8 +326,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 537);
+            this.Controls.Add(this.loginSpinner);
             this.Controls.Add(this.userImage);
-            this.Controls.Add(this.spinner);
             this.Controls.Add(this.loginLabel);
             this.Controls.Add(this.statsButton);
             this.Controls.Add(this.settingsButton);
@@ -329,10 +344,13 @@
             this.Controls.Add(this.customHeaderPictureBox);
             this.Name = "DashboardForm";
             this.Click += new System.EventHandler(this.loginButtonClick);
+            this.contentPanel.ResumeLayout(false);
+            this.contentPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customHeaderPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contentSpinner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginSpinner)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,7 +373,8 @@
         private System.Windows.Forms.Button statsButton;
         private System.Windows.Forms.Label loginLabel;
         private System.Windows.Forms.PictureBox userImage;
-        private System.Windows.Forms.PictureBox spinner;
+        private System.Windows.Forms.PictureBox contentSpinner;
+        private System.Windows.Forms.PictureBox loginSpinner;
     }
 }
 

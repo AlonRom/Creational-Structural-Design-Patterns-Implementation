@@ -35,9 +35,9 @@ namespace FacebookVip.UI
             //TopMost = true;
             setFormSize(); 
             CenterToScreen();
-            centerSpinnerInScreen();
             customHeaderLayout();
-            spinner.Visible = false;
+            loginSpinner.Visible = false;
+            contentSpinner.Visible = false;
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
         }
 
@@ -53,12 +53,14 @@ namespace FacebookVip.UI
             loginLabel.Location = new Point(userImage.Location.X + 55, loginLabel.Location.Y);
         }
 
-        private void centerSpinnerInScreen()
+        private void centerControlInParent(Control i_Control)
         {
-            spinner.Location = new Point(
-                                   spinner.Parent.ClientSize.Width/2 - spinner.Width/2,
-                                   spinner.Parent.ClientSize.Height/2 - spinner.Height/2);
-            spinner.Refresh();
+            i_Control.Location = new Point(
+                                   i_Control.Parent.ClientSize.Width/2 - i_Control.Width/2,
+                                   i_Control.Parent.ClientSize.Height/2 - i_Control.Height/2);
+
+            i_Control.BringToFront();
+            i_Control.Refresh();
         }
 
         private void customHeaderLayout()
@@ -84,6 +86,18 @@ namespace FacebookVip.UI
             loginLabelPosition = customHeaderPictureBox.PointToClient(loginLabelPosition);
             loginLabel.Parent = customHeaderPictureBox;
             loginLabel.Location = loginLabelPosition;
+
+            Point loginSpinnerPosition = PointToScreen(loginSpinner.Location);
+            loginSpinnerPosition = customHeaderPictureBox.PointToClient(loginSpinnerPosition);
+            loginSpinner.Parent = customHeaderPictureBox;
+            loginSpinner.Location = loginSpinnerPosition;
+        }
+
+        private void resetContentPanel()
+        {
+            contentPanel.Controls.Clear();
+            contentPanel.Controls.Add(contentSpinner);
+            centerControlInParent(contentSpinner);
         }
 
         private void logoutButtonClick(object i_Sender, EventArgs i_EventArgs)
@@ -99,7 +113,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                loginSpinner.Visible = true;
  
                 m_LoginService = ContainerHelper.Container.Resolve<ILoginService>();
                 LoginResult loginResult = m_LoginService.Login();
@@ -126,7 +140,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                loginSpinner.Visible = false;
             }
         }
 
@@ -143,8 +157,8 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
-                contentPanel.Controls.Clear();
+                contentSpinner.Visible = true;
+                resetContentPanel();
 
                 Profile userPorfile = await m_LoginService.GetUserProfile();
 
@@ -174,7 +188,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -182,8 +196,8 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
-                contentPanel.Controls.Clear();
+                contentSpinner.Visible = true;
+                resetContentPanel();
 
                 List<Friend> userFriends = await m_LoginService.GetUserFriends(); 
 
@@ -226,7 +240,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -234,7 +248,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                contentSpinner.Visible = true;
                 await Task.Delay(5000);
 
             }
@@ -244,7 +258,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -252,7 +266,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                contentSpinner.Visible = true;
                 await Task.Delay(5000);
 
             }
@@ -262,7 +276,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -270,7 +284,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                contentSpinner.Visible = true;
 
                 var user_likes_photos = new Dictionary<string, int>();
 
@@ -301,7 +315,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -310,7 +324,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                contentSpinner.Visible = true;
                 await Task.Delay(5000);
 
             }
@@ -320,7 +334,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -329,7 +343,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                contentSpinner.Visible = true;
                 await Task.Delay(5000);
 
             }
@@ -339,7 +353,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
@@ -348,7 +362,7 @@ namespace FacebookVip.UI
         {
             try
             {
-                spinner.Visible = true;
+                contentSpinner.Visible = true;
                 await Task.Delay(5000);
 
             }
@@ -358,7 +372,7 @@ namespace FacebookVip.UI
             }
             finally
             {
-                spinner.Visible = false;
+                contentSpinner.Visible = false;
             }
         }
 
