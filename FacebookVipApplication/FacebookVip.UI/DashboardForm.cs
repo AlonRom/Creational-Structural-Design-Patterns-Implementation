@@ -20,24 +20,35 @@ namespace FacebookVip.UI
         public DashboardForm()
         {
             InitializeComponent();
-            setFormStyle();  
+            setFormStyle();
+            registerEvents();
+        }
+
+        private void registerEvents()
+        {
+            Resize += resizeFormEvent;
         }
 
         private void setFormStyle()
         {
             TopMost = true;
-            resizeForm(); 
+            setFormSize(); 
             CenterToScreen();
             centerSpinnerInScreen();
             customHeaderLayout();
             spinner.Visible = false;
         }
 
-        private void resizeForm()
+        private void setFormSize()
         {
             Width = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.6);
             Height = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.7);
             customHeaderPictureBox.Width = Screen.GetWorkingArea(this).Width; // make it the same width as the form
+        }
+
+        private void resizeFormEvent(object i_Sender, EventArgs i_EventArgs)
+        {
+            loginLabel.Location = new Point(userImage.Location.X + 55, loginLabel.Location.Y);
         }
 
         private void centerSpinnerInScreen()
@@ -89,6 +100,9 @@ namespace FacebookVip.UI
                     m_LoginService.LoggedInUser = loginResult.LoggedInUser;
                     setLayoutVisible();
                     await m_LoginService.SetUserData();
+
+                    userImage.Visible = true;
+                    userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
                     loginLabel.Text = @"Logout";
                 }
                 else

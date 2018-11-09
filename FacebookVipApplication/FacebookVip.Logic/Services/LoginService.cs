@@ -21,14 +21,14 @@ namespace FacebookVip.Logic.Services
             return FacebookService.Login("1450160541956417",// (desig patter's "Design Patterns Course App 2.4" app)
                 "public_profile",
             //"user_education_history",
-            "user_birthday"
+            "user_birthday",
             //"user_actions.video",
             //"user_actions.news",
             //"user_actions.music",
             //"user_actions.fitness",
             //"user_actions.books",
             //"user_about_me"
-            //"user_friends",
+            "user_friends"
             //"publish_actions",
             //"user_events",
             //"user_games_activity",
