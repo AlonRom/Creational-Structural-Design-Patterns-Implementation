@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FacebookVip.Model;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
@@ -9,12 +10,16 @@ namespace FacebookVip.Logic.Interfaces
     {
         User LoggedInUser { get; set; }
 
-        UserProfile UserProfile { get; set; }
+        Profile Profile { get; set; }
+
+        IEnumerable<Friend> Friends { get; set; }
 
         LoginResult Login();
 
-        Task LogOut();
+        void Logout();
 
-        Task SetUserData();
+        Task<Profile> GetUserProfile();
+
+        Task<List<Friend>> GetUserFriends();
     }
 }

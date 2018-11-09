@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Helpers;
 using FacebookVip.Logic.Interfaces;
+using FacebookVip.Model;
 using FacebookWrapper;
 using Unity;
 
@@ -20,24 +21,36 @@ namespace FacebookVip.UI
         public DashboardForm()
         {
             InitializeComponent();
-            setFormStyle();  
+            setFormStyle();
+            registerEvents();
+        }
+
+        private void registerEvents()
+        {
+            Resize += resizeFormEvent;
         }
 
         private void setFormStyle()
         {
             //TopMost = true;
-            resizeForm(); 
+            setFormSize(); 
             CenterToScreen();
             centerSpinnerInScreen();
             customHeaderLayout();
             spinner.Visible = false;
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
         }
 
-        private void resizeForm()
+        private void setFormSize()
         {
             Width = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.6);
             Height = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.7);
             customHeaderPictureBox.Width = Screen.GetWorkingArea(this).Width; // make it the same width as the form
+        }
+
+        private void resizeFormEvent(object i_Sender, EventArgs i_EventArgs)
+        {
+            loginLabel.Location = new Point(userImage.Location.X + 55, loginLabel.Location.Y);
         }
 
         private void centerSpinnerInScreen()
@@ -73,16 +86,16 @@ namespace FacebookVip.UI
             loginLabel.Location = loginLabelPosition;
         }
 
-        private async void logoutButtonClick(object i_Sender, EventArgs i_EventArgs) {
-            //await m_LoginService.LogOut();
-            FacebookService.Logout(null);
+        private void logoutButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            m_LoginService.Logout();
             loginLabel.Click += new System.EventHandler(this.loginButtonClick);
             loginLabel.Text = @"Login";
             setLayoutVisible(false);
             m_LoginService.LoggedInUser = null;
         }
 
-        private async void loginButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private void loginButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
@@ -96,7 +109,9 @@ namespace FacebookVip.UI
                 {
                     m_LoginService.LoggedInUser = loginResult.LoggedInUser;
                     setLayoutVisible(true);
-                    await m_LoginService.SetUserData();
+
+                    userImage.Visible = true;
+                    userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
                     loginLabel.Text = @"Logout";
                     loginLabel.Click += new System.EventHandler(logoutButtonClick);
                 }
@@ -124,10 +139,15 @@ namespace FacebookVip.UI
             }
         }
 
-        private  void profileButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private async void profileButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
+                spinner.Visible = true;
+                contentPanel.Controls.Clear();
+
+                Profile userPorfile = await m_LoginService.GetUserProfile();
+
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -137,12 +157,13 @@ namespace FacebookVip.UI
                 const int k_PropertyColumnIndex = 0;
                 const int k_DetailsColumnIndex = 1;
 
-                foreach (KeyValuePair<string, string> propertyForDisplay in m_LoginService.UserProfile.GetPropertiesForDisplay())
+                foreach (KeyValuePair<string, string> propertyForDisplay in userPorfile.GetPropertiesForDisplay())
                 {
                     panel.Controls.Add(new Label { Font = new Font("Arial", 12, FontStyle.Bold), Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
                     panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                     tempRowIndex++;
                 }
+
                 panel.Padding = new Padding(10);
                 panel.Dock = DockStyle.Fill;
                 contentPanel.Controls.Add(panel);
@@ -153,19 +174,51 @@ namespace FacebookVip.UI
             }
             finally
             {
-
+                spinner.Visible = false;
             }
         }
 
-        private async void friendsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private async void friendsButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
                 spinner.Visible = true;
+                contentPanel.Controls.Clear();
 
-                
-                await Task.Delay(5000);
+                List<Friend> userFriends = await m_LoginService.GetUserFriends(); 
 
+                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
+                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+
+                int tempRowIndex = 0;
+                const int k_ImageColumnIndex = 0;
+                const int k_DetailsColumnIndex = 1;
+
+                foreach(Friend friend in userFriends)
+                {
+                    foreach (KeyValuePair<string, string> propertyForDisplay in friend.GetPropertiesForDisplay())
+                    {
+                        Uri uriResult;
+                        bool isImageUrl = Uri.TryCreate(propertyForDisplay.Value, UriKind.Absolute, out uriResult)
+                            && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+                        if(isImageUrl)
+                        {
+                            panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value }, k_ImageColumnIndex, tempRowIndex);
+                        }
+                        else
+                        {
+                            panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                        }             
+                    }
+                    tempRowIndex++;
+                }
+
+                panel.Padding = new Padding(10);
+                panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(panel);
             }
             catch (Exception)
             {
@@ -307,6 +360,17 @@ namespace FacebookVip.UI
             {
                 spinner.Visible = false;
             }
+        }
+
+        protected override void Dispose(bool i_Disposing)
+        {
+            if (i_Disposing)
+            {
+                components?.Dispose();
+                Resize -= resizeFormEvent;
+            }
+
+            base.Dispose(i_Disposing);
         }
     }
 }
