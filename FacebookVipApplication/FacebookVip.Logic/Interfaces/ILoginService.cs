@@ -10,10 +10,6 @@ namespace FacebookVip.Logic.Interfaces
     {
         User LoggedInUser { get; set; }
 
-        Profile Profile { get; set; }
-
-        IEnumerable<Friend> Friends { get; set; }
-
         LoginResult Login();
 
         Task<Profile> GetUserProfile();

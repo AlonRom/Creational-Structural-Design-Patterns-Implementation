@@ -12,10 +12,6 @@ namespace FacebookVip.Logic.Services
     {
         public User LoggedInUser { get; set; }
 
-        public Profile Profile { get; set; }
-
-        public IEnumerable<Friend> Friends { get; set; }
-
         public LoginResult Login()
         {
             // Use the FacebookService.Login method to display the login form to any user who wish to use this application.
