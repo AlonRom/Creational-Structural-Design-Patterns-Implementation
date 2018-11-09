@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using FacebookWrapper;
 
 namespace FacebookVip.UI
 {
@@ -14,6 +12,7 @@ namespace FacebookVip.UI
         [STAThread]
         static void Main()
         {
+            FacebookService.s_UseForamttedToStrings = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DashboardForm());

@@ -31,7 +31,7 @@
             this.headerTitleLabel = new System.Windows.Forms.Label();
             this.headerFacebookLabel = new System.Windows.Forms.Label();
             this.contentPanel = new System.Windows.Forms.Panel();
-            this.spinner = new System.Windows.Forms.PictureBox();
+            this.loginLabel = new System.Windows.Forms.Label();
             this.statsButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.likesButton = new System.Windows.Forms.Button();
@@ -39,11 +39,10 @@
             this.eventsButton = new System.Windows.Forms.Button();
             this.postsButton = new System.Windows.Forms.Button();
             this.friendsButton = new System.Windows.Forms.Button();
-            this.loginButton = new System.Windows.Forms.Button();
+            this.profileButton = new System.Windows.Forms.Button();
+            this.spinner = new System.Windows.Forms.PictureBox();
             this.logoInsideOutImage = new System.Windows.Forms.PictureBox();
             this.customHeaderPictureBox = new System.Windows.Forms.PictureBox();
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.contentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customHeaderPictureBox)).BeginInit();
@@ -53,10 +52,10 @@
             // 
             this.headerTitleLabel.AutoSize = true;
             this.headerTitleLabel.BackColor = System.Drawing.Color.Transparent;
-            this.headerTitleLabel.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.headerTitleLabel.Location = new System.Drawing.Point(161, 16);
+            this.headerTitleLabel.Font = new System.Drawing.Font("Segoe Print", 20F);
+            this.headerTitleLabel.Location = new System.Drawing.Point(158, 3);
             this.headerTitleLabel.Name = "headerTitleLabel";
-            this.headerTitleLabel.Size = new System.Drawing.Size(164, 27);
+            this.headerTitleLabel.Size = new System.Drawing.Size(212, 47);
             this.headerTitleLabel.TabIndex = 1;
             this.headerTitleLabel.Text = "vip dashboard";
             // 
@@ -75,22 +74,25 @@
             // contentPanel
             // 
             this.contentPanel.BackColor = System.Drawing.Color.White;
-            this.contentPanel.Controls.Add(this.spinner);
             this.contentPanel.Location = new System.Drawing.Point(210, 60);
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(800, 600);
             this.contentPanel.TabIndex = 5;
+            this.contentPanel.Visible = false;
             // 
-            // spinner
+            // loginLabel
             // 
-            this.spinner.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.spinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
-            this.spinner.Location = new System.Drawing.Point(325, 160);
-            this.spinner.Name = "spinner";
-            this.spinner.Size = new System.Drawing.Size(148, 148);
-            this.spinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.spinner.TabIndex = 0;
-            this.spinner.TabStop = false;
+            this.loginLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.loginLabel.AutoSize = true;
+            this.loginLabel.BackColor = System.Drawing.Color.Transparent;
+            this.loginLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.loginLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.loginLabel.Location = new System.Drawing.Point(735, 16);
+            this.loginLabel.Name = "loginLabel";
+            this.loginLabel.Size = new System.Drawing.Size(53, 19);
+            this.loginLabel.TabIndex = 38;
+            this.loginLabel.Text = "Login";
+            this.loginLabel.Click += new System.EventHandler(this.loginButtonClick);
             // 
             // statsButton
             // 
@@ -109,8 +111,9 @@
             this.statsButton.Size = new System.Drawing.Size(190, 40);
             this.statsButton.TabIndex = 13;
             this.statsButton.Text = "Stats";
-            this.statsButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.statsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.statsButton.UseVisualStyleBackColor = false;
+            this.statsButton.Visible = false;
             this.statsButton.Click += new System.EventHandler(this.statsButtonClick);
             // 
             // settingsButton
@@ -130,8 +133,9 @@
             this.settingsButton.Size = new System.Drawing.Size(190, 40);
             this.settingsButton.TabIndex = 12;
             this.settingsButton.Text = "Settings";
-            this.settingsButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.settingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Visible = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButtonClick);
             // 
             // likesButton
@@ -151,8 +155,9 @@
             this.likesButton.Size = new System.Drawing.Size(190, 40);
             this.likesButton.TabIndex = 11;
             this.likesButton.Text = "Likes";
-            this.likesButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.likesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.likesButton.UseVisualStyleBackColor = false;
+            this.likesButton.Visible = false;
             this.likesButton.Click += new System.EventHandler(this.likesButtonClick);
             // 
             // checkinsButton
@@ -172,8 +177,9 @@
             this.checkinsButton.Size = new System.Drawing.Size(190, 40);
             this.checkinsButton.TabIndex = 10;
             this.checkinsButton.Text = "Checkins";
-            this.checkinsButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.checkinsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkinsButton.UseVisualStyleBackColor = false;
+            this.checkinsButton.Visible = false;
             this.checkinsButton.Click += new System.EventHandler(this.checkinsButtonClick);
             // 
             // eventsButton
@@ -193,8 +199,9 @@
             this.eventsButton.Size = new System.Drawing.Size(190, 40);
             this.eventsButton.TabIndex = 9;
             this.eventsButton.Text = "Events";
-            this.eventsButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.eventsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.eventsButton.UseVisualStyleBackColor = false;
+            this.eventsButton.Visible = false;
             this.eventsButton.Click += new System.EventHandler(this.eventsButtonClick);
             // 
             // postsButton
@@ -214,8 +221,9 @@
             this.postsButton.Size = new System.Drawing.Size(190, 40);
             this.postsButton.TabIndex = 8;
             this.postsButton.Text = "Posts";
-            this.postsButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.postsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.postsButton.UseVisualStyleBackColor = false;
+            this.postsButton.Visible = false;
             this.postsButton.Click += new System.EventHandler(this.postsButtonClick);
             // 
             // friendsButton
@@ -235,30 +243,43 @@
             this.friendsButton.Size = new System.Drawing.Size(190, 40);
             this.friendsButton.TabIndex = 7;
             this.friendsButton.Text = "Friends";
-            this.friendsButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.friendsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.friendsButton.UseVisualStyleBackColor = false;
+            this.friendsButton.Visible = false;
             this.friendsButton.Click += new System.EventHandler(this.friendsButtonClick);
             // 
-            // loginButton
+            // profileButton
             // 
-            this.loginButton.BackColor = System.Drawing.Color.Transparent;
-            this.loginButton.BackgroundImage = global::FacebookVip.UI.Properties.Resources.login;
-            this.loginButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.loginButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.loginButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.loginButton.FlatAppearance.BorderSize = 0;
-            this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.loginButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.loginButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.loginButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.loginButton.Location = new System.Drawing.Point(12, 57);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(190, 40);
-            this.loginButton.TabIndex = 6;
-            this.loginButton.Text = "Login";
-            this.loginButton.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.loginButton.UseVisualStyleBackColor = false;
-            this.loginButton.Click += new System.EventHandler(this.loginButtonClick);
+            this.profileButton.BackColor = System.Drawing.Color.Transparent;
+            this.profileButton.BackgroundImage = global::FacebookVip.UI.Properties.Resources.profile;
+            this.profileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.profileButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.profileButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.profileButton.FlatAppearance.BorderSize = 0;
+            this.profileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.profileButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.profileButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.profileButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.profileButton.Location = new System.Drawing.Point(12, 57);
+            this.profileButton.Name = "profileButton";
+            this.profileButton.Size = new System.Drawing.Size(190, 40);
+            this.profileButton.TabIndex = 6;
+            this.profileButton.Text = "Profile";
+            this.profileButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.profileButton.UseVisualStyleBackColor = false;
+            this.profileButton.Visible = false;
+            this.profileButton.Click += new System.EventHandler(this.profileButtonClick);
+            // 
+            // spinner
+            // 
+            this.spinner.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.spinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
+            this.spinner.Location = new System.Drawing.Point(53, 410);
+            this.spinner.Name = "spinner";
+            this.spinner.Size = new System.Drawing.Size(148, 148);
+            this.spinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.spinner.TabIndex = 0;
+            this.spinner.TabStop = false;
             // 
             // logoInsideOutImage
             // 
@@ -282,23 +303,14 @@
             this.customHeaderPictureBox.TabIndex = 0;
             this.customHeaderPictureBox.TabStop = false;
             // 
-            // buttonLogin
-            // 
-            this.buttonLogin.Location = new System.Drawing.Point(713, 14);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
-            this.buttonLogin.TabIndex = 37;
-            this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.loginButtonClick);
-            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 537);
-            this.Controls.Add(this.buttonLogin);
+            this.Controls.Add(this.spinner);
+            this.Controls.Add(this.loginLabel);
             this.Controls.Add(this.statsButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.likesButton);
@@ -306,15 +318,14 @@
             this.Controls.Add(this.eventsButton);
             this.Controls.Add(this.postsButton);
             this.Controls.Add(this.friendsButton);
-            this.Controls.Add(this.loginButton);
+            this.Controls.Add(this.profileButton);
             this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.logoInsideOutImage);
             this.Controls.Add(this.headerFacebookLabel);
             this.Controls.Add(this.headerTitleLabel);
             this.Controls.Add(this.customHeaderPictureBox);
             this.Name = "DashboardForm";
-            this.contentPanel.ResumeLayout(false);
-            this.contentPanel.PerformLayout();
+            this.Click += new System.EventHandler(this.loginButtonClick);
             ((System.ComponentModel.ISupportInitialize)(this.spinner)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customHeaderPictureBox)).EndInit();
@@ -331,7 +342,7 @@
         private System.Windows.Forms.PictureBox logoInsideOutImage;
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.PictureBox spinner;
-        private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Button profileButton;
         private System.Windows.Forms.Button friendsButton;
         private System.Windows.Forms.Button postsButton;
         private System.Windows.Forms.Button eventsButton;
@@ -339,7 +350,7 @@
         private System.Windows.Forms.Button likesButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button statsButton;
-        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Label loginLabel;
     }
 }
 

@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FbGraphApiWrapper, Version=6.8.0.17, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FacebookVip.API\FBApi\FbGraphApiWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Runtime" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +50,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.2\lib\net45\Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ServiceLocator, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.ServiceLocator.2.0.0\lib\net45\Unity.ServiceLocator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DashboardForm.cs">
@@ -62,6 +74,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -91,6 +104,7 @@
     <Content Include="Resources\Icons\logo.png" />
     <Content Include="Resources\Icons\logo_inside_out.png" />
     <Content Include="Resources\Icons\pencil.png" />
+    <Content Include="Resources\Icons\profile.png" />
     <Content Include="Resources\Icons\settings.png" />
     <Content Include="Resources\Icons\statistics.png" />
   </ItemGroup>
@@ -98,6 +112,14 @@
     <ProjectReference Include="..\FacebookVip.API\FacebookVip.API.csproj">
       <Project>{30b4be19-d6a7-4e07-a190-ac944ed78d45}</Project>
       <Name>FacebookVip.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacebookVip.Logic\FacebookVip.Logic.csproj">
+      <Project>{763ACB67-84F3-47C6-B161-860FE4936476}</Project>
+      <Name>FacebookVip.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FacebookVip.Model\FacebookVip.Model.csproj">
+      <Project>{97C5A450-043E-4B6D-B8C3-FCEFD195DD0F}</Project>
+      <Name>FacebookVip.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

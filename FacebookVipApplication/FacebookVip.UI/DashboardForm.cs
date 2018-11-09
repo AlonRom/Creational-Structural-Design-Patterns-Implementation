@@ -1,15 +1,22 @@
-﻿using FacebookVip.API;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FacebookVip.Logic.Extensions;
+using FacebookVip.Logic.Helpers;
+using FacebookVip.Logic.Interfaces;
+using FacebookWrapper;
+using Unity;
 
 namespace FacebookVip.UI
 {
 
     public partial class DashboardForm : Form
     {
+        private ILoginService m_LoginService;
+
         public DashboardForm()
         {
             InitializeComponent();
@@ -21,7 +28,7 @@ namespace FacebookVip.UI
             TopMost = true;
             resizeForm(); 
             CenterToScreen();
-            centerSpinnerInPanel();
+            centerSpinnerInScreen();
             customHeaderLayout();
             spinner.Visible = false;
         }
@@ -33,7 +40,7 @@ namespace FacebookVip.UI
             customHeaderPictureBox.Width = Screen.GetWorkingArea(this).Width; // make it the same width as the form
         }
 
-        private void centerSpinnerInPanel()
+        private void centerSpinnerInScreen()
         {
             spinner.Location = new Point(
                                    spinner.Parent.ClientSize.Width/2 - spinner.Width/2,
@@ -60,35 +67,33 @@ namespace FacebookVip.UI
             logoInsideOutImagePosition = customHeaderPictureBox.PointToClient(logoInsideOutImagePosition);
             logoInsideOutImage.Parent = customHeaderPictureBox;
             logoInsideOutImage.Location = logoInsideOutImagePosition;
-        }
 
+            Point loginLabelPosition = PointToScreen(loginLabel.Location);
+            loginLabelPosition = customHeaderPictureBox.PointToClient(loginLabelPosition);
+            loginLabel.Parent = customHeaderPictureBox;
+            loginLabel.Location = loginLabelPosition;
+        }
 
         private async void loginButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
-                //spinner.Visible = true;
-                //await Task.Delay(5000);
-                var login = new Login();
-
-                string o_Status;
-                bool success = login.loginAndInit(out o_Status);
-                
-
-                if (success)
+                spinner.Visible = true;
+ 
+                m_LoginService = ContainerHelper.Container.Resolve<ILoginService>();
+                LoginResult loginResult = m_LoginService.Login();
+  
+                //Tocken: EAAUm6cZC4eUEBAFvYpV07wRmWXbUUfCw5clPTu7ZBqnuUVFLpezLBEczeelSSaClNkqGDdIgSsnCSMrFJBBnbrQYfdQJDrZBd59c2VZCCUPdyYplFu06cgX0JqIUBr05ElY5zU3FLNZCmsyfbxZByPtMpOIqUJSWv4ZBytRBlQURgZDZD
+                if (!string.IsNullOrEmpty(loginResult.AccessToken))
                 {
-                    //this.buttonLogin.Visible = false;
-                    this.buttonLogin.Text = "Log Out";
-
-                    // Do log out
-                    //this.buttonLogin.Click += new System.EventHandler(this.loginOutButtonClick);
-                    MessageBox.Show(o_Status);
-
-                    //
+                    m_LoginService.LoggedInUser = loginResult.LoggedInUser;
+                    setLayoutVisible();
+                    await m_LoginService.SetUserData();
+                    loginLabel.Text = @"Logout";
                 }
                 else
                 {
-                    MessageBox.Show(o_Status);
+                    MessageBox.Show(loginResult.ErrorMessage);
                 }
 
             }
@@ -99,6 +104,48 @@ namespace FacebookVip.UI
             finally
             {
                 spinner.Visible = false;
+            }
+        }
+
+        private void setLayoutVisible()
+        {
+            contentPanel.Visible = true;
+            foreach (Button button in Controls.OfType<Button>())
+            {
+                button.Visible = true;
+            }
+        }
+
+        private  void profileButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            try
+            {
+                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+
+                int tempRowIndex = 0;
+                const int k_PropertyColumnIndex = 0;
+                const int k_DetailsColumnIndex = 1;
+
+                foreach (KeyValuePair<string, string> propertyForDisplay in m_LoginService.UserProfile.GetPropertiesForDisplay())
+                {
+                    panel.Controls.Add(new Label { Font = new Font("Arial", 12, FontStyle.Bold), Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
+                    panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                    tempRowIndex++;
+                }
+                panel.Padding = new Padding(10);
+                panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(panel);
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+
             }
         }
 
