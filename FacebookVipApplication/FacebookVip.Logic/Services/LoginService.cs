@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Model;
 using FacebookWrapper;
@@ -10,7 +12,9 @@ namespace FacebookVip.Logic.Services
     {
         public User LoggedInUser { get; set; }
 
-        public UserProfile UserProfile { get; set; }
+        public Profile Profile { get; set; }
+
+        public IEnumerable<Friend> Friends { get; set; }
 
         public LoginResult Login()
         {
@@ -68,27 +72,32 @@ namespace FacebookVip.Logic.Services
             #endregion
         }
 
-        public Task SetUserData()
+        public Task<Profile> GetUserProfile()
         {
-            return Task.Run(() =>
-                {
-                   UserProfile = setUserProfile();
-
-
-                });
+            return Task.Run(() => new Profile
+            {
+                Id = LoggedInUser.Id,
+                FirstName = LoggedInUser.FirstName,
+                LastName = LoggedInUser.LastName,
+                BirthDate = LoggedInUser.Birthday,
+                Email = LoggedInUser.Email,
+                Location = LoggedInUser.Location
+            });
         }
 
-        private UserProfile setUserProfile()
+        public Task<List<Friend>> GetUserFriends()
         {
-            return new UserProfile
-                       {
-                           Id = LoggedInUser.Id,
-                           FirstName = LoggedInUser.FirstName,
-                           LastName = LoggedInUser.LastName,
-                           BirthDate = LoggedInUser.Birthday,
-                           Email = LoggedInUser.Email,
-                           Location = LoggedInUser.Location
-                       };
+            return Task.Run(
+                () =>
+                    {
+                        return LoggedInUser.Friends.Select(i_Friend => 
+                        new Friend
+                            {
+                                Id = LoggedInUser.Id,
+                                Name = i_Friend.Name,
+                                ProfileImageUrl = i_Friend.PictureNormalURL
+                            }).ToList();
+                    });
         }
     }
 }
