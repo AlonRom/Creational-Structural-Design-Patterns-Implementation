@@ -103,7 +103,8 @@ namespace FacebookVip.UI
         private void logoutButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             m_LoginService.Logout();
-            loginLabel.Click += new System.EventHandler(this.loginButtonClick);
+            loginLabel.Click -= logoutButtonClick;
+            loginLabel.Click += loginButtonClick;
             loginLabel.Text = @"Login";
             setLayoutVisible(false);
             m_LoginService.LoggedInUser = null;
@@ -127,7 +128,8 @@ namespace FacebookVip.UI
                     userImage.Visible = true;
                     userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
                     loginLabel.Text = @"Logout";
-                    loginLabel.Click += new System.EventHandler(logoutButtonClick);
+                    loginLabel.Click -= loginButtonClick;
+                    loginLabel.Click += logoutButtonClick;
                 }
                 else
                 {
@@ -151,6 +153,7 @@ namespace FacebookVip.UI
             {
                 button.Visible = i_Visible;
             }
+            userImage.Visible = i_Visible;
         }
 
         private async void profileButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
