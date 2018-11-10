@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using FacebookVip.Logic.Helpers;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Model;
 using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 using Unity;
 
 namespace FacebookVip.UI
@@ -306,30 +308,45 @@ namespace FacebookVip.UI
             }
         }
 
+
+        private Dictionary<string, int> getLikesHistogram(ObservableCollection<PostedItem> items) {
+
+            var users_likes_histogram = new Dictionary<string, int>();
+
+            foreach (var item in items)
+            {
+                var likes = item.LikedBy;
+                foreach (var like in likes)
+                {
+                    string friend_name = like.Name;
+                    if (friend_name == null) continue;
+                    if (!users_likes_histogram.ContainsKey(friend_name))
+                    {
+                        users_likes_histogram[friend_name] = 0;
+                    }
+                    users_likes_histogram[friend_name] += 1;
+                }
+            }
+            return users_likes_histogram;
+        }
+
         private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
                 contentSpinner.Visible = true;
 
-                var user_likes_photos = new Dictionary<string, int>();
+                PostedItem p = new Photo();
+                ObservableCollection<PostedItem> items;
 
-                var photos = m_LoginService.LoggedInUser.PhotosTaggedIn;
-                foreach (var photo in photos)
-                {
-                    var likes = photo.LikedBy;
-                    foreach (var like in likes)
-                    {
-                        string friend_name = like.FirstName;
-                        if (friend_name == null) continue;
-                        if (!user_likes_photos.ContainsKey(friend_name))
-                        {
-                            user_likes_photos[friend_name] = 0;
-                        }
-                        user_likes_photos[friend_name] += 1;
-                    }
-                }
+                items = new ObservableCollection<PostedItem>(m_LoginService.LoggedInUser.PhotosTaggedIn);
+                Dictionary<string, int> user_likes_photos = getLikesHistogram(items);
 
+                items = new ObservableCollection<PostedItem>(m_LoginService.LoggedInUser.Posts);
+                Dictionary<string, int> user_likes_posts = getLikesHistogram(items);
+
+                items = new ObservableCollection<PostedItem>(m_LoginService.LoggedInUser.Albums);
+                Dictionary<string, int> user_likes_albums = getLikesHistogram(items);
 
 
                 await Task.Delay(5000);
