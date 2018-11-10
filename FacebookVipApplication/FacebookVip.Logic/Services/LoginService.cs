@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Model;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using Post = FacebookVip.Model.Post;
 
 namespace FacebookVip.Logic.Services
 {
@@ -76,9 +74,9 @@ namespace FacebookVip.Logic.Services
             #endregion
         }
 
-        public Task<Profile> GetUserProfile()
+        public Task<UserProfile> GetUserProfile()
         {
-            return Task.Run(() => new Profile
+            return Task.Run(() => new UserProfile
             {
                 Id = LoggedInUser.Id,
                 FirstName = LoggedInUser.FirstName,
@@ -89,13 +87,13 @@ namespace FacebookVip.Logic.Services
             });
         }
 
-        public Task<List<Friend>> GetUserFriends()
+        public Task<List<UserFriend>> GetUserFriends()
         {
             return Task.Run(
                 () =>
                     {
                         return LoggedInUser.Friends.Select(i_Friend => 
-                        new Friend
+                        new UserFriend
                             {
                                 Id = i_Friend.Id,
                                 Name = i_Friend.Name,
@@ -104,12 +102,12 @@ namespace FacebookVip.Logic.Services
                     });
         }
 
-        public Task<List<Post>> GetUserPosts()
+        public Task<List<UserPost>> GetUserPosts()
         {
             return Task.Run(() =>
                {
                    return LoggedInUser.Posts.Select(i_Post =>
-                    new Post
+                    new UserPost
                        {
                          Id = i_Post.Id,
                          Details = getPostDetails(i_Post),
@@ -118,7 +116,7 @@ namespace FacebookVip.Logic.Services
                });
         }
 
-        private string getPostDetails(FacebookWrapper.ObjectModel.Post i_Post)
+        private string getPostDetails(Post i_Post)
         {
             if (i_Post.Message != null)
             {

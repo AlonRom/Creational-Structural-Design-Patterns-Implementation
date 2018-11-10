@@ -3,7 +3,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.Model
 {
-    public class Profile
+    public class UserProfile
     {
         public string Id { get; set; }
 

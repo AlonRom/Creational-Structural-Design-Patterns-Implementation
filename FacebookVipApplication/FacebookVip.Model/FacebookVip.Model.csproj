@@ -46,9 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Friend.cs" />
-    <Compile Include="Post.cs" />
-    <Compile Include="Profile.cs" />
+    <Compile Include="UserFriend.cs" />
+    <Compile Include="UserPost.cs" />
+    <Compile Include="UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

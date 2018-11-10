@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FacebookVip.Model;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using Post = FacebookVip.Model.Post;
 
 namespace FacebookVip.Logic.Interfaces
 {
@@ -15,10 +14,10 @@ namespace FacebookVip.Logic.Interfaces
 
         void Logout();
 
-        Task<Profile> GetUserProfile();
+        Task<UserProfile> GetUserProfile();
 
-        Task<List<Friend>> GetUserFriends();
+        Task<List<UserFriend>> GetUserFriends();
 
-        Task<List<Post>> GetUserPosts();
+        Task<List<UserPost>> GetUserPosts();
     }
 }

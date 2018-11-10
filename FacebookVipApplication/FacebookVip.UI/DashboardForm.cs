@@ -13,6 +13,7 @@ using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using Unity;
 
+
 namespace FacebookVip.UI
 {
 
@@ -164,7 +165,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                Profile userPorfile = await m_LoginService.GetUserProfile();
+                UserProfile userPorfile = await m_LoginService.GetUserProfile();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -203,7 +204,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<Friend> userFriends = await m_LoginService.GetUserFriends(); 
+                List<UserFriend> userFriends = await m_LoginService.GetUserFriends(); 
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -214,7 +215,7 @@ namespace FacebookVip.UI
                 const int k_ImageColumnIndex = 0;
                 const int k_DetailsColumnIndex = 1;
 
-                foreach(Friend friend in userFriends)
+                foreach(UserFriend friend in userFriends)
                 {
                     foreach (KeyValuePair<string, string> propertyForDisplay in friend.GetPropertiesForDisplay())
                     {
@@ -255,7 +256,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<Post> userPosts = await m_LoginService.GetUserPosts();
+                List<UserPost> userPosts = await m_LoginService.GetUserPosts();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -265,7 +266,7 @@ namespace FacebookVip.UI
                 int tempRowIndex = 0;
                 int tempColumnIndex = 0;
 
-                foreach(Post post in userPosts)
+                foreach(UserPost post in userPosts)
                 {
                     foreach (KeyValuePair<string, string> propertyForDisplay in post.GetPropertiesForDisplay())
                     {
