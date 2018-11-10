@@ -32,7 +32,6 @@ namespace FacebookVip.UI
 
         private void setFormStyle()
         {
-            //TopMost = true;
             setFormSize(); 
             CenterToScreen();
             customHeaderLayout();
@@ -50,7 +49,7 @@ namespace FacebookVip.UI
 
         private void resizeFormEvent(object i_Sender, EventArgs i_EventArgs)
         {
-            loginLabel.Location = new Point(userImage.Location.X + 55, loginLabel.Location.Y);
+            loginLabel.Location = new Point(userImage.Location.X + 50, loginLabel.Location.Y);
         }
 
         private void centerControlInParent(Control i_Control)
@@ -65,7 +64,7 @@ namespace FacebookVip.UI
 
         private void customHeaderLayout()
         {
-            ShowIcon = false;
+            Icon = Properties.Resources.app_logo;
 
             Point headerFacebookLabelPosition = PointToScreen(headerFacebookLabel.Location);
             headerFacebookLabelPosition = customHeaderPictureBox.PointToClient(headerFacebookLabelPosition);
@@ -252,8 +251,32 @@ namespace FacebookVip.UI
             try
             {
                 contentSpinner.Visible = true;
-                await Task.Delay(5000);
+                resetContentPanel();
 
+                List<Post> userPosts = await m_LoginService.GetUserPosts();
+
+                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+
+                int tempRowIndex = 0;
+                int tempColumnIndex = 0;
+
+                foreach(Post post in userPosts)
+                {
+                    foreach (KeyValuePair<string, string> propertyForDisplay in post.GetPropertiesForDisplay())
+                    {
+                        panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value, AutoSize = true}, tempColumnIndex, tempRowIndex);
+                        tempColumnIndex++;
+                    }
+                    tempColumnIndex = 0;
+                    tempRowIndex++;
+                }    
+
+                panel.Padding = new Padding(10);
+                panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(panel);
             }
             catch (Exception)
             {

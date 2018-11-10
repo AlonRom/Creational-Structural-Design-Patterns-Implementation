@@ -13,7 +13,7 @@ namespace FacebookVip.Logic.Extensions
             return from propertyInfo in i_Obj.GetType().GetProperties()
                    where propertyInfo.CanRead && Attribute.IsDefined(propertyInfo, typeof(DisplayAttribute))
                    let propertyDisplayValue = ((DisplayAttribute)propertyInfo.GetCustomAttribute(typeof(DisplayAttribute))).Name
-                   let propertyValue = propertyInfo.GetValue(i_Obj, null)
+                   let propertyValue = propertyInfo.GetValue(i_Obj, null) == null ? string.Empty : propertyInfo.GetValue(i_Obj, null)
                    let propertyOrder = ((DisplayAttribute)propertyInfo.GetCustomAttribute(typeof(DisplayAttribute))).Order
                    orderby propertyOrder
                    select new KeyValuePair<string, string>(propertyDisplayValue, propertyValue.ToString());

@@ -80,7 +80,7 @@
             this.loginLabel.BackColor = System.Drawing.Color.Transparent;
             this.loginLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.loginLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.loginLabel.Location = new System.Drawing.Point(735, 16);
+            this.loginLabel.Location = new System.Drawing.Point(735, 20);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(53, 19);
             this.loginLabel.TabIndex = 38;

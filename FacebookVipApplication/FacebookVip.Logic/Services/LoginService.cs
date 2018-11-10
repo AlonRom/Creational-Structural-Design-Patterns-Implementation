@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Model;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using Post = FacebookVip.Model.Post;
 
 namespace FacebookVip.Logic.Services
 {
@@ -33,17 +35,17 @@ namespace FacebookVip.Logic.Services
             //"user_actions.fitness",
             //"user_actions.books",
             //"user_about_me"
-            "user_friends"
+            "user_friends",
             //"publish_actions",
             //"user_events",
             //"user_games_activity",
             ////"user_groups" (This permission is only available for apps using Graph API version v2.3 or older.)
             //"user_hometown",
-            //"user_likes",
+            "user_likes",
             //"user_location",
             //"user_managed_groups",
-            //"user_photos",
-            //"user_posts",
+            "user_photos",
+            "user_posts"
             //"user_relationships",
             //"user_relationship_details",
             //"user_religion_politics",
@@ -94,11 +96,43 @@ namespace FacebookVip.Logic.Services
                         return LoggedInUser.Friends.Select(i_Friend => 
                         new Friend
                             {
-                                Id = LoggedInUser.Id,
+                                Id = i_Friend.Id,
                                 Name = i_Friend.Name,
                                 ProfileImageUrl = i_Friend.PictureNormalURL
                             }).ToList();
                     });
+        }
+
+        public Task<List<Post>> GetUserPosts()
+        {
+            return Task.Run(() =>
+               {
+                   return LoggedInUser.Posts.Select(i_Post =>
+                    new Post
+                       {
+                         Id = i_Post.Id,
+                         Details = getPostDetails(i_Post),
+                         UpdateTime = i_Post.UpdateTime
+                       }).ToList();
+               });
+        }
+
+        private string getPostDetails(FacebookWrapper.ObjectModel.Post i_Post)
+        {
+            if (i_Post.Message != null)
+            {
+                return i_Post.Message;
+            }
+            if (i_Post.Caption != null)
+            {
+                return i_Post.Caption;
+            }
+            if(i_Post.Type != null)
+            {
+                return $"[{i_Post.Type}]";
+            }
+ 
+            return string.Empty; 
         }
     }
 }

@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app_logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FbGraphApiWrapper, Version=6.8.0.17, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -94,6 +97,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app_logo.ico" />
+    <Content Include="favicon.ico" />
+    <None Include="Resources\app_logo.bmp" />
     <Content Include="Resources\Gifs\Spinner.gif" />
     <Content Include="Resources\Icons\checkin.png" />
     <Content Include="Resources\Icons\events.png" />
