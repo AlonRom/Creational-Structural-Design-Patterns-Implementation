@@ -19,6 +19,12 @@ namespace FacebookVip.Logic.Services
 
         public LoginResult Login()
         {
+
+            if (LoggedInUser != null) {
+                // user already logged in
+                return null;
+            }
+
             // Use the FacebookService.Login method to display the login form to any user who wish to use this application.
             // You can then save the result.AccessToken for future auto-connect to this user:
             #region Login Service

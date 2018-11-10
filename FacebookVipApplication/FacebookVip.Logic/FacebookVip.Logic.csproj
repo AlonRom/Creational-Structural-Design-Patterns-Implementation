@@ -58,6 +58,7 @@
     <Compile Include="Helpers\ContainerHelper.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppConfigService.cs" />
     <Compile Include="Services\LikesStatisticsService.cs" />
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
