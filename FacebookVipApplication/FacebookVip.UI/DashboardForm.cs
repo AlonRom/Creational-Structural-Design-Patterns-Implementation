@@ -188,7 +188,8 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                ProfileModel userPorfile = await r_LoginService.GetUserProfile();
+                IProfileService profileService = new ProfileService(r_LoginService);
+                ProfileModel userPorfile = await profileService.GetUserProfileAsync();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -227,7 +228,8 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<FriendModel> userFriends = await r_LoginService.GetUserFriends(); 
+                IFriendService friendService = new FriendService(r_LoginService);
+                List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(); 
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -279,7 +281,8 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<PostModel> userPosts = await r_LoginService.GetUserPosts();
+                IPostService postService = new PostService(r_LoginService);
+                List<PostModel> userPosts = await postService.GetUserPostsAsync();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -470,11 +473,11 @@ namespace FacebookVip.UI
         {
             base.OnShown(i_EventArgs);
 
-            AppConfigService appConfig = AppConfigService.GetInstance();
+            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
 
-            if (!string.IsNullOrEmpty(appConfig.LastAccessTocken))
+            if (!string.IsNullOrEmpty(appAppConfig.LastAccessTocken))
             {
-                LoginResult loginParams = FacebookService.Connect(appConfig.LastAccessTocken);
+                LoginResult loginParams = FacebookService.Connect(appAppConfig.LastAccessTocken);
                 if (loginParams != null)
                 {
                     r_LoginService.LoggedInUser = loginParams.LoggedInUser;
@@ -486,12 +489,12 @@ namespace FacebookVip.UI
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            AppConfigService appConfig = AppConfigService.GetInstance();
-            appConfig.WindowPosition = new Point(this.Top, this.Left);
+            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
+            appAppConfig.WindowPosition = new Point(this.Top, this.Left);
             // TODO: add check box stay logged in
-            //appConfig.LastAccessTocken = "";
+            //appAppConfig.LastAccessTocken = "";
 
-            AppConfigService.SaveToFile();
+            AppAppConfigService.SaveToFile();
 
         }
 

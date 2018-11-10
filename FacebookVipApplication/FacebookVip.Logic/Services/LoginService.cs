@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FacebookVip.Logic.Interfaces;
-using FacebookVip.Model;
+﻿using FacebookVip.Logic.Interfaces;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
@@ -17,16 +13,16 @@ namespace FacebookVip.Logic.Services
 
         private LoginService()
         {
-            
+
         }
 
         public static LoginService GetInstance()
         {
-            if(s_LoginService == null)
+            if (s_LoginService == null)
             {
-                lock(sr_InstanceLock)
+                lock (sr_InstanceLock)
                 {
-                    if(s_LoginService == null)
+                    if (s_LoginService == null)
                     {
 
                         s_LoginService = new LoginService();
@@ -45,12 +41,13 @@ namespace FacebookVip.Logic.Services
         public LoginResult Login()
         {
 
-            if (LoggedInUser != null) {
+            if (LoggedInUser != null)
+            {
                 // user already logged in
                 return null;
             }
 
-            AppConfigService appConfig = AppConfigService.GetInstance();
+            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
 
             #region Login Service
 
@@ -99,81 +96,19 @@ namespace FacebookVip.Logic.Services
 
                 //"rsvp_event"
                 );
-                // These are NOT the complete list of permissions. Other permissions for example:
-                // "user_birthday", "user_education_history", "user_hometown", "user_likes","user_location","user_relationships","user_relationship_details","user_religion_politics", "user_videos", "user_website", "user_work_history", "email","read_insights","rsvp_event","manage_pages"
-                // The documentation regarding facebook login and permissions can be found here: 
-                // https://developers.facebook.com/docs/facebook-login/permissions#reference
+            // These are NOT the complete list of permissions. Other permissions for example:
+            // "user_birthday", "user_education_history", "user_hometown", "user_likes","user_location","user_relationships","user_relationship_details","user_religion_politics", "user_videos", "user_website", "user_work_history", "email","read_insights","rsvp_event","manage_pages"
+            // The documentation regarding facebook login and permissions can be found here: 
+            // https://developers.facebook.com/docs/facebook-login/permissions#reference
 
-                #endregion
+            #endregion
 
-            if (appConfig.StayLogedIn == true)
+            if (appAppConfig.StayLogedIn == true)
             {
-                appConfig.LastAccessTocken = loginParams.AccessToken;
+                appAppConfig.LastAccessTocken = loginParams.AccessToken;
             }
-            
-            
 
             return loginParams;
-        }
-
-        public Task<ProfileModel> GetUserProfile()
-        {
-            return Task.Run(() => new ProfileModel
-            {
-                Id = LoggedInUser.Id,
-                FirstName = LoggedInUser.FirstName,
-                LastName = LoggedInUser.LastName,
-                BirthDate = LoggedInUser.Birthday,
-                Email = LoggedInUser.Email,
-                Location = LoggedInUser.Location
-            });
-        }
-
-        public Task<List<FriendModel>> GetUserFriends()
-        {
-            return Task.Run(
-                () =>
-                    {
-                        return LoggedInUser.Friends.Select(i_Friend => 
-                        new FriendModel
-                            {
-                                Id = i_Friend.Id,
-                                Name = i_Friend.Name,
-                                ProfileImageUrl = i_Friend.PictureNormalURL
-                            }).ToList();
-                    });
-        }
-
-        public Task<List<PostModel>> GetUserPosts()
-        {
-            return Task.Run(() =>
-               {
-                   return LoggedInUser.Posts.Select(i_Post =>
-                    new PostModel
-                       {
-                         Id = i_Post.Id,
-                         Details = getPostDetails(i_Post),
-                         UpdateTime = i_Post.UpdateTime
-                       }).ToList();
-               });
-        }
-
-        private string getPostDetails(Post i_Post)
-        {
-            if (i_Post.Message != null)
-            {
-                return i_Post.Message;
-            }
-            if (i_Post.Caption != null)
-            {
-                return i_Post.Caption;
-            }
-            if(i_Post.Type != null)
-            {
-                return $"[{i_Post.Type}]";
-            }
- 
-            return string.Empty; 
         }
     }
 }

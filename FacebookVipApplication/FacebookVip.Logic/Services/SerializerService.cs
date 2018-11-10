@@ -1,33 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace FacebookVip.Logic.Services
 {
-    class SerializerService
+    static class SerializerService
     {
-        public static void SaveToFile(string filePath, Object i_Obj)
+        public static void SaveToFile<T>(string i_FilePath, T i_Obj)
         {
-            using (Stream stream = new FileStream(filePath, FileMode.Create))
+            using (Stream stream = new FileStream(i_FilePath, FileMode.Create))
             {
                 XmlSerializer serializer = new XmlSerializer(i_Obj.GetType());
                 serializer.Serialize(stream, i_Obj);
             }
         }
 
-        public static Object LoadFromFile(string filePath, Type type)
+        public static T LoadFromFile<T>(string i_FilePath, Type i_Type)
         {
-            using (Stream stream = new FileStream(filePath, FileMode.Open))
+            using (Stream stream = new FileStream(i_FilePath, FileMode.Open))
             {
-                XmlSerializer serializer = new XmlSerializer(type);
-                return serializer.Deserialize(stream);
+                XmlSerializer serializer = new XmlSerializer(i_Type);
+                return (T)serializer.Deserialize(stream);
             }
         }
-
     }
 }
