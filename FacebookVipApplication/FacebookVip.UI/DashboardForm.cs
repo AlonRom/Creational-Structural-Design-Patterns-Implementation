@@ -105,18 +105,34 @@ namespace FacebookVip.UI
 
         private void logoutButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            m_LoginService.Logout();
-            loginLabel.Click -= logoutButtonClick;
-            loginLabel.Click += loginButtonClick;
-            loginLabel.Text = @"Login";
-            setLayoutVisible(false);
-            m_LoginService.LoggedInUser = null;
+            try
+            {
+                loginLabel.Enabled = false;
+                loginSpinner.Visible = true;
+
+                m_LoginService.Logout();
+                loginLabel.Click -= logoutButtonClick;
+                loginLabel.Click += loginButtonClick;
+                loginLabel.Text = @"Login";
+                setLayoutVisible(false);
+                m_LoginService.LoggedInUser = null;
+            }
+            catch(Exception)
+            {
+
+            }
+            finally
+            {
+                loginLabel.Enabled = true;
+                loginSpinner.Visible = false;
+            }
         }
 
         private void loginButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
+                loginLabel.Enabled = false;
                 loginSpinner.Visible = true;
  
                 m_LoginService = ContainerHelper.Container.Resolve<ILoginService>();
@@ -145,6 +161,7 @@ namespace FacebookVip.UI
             }
             finally
             {
+                loginLabel.Enabled = true;
                 loginSpinner.Visible = false;
             }
         }
