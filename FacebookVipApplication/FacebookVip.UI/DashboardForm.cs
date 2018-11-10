@@ -7,13 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
-using FacebookVip.Logic.Helpers;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using Unity;
 
 
 namespace FacebookVip.UI
@@ -21,13 +19,15 @@ namespace FacebookVip.UI
 
     public partial class DashboardForm : Form
     {
-        private ILoginService m_LoginService;
+        private readonly ILoginService r_LoginService;
 
         public DashboardForm()
         {
             InitializeComponent();
             setFormStyle();
             registerEvents();
+
+            r_LoginService = LoginService.GetInstance();
         }
 
         private void registerEvents()
@@ -111,12 +111,12 @@ namespace FacebookVip.UI
                 loginLabel.Enabled = false;
                 loginSpinner.Visible = true;
 
-                m_LoginService.Logout();
+                r_LoginService.Logout();
                 loginLabel.Click -= logoutButtonClick;
                 loginLabel.Click += loginButtonClick;
                 loginLabel.Text = @"Login";
                 setLayoutVisible(false);
-                m_LoginService.LoggedInUser = null;
+                r_LoginService.LoggedInUser = null;
             }
             catch(Exception)
             {
@@ -136,12 +136,12 @@ namespace FacebookVip.UI
                 loginLabel.Enabled = false;
                 loginSpinner.Visible = true;
 
-                LoginResult loginResult = m_LoginService.Login();
+                LoginResult loginResult = r_LoginService.Login();
   
                 //Tocken: EAAUm6cZC4eUEBAFvYpV07wRmWXbUUfCw5clPTu7ZBqnuUVFLpezLBEczeelSSaClNkqGDdIgSsnCSMrFJBBnbrQYfdQJDrZBd59c2VZCCUPdyYplFu06cgX0JqIUBr05ElY5zU3FLNZCmsyfbxZByPtMpOIqUJSWv4ZBytRBlQURgZDZD
                 if (!string.IsNullOrEmpty(loginResult.AccessToken))
                 {
-                    m_LoginService.LoggedInUser = loginResult.LoggedInUser;
+                    r_LoginService.LoggedInUser = loginResult.LoggedInUser;
 
                     postLogin();
                 }
@@ -165,7 +165,7 @@ namespace FacebookVip.UI
         {
             setLayoutVisible(true);
             userImage.Visible = true;
-            userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
+            userImage.Image = r_LoginService.LoggedInUser.ImageSmall;
             loginLabel.Text = @"Logout";
             loginLabel.Click -= loginButtonClick;
             loginLabel.Click += logoutButtonClick;
@@ -188,7 +188,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                ProfileModel userPorfile = await m_LoginService.GetUserProfile();
+                ProfileModel userPorfile = await r_LoginService.GetUserProfile();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -227,7 +227,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<FriendModel> userFriends = await m_LoginService.GetUserFriends(); 
+                List<FriendModel> userFriends = await r_LoginService.GetUserFriends(); 
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -279,7 +279,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<PostModel> userPosts = await m_LoginService.GetUserPosts();
+                List<PostModel> userPosts = await r_LoginService.GetUserPosts();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -343,7 +343,7 @@ namespace FacebookVip.UI
                 PostedItem p = new Photo();
                 ObservableCollection<PostedItem> items;
 
-                items = new ObservableCollection<PostedItem>(m_LoginService.LoggedInUser.PhotosTaggedIn);
+                items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.PhotosTaggedIn);
                 Dictionary<string, int> user_likes_photos = await LikesStatisticsService.getLikesHistogram(items);
 
                 //Mock data
@@ -352,7 +352,7 @@ namespace FacebookVip.UI
                 user_likes_photos.Add("Muhamad Ali", 4);
                 user_likes_photos.Add("Madona", 7);
 
-                items = new ObservableCollection<PostedItem>(m_LoginService.LoggedInUser.Posts);
+                items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Posts);
                 Dictionary<string, int> user_likes_posts = await LikesStatisticsService.getLikesHistogram(items);
 
                 user_likes_posts.Add("Igor Gumush", 12);
@@ -466,20 +466,18 @@ namespace FacebookVip.UI
             }
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override void OnShown(EventArgs i_EventArgs)
         {
-            base.OnShown(e);
+            base.OnShown(i_EventArgs);
 
-            m_LoginService = ContainerHelper.Container.Resolve<ILoginService>();
             AppConfigService appConfig = AppConfigService.GetInstance();
-            LoginResult loginParams;
 
             if (!string.IsNullOrEmpty(appConfig.LastAccessTocken))
             {
-                loginParams = FacebookService.Connect(appConfig.LastAccessTocken);
+                LoginResult loginParams = FacebookService.Connect(appConfig.LastAccessTocken);
                 if (loginParams != null)
                 {
-                    m_LoginService.LoggedInUser = loginParams.LoggedInUser;
+                    r_LoginService.LoggedInUser = loginParams.LoggedInUser;
                     postLogin();
                 }
             }

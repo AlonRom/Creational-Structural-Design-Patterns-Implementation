@@ -10,8 +10,33 @@ namespace FacebookVip.Logic.Services
 {
     public class LoginService : ILoginService
     {
+        private static readonly object sr_InstanceLock = new object();
+        private static LoginService s_LoginService;
+
         public User LoggedInUser { get; set; }
-    
+
+        private LoginService()
+        {
+            
+        }
+
+        public static LoginService GetInstance()
+        {
+            if(s_LoginService == null)
+            {
+                lock(sr_InstanceLock)
+                {
+                    if(s_LoginService == null)
+                    {
+
+                        s_LoginService = new LoginService();
+                    }
+                }
+            }
+
+            return s_LoginService;
+        }
+
         public void Logout()
         {
             FacebookService.Logout(null);
