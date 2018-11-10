@@ -135,21 +135,15 @@ namespace FacebookVip.UI
             {
                 loginLabel.Enabled = false;
                 loginSpinner.Visible = true;
- 
-                m_LoginService = ContainerHelper.Container.Resolve<ILoginService>();
+
                 LoginResult loginResult = m_LoginService.Login();
   
                 //Tocken: EAAUm6cZC4eUEBAFvYpV07wRmWXbUUfCw5clPTu7ZBqnuUVFLpezLBEczeelSSaClNkqGDdIgSsnCSMrFJBBnbrQYfdQJDrZBd59c2VZCCUPdyYplFu06cgX0JqIUBr05ElY5zU3FLNZCmsyfbxZByPtMpOIqUJSWv4ZBytRBlQURgZDZD
                 if (!string.IsNullOrEmpty(loginResult.AccessToken))
                 {
                     m_LoginService.LoggedInUser = loginResult.LoggedInUser;
-                    setLayoutVisible(true);
 
-                    userImage.Visible = true;
-                    userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
-                    loginLabel.Text = @"Logout";
-                    loginLabel.Click -= loginButtonClick;
-                    loginLabel.Click += logoutButtonClick;
+                    postLogin();
                 }
                 else
                 {
@@ -165,6 +159,16 @@ namespace FacebookVip.UI
                 loginLabel.Enabled = true;
                 loginSpinner.Visible = false;
             }
+        }
+
+        private void postLogin()
+        {
+            setLayoutVisible(true);
+            userImage.Visible = true;
+            userImage.Image = m_LoginService.LoggedInUser.ImageSmall;
+            loginLabel.Text = @"Logout";
+            loginLabel.Click -= loginButtonClick;
+            loginLabel.Click += logoutButtonClick;
         }
 
         private void setLayoutVisible(bool i_Visible)
@@ -462,10 +466,33 @@ namespace FacebookVip.UI
             }
         }
 
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            m_LoginService = ContainerHelper.Container.Resolve<ILoginService>();
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            LoginResult loginParams;
+
+            if (!string.IsNullOrEmpty(appConfig.LastAccessTocken))
+            {
+                loginParams = FacebookService.Connect(appConfig.LastAccessTocken);
+                if (loginParams != null)
+                {
+                    m_LoginService.LoggedInUser = loginParams.LoggedInUser;
+                    postLogin();
+                }
+            }
+        }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            appConfig.WindowPosition = new Point(this.Top, this.Left);
+            // TODO: add check box stay logged in
+            //appConfig.LastAccessTocken = "";
+
             AppConfigService.SaveToFile();
 
         }
