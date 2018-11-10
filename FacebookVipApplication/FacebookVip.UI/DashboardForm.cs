@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -459,6 +460,14 @@ namespace FacebookVip.UI
             {
                 contentSpinner.Visible = false;
             }
+        }
+
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            AppConfigService.SaveToFile();
+
         }
 
         protected override void Dispose(bool i_Disposing)
