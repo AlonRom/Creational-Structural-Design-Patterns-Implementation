@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FacebookVip.Model
 {
-    public class UserPost
+    public class PostModel
     {
         public string Id { get; set; }
 
