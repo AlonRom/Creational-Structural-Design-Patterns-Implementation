@@ -2,7 +2,7 @@
 
 namespace FacebookVip.Model
 {
-    public class UserFriend 
+    public class FriendModel 
     {
         public string Id { get; set; }
 

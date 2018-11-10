@@ -165,7 +165,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                UserProfile userPorfile = await m_LoginService.GetUserProfile();
+                ProfileModel userPorfile = await m_LoginService.GetUserProfile();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -204,7 +204,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<UserFriend> userFriends = await m_LoginService.GetUserFriends(); 
+                List<FriendModel> userFriends = await m_LoginService.GetUserFriends(); 
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -215,7 +215,7 @@ namespace FacebookVip.UI
                 const int k_ImageColumnIndex = 0;
                 const int k_DetailsColumnIndex = 1;
 
-                foreach(UserFriend friend in userFriends)
+                foreach(FriendModel friend in userFriends)
                 {
                     foreach (KeyValuePair<string, string> propertyForDisplay in friend.GetPropertiesForDisplay())
                     {
@@ -256,7 +256,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                List<UserPost> userPosts = await m_LoginService.GetUserPosts();
+                List<PostModel> userPosts = await m_LoginService.GetUserPosts();
 
                 TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -266,7 +266,7 @@ namespace FacebookVip.UI
                 int tempRowIndex = 0;
                 int tempColumnIndex = 0;
 
-                foreach(UserPost post in userPosts)
+                foreach(PostModel post in userPosts)
                 {
                     foreach (KeyValuePair<string, string> propertyForDisplay in post.GetPropertiesForDisplay())
                     {

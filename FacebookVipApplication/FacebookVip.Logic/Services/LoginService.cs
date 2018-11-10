@@ -74,9 +74,9 @@ namespace FacebookVip.Logic.Services
             #endregion
         }
 
-        public Task<UserProfile> GetUserProfile()
+        public Task<ProfileModel> GetUserProfile()
         {
-            return Task.Run(() => new UserProfile
+            return Task.Run(() => new ProfileModel
             {
                 Id = LoggedInUser.Id,
                 FirstName = LoggedInUser.FirstName,
@@ -87,13 +87,13 @@ namespace FacebookVip.Logic.Services
             });
         }
 
-        public Task<List<UserFriend>> GetUserFriends()
+        public Task<List<FriendModel>> GetUserFriends()
         {
             return Task.Run(
                 () =>
                     {
                         return LoggedInUser.Friends.Select(i_Friend => 
-                        new UserFriend
+                        new FriendModel
                             {
                                 Id = i_Friend.Id,
                                 Name = i_Friend.Name,
@@ -102,12 +102,12 @@ namespace FacebookVip.Logic.Services
                     });
         }
 
-        public Task<List<UserPost>> GetUserPosts()
+        public Task<List<PostModel>> GetUserPosts()
         {
             return Task.Run(() =>
                {
                    return LoggedInUser.Posts.Select(i_Post =>
-                    new UserPost
+                    new PostModel
                        {
                          Id = i_Post.Id,
                          Details = getPostDetails(i_Post),

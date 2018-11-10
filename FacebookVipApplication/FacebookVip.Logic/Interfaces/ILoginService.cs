@@ -14,10 +14,10 @@ namespace FacebookVip.Logic.Interfaces
 
         void Logout();
 
-        Task<UserProfile> GetUserProfile();
+        Task<ProfileModel> GetUserProfile();
 
-        Task<List<UserFriend>> GetUserFriends();
+        Task<List<FriendModel>> GetUserFriends();
 
-        Task<List<UserPost>> GetUserPosts();
+        Task<List<PostModel>> GetUserPosts();
     }
 }
