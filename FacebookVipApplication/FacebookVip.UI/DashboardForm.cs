@@ -117,10 +117,9 @@ namespace FacebookVip.UI
                 loginLabel.Text = @"Login";
                 setLayoutVisible(false);
                 r_LoginService.LoggedInUser = null;
-            }
-            catch(Exception)
-            {
 
+                AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
+                appAppConfig.LastAccessTocken = "";
             }
             finally
             {
@@ -431,7 +430,6 @@ namespace FacebookVip.UI
             }
         }
 
-
         private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
@@ -449,7 +447,6 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = false;
             }
         }
-
 
         private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
@@ -474,6 +471,8 @@ namespace FacebookVip.UI
             base.OnShown(i_EventArgs);
 
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
+            this.Top = appAppConfig.WindowPosition.X;
+            this.Left = appAppConfig.WindowPosition.Y;
 
             if (!string.IsNullOrEmpty(appAppConfig.LastAccessTocken))
             {
@@ -491,11 +490,8 @@ namespace FacebookVip.UI
             base.OnClosing(e);
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
             appAppConfig.WindowPosition = new Point(this.Top, this.Left);
-            // TODO: add check box stay logged in
-            //appAppConfig.LastAccessTocken = "";
 
             AppAppConfigService.SaveToFile();
-
         }
 
         protected override void Dispose(bool i_Disposing)
@@ -507,6 +503,12 @@ namespace FacebookVip.UI
             }
 
             base.Dispose(i_Disposing);
+        }
+
+        private void stayLogedIn_CheckedChanged(object sender, EventArgs e)
+        {
+            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
+            appAppConfig.StayLogedIn = this.stayLogedIn.Checked;
         }
     }
 }

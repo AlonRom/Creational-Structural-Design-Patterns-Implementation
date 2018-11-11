@@ -11,10 +11,7 @@ namespace FacebookVip.Logic.Services
 
         public User LoggedInUser { get; set; }
 
-        private LoginService()
-        {
-
-        }
+        private LoginService() { }
 
         public static LoginService GetInstance()
         {
@@ -24,7 +21,6 @@ namespace FacebookVip.Logic.Services
                 {
                     if (s_LoginService == null)
                     {
-
                         s_LoginService = new LoginService();
                     }
                 }
@@ -40,7 +36,6 @@ namespace FacebookVip.Logic.Services
 
         public LoginResult Login()
         {
-
             if (LoggedInUser != null)
             {
                 // user already logged in
@@ -50,8 +45,6 @@ namespace FacebookVip.Logic.Services
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
 
             #region Login Service
-
-            //FacebookService.Connect();
 
             LoginResult loginParams = FacebookService.Login("1450160541956417",// (desig patter's "Design Patterns Course App 2.4" app)
                     "public_profile",
