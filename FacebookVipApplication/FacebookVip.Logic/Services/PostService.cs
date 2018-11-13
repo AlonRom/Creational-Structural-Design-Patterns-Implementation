@@ -9,18 +9,19 @@ namespace FacebookVip.Logic.Services
 {
     public class PostService : IPostService
     {
-        private readonly ILoginService r_LoginService;
+        //private readonly ILoginService r_LoginService;
 
-        public PostService(ILoginService i_LoginService)
+        public PostService()
         {
-            r_LoginService = i_LoginService;
+            //r_LoginService = i_LoginService;
         }
 
-        public Task<List<PostModel>> GetUserPostsAsync()
+        // This function should get a user.
+        public Task<List<PostModel>> GetUserPostsAsync(User i_User)
         {
             return Task.Run(() =>
             {
-                return r_LoginService.LoggedInUser.Posts.Select(i_Post =>
+                return i_User.Posts.Select(i_Post =>
                  new PostModel
                  {
                      Id = i_Post.Id,
@@ -29,7 +30,6 @@ namespace FacebookVip.Logic.Services
                  }).ToList();
             });
         }
-
 
         private string getPostDetails(Post i_Post)
         {

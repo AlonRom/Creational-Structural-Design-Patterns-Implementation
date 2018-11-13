@@ -279,6 +279,7 @@ namespace FacebookVip.UI
             }
         }
 
+        TableLayoutPanel panel;
         private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
@@ -286,27 +287,37 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                IPostService postService = new PostService(r_LoginService);
-                List<PostModel> userPosts = await postService.GetUserPostsAsync();
+                IPostService postService = new PostService();
+                List<PostModel> userPosts = await postService.GetUserPostsAsync(r_LoginService.LoggedInUser);
 
-                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
+                // Why new panel and not one for all??
+                panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true, AutoSize = true };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+                //panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 100F));
+                panel.Width = 1000;
 
                 int tempRowIndex = 0;
-                int tempColumnIndex = 0;
+                //int tempColumnIndex = 0;
 
-                foreach(PostModel post in userPosts)
+                #region test list
+                listBox1.SelectionMode = SelectionMode.MultiExtended;
+                listBox1.Width = 150;
+                listBox1.Margin = new Padding(50, 20, 20, 20);
+
+                foreach (var user in r_LoginService.LoggedInUser.Friends) {
+                    //var posts = user.Posts;
+                    listBox1.Items.Add(user);
+                }
+                panel.Controls.Add(listBox1);
+                //listBox1.SelectedIndexChanged += this.PersonSelectedAsync;
+                #endregion 
+
+                foreach (PostModel post in userPosts)
                 {
-                    foreach (KeyValuePair<string, string> propertyForDisplay in post.GetPropertiesForDisplay())
-                    {
-                        panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value, AutoSize = true}, tempColumnIndex, tempRowIndex);
-                        tempColumnIndex++;
-                    }
-                    tempColumnIndex = 0;
+                    panel.Controls.Add(new PostControl(post, 0 , tempRowIndex));
                     tempRowIndex++;
-                }    
+                }
 
                 panel.Padding = new Padding(10);
                 panel.Dock = DockStyle.Fill;
@@ -321,6 +332,27 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = false;
             }
         }
+        /*
+        private Task PersonSelectedAsync(object sender, EventArgs e)
+        {
+
+            var postService = new PostService();
+            foreach (User user in listBox1.SelectedItems) {
+                List<PostModel> userPosts = postService.GetUserPostsAsync(user);
+
+                foreach (PostModel post in userPosts)
+                {
+                    foreach (KeyValuePair<string, string> propertyForDisplay in post.GetPropertiesForDisplay())
+                    {
+                        panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value, AutoSize = true}, tempColumnIndex, tempRowIndex);
+                        //tempColumnIndex++;
+                    }
+                    //tempColumnIndex = 0;
+                    //tempRowIndex++;
+                }    
+            }
+        }
+        */
 
         private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
@@ -461,8 +493,8 @@ namespace FacebookVip.UI
                 p2.LegendText = "ABC XYZ";
                 _pieChart.Invalidate();
 
-                IPostService postService = new PostService(r_LoginService);
-                List<PostModel> userPosts = await postService.GetUserPostsAsync();
+                IPostService postService = new PostService();
+                List<PostModel> userPosts = await postService.GetUserPostsAsync(r_LoginService.LoggedInUser);
 
                 contentPanel.Controls.Add(_pieChart);
             }
@@ -518,6 +550,7 @@ namespace FacebookVip.UI
             {
                 MessageBox.Show(@"Failed to connect with currnt Token, please try again.", @"Facebook Connect Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         protected override void OnClosing(CancelEventArgs i_EventArgs)
@@ -544,6 +577,11 @@ namespace FacebookVip.UI
         {
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
             appAppConfig.StayLogedIn = StayLoggedInLabel.Checked;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
