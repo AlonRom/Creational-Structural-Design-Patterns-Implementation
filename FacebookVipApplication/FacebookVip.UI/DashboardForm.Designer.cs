@@ -331,7 +331,7 @@
             this.stayLogedIn.TabIndex = 41;
             this.stayLogedIn.Text = "Stay Loged In";
             this.stayLogedIn.UseVisualStyleBackColor = false;
-            this.stayLogedIn.CheckedChanged += new System.EventHandler(this.stayLogedIn_CheckedChanged);
+            this.stayLogedIn.CheckedChanged += new System.EventHandler(this.stayLogedInCheckedChanged);
             // 
             // DashboardForm
             // 

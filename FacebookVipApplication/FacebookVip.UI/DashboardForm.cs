@@ -152,7 +152,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to login, please try again.", @"Login Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -213,7 +213,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -266,7 +266,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -309,7 +309,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -327,7 +327,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -340,59 +340,35 @@ namespace FacebookVip.UI
             try
             {
                 contentSpinner.Visible = true;
-
-                #region Get data
-
-                PostedItem p = new Photo();
-                ObservableCollection<PostedItem> items;
-
-                items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.PhotosTaggedIn);
-                Dictionary<string, int> user_likes_photos = await LikesStatisticsService.getLikesHistogram(items);
-
-                //Mock data
-                user_likes_photos.Add("Igor Gumush", 12);
-                user_likes_photos.Add("Alon Rom", 32);
-                user_likes_photos.Add("Muhamad Ali", 4);
-                user_likes_photos.Add("Madona", 7);
-
-                items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Posts);
-                Dictionary<string, int> user_likes_posts = await LikesStatisticsService.getLikesHistogram(items);
-
-                user_likes_posts.Add("Igor Gumush", 12);
-                user_likes_posts.Add("Alon Rom", 32);
-                user_likes_posts.Add("Muhamad Ali", 4);
-                user_likes_posts.Add("Madona", 7);
-                user_likes_posts.Add("Shula Mokshim", 4);
-                user_likes_posts.Add("Bibi", 4);
-
-                /*
-                                items = new ObservableCollection<PostedItem>(m_LoginService.LoggedInUser.Albums);
-                                Dictionary<string, int> user_likes_albums = LikesStatisticsService.getLikesHistogram(items);
-                */
-                #endregion
-
                 resetContentPanel();
 
-                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true };
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+                ILikeService likeService = new LikesService();
+                ObservableCollection<PostedItem> items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.PhotosTaggedIn);
+                Dictionary<string, int> userLikesPhotos = await likeService.GetLikesHistogram(items);
 
-                Font label_font = new Font("Arial", 12);
-                Font title_font = new Font("Arial", 20);
+                items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Posts);
+                Dictionary<string, int> userLikesPosts = await likeService.GetLikesHistogram(items);
 
-                int tempRowIndex = 0;
-                int tempColumnIndex = 0;
+                items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Albums);
+                Dictionary<string, int> userLikesAlbums = await likeService.GetLikesHistogram(items);
 
-                fillLikeToTable("Photos", user_likes_photos, panel, label_font, title_font, ref tempRowIndex, ref tempColumnIndex);
-                fillLikeToTable("Posts", user_likes_posts, panel, label_font, title_font, ref tempRowIndex, ref tempColumnIndex);
+                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 3, AutoScroll = true };
+                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
+
+                Font labelFont = new Font("Arial", 12);
+                Font titleFont = new Font("Arial", 20);
+
+                fillLikeToTable("Photos", userLikesPhotos, panel, labelFont, titleFont, 0, 0);
+                fillLikeToTable("Posts", userLikesPosts, panel, labelFont, titleFont, 0, 1);
+                fillLikeToTable("Albums", userLikesAlbums, panel, labelFont, titleFont, 0, 2);
 
                 panel.Padding = new Padding(10);
                 panel.Dock = DockStyle.Fill;
                 contentPanel.Controls.Add(panel);
-
-                //await Task.Delay(5000);
-
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -400,17 +376,15 @@ namespace FacebookVip.UI
             }
         }
 
-        private void fillLikeToTable(string i_LableName, Dictionary<string, int> i_UserLikesPhotos, TableLayoutPanel i_Panel, Font i_LabelFont, Font i_TitleFont, ref int r_TempRowIndex, ref int r_TempColumnIndex)
+        private void fillLikeToTable(string i_LableName, Dictionary<string, int> i_UserLikesPhotos, TableLayoutPanel i_Panel, Font i_LabelFont, Font i_TitleFont,  int i_RowIndex, int i_ColumnIndex)
         {
-            i_Panel.Controls.Add(new Label { Font = i_TitleFont, Text = i_LableName, AutoSize = true }, r_TempColumnIndex, r_TempRowIndex++);
+            i_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 50F));
+            i_Panel.Controls.Add(new Label { Font = i_TitleFont, Text = i_LableName, AutoSize = true }, i_ColumnIndex, i_RowIndex);
             foreach (KeyValuePair<string, int> propertyForDisplay in i_UserLikesPhotos)
             {
-                i_Panel.Controls.Add(new Label { Font = i_LabelFont, Text = propertyForDisplay.Key, AutoSize = true }, r_TempColumnIndex++, r_TempRowIndex);
-                i_Panel.Controls.Add(new Label { Font = i_LabelFont, Text = "" + propertyForDisplay.Value, AutoSize = true }, r_TempColumnIndex, r_TempRowIndex);
-                r_TempColumnIndex = 0;
-                r_TempRowIndex++;
+                i_RowIndex++;
+                i_Panel.Controls.Add(new Label { Font = i_LabelFont, Text = propertyForDisplay.Key + @" " + propertyForDisplay.Value, AutoSize = true }, i_ColumnIndex, i_RowIndex);
             }
-            r_TempRowIndex += 2;
         }
 
         private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
@@ -423,7 +397,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -482,14 +456,14 @@ namespace FacebookVip.UI
                 p2.LegendText = "ABC XYZ";
                 _pieChart.Invalidate();
 
-                //IPostService postService = new PostService(r_LoginService);
-                //List<PostModel> userPosts = await postService.GetUserPostsAsync();
+                IPostService postService = new PostService(r_LoginService);
+                List<PostModel> userPosts = await postService.GetUserPostsAsync();
 
                 contentPanel.Controls.Add(_pieChart);
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -507,7 +481,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-
+                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -541,9 +515,9 @@ namespace FacebookVip.UI
             }
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(CancelEventArgs i_EventArgs)
         {
-            base.OnClosing(e);
+            base.OnClosing(i_EventArgs);
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
             appAppConfig.WindowPosition = new Point(this.Top, this.Left);
 
@@ -561,10 +535,10 @@ namespace FacebookVip.UI
             base.Dispose(i_Disposing);
         }
 
-        private void stayLogedIn_CheckedChanged(object sender, EventArgs e)
+        private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            appAppConfig.StayLogedIn = this.stayLogedIn.Checked;
+            appAppConfig.StayLogedIn = stayLogedIn.Checked;
         }
     }
 }
