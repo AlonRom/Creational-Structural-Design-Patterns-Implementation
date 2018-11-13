@@ -92,6 +92,11 @@ namespace FacebookVip.UI
             loginLabel.Parent = customHeaderPictureBox;
             loginLabel.Location = loginLabelPosition;
 
+            Point stayLoggedInLabelPosition = PointToScreen(StayLoggedInLabel.Location);
+            stayLoggedInLabelPosition = customHeaderPictureBox.PointToClient(stayLoggedInLabelPosition);
+            StayLoggedInLabel.Parent = customHeaderPictureBox;
+            StayLoggedInLabel.Location = stayLoggedInLabelPosition;
+
             Point loginSpinnerPosition = PointToScreen(loginSpinner.Location);
             loginSpinnerPosition = customHeaderPictureBox.PointToClient(loginSpinnerPosition);
             loginSpinner.Parent = customHeaderPictureBox;
@@ -538,7 +543,7 @@ namespace FacebookVip.UI
         private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            appAppConfig.StayLogedIn = stayLogedIn.Checked;
+            appAppConfig.StayLogedIn = StayLoggedInLabel.Checked;
         }
     }
 }

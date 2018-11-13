@@ -57,7 +57,7 @@ namespace FacebookVip.Logic.Services
                     //"user_actions.books",
                     //"user_about_me",
                     "user_friends",
-                    "publish_actions",
+                    //"publish_actions",
                     //"user_events",
                     //"user_games_activity",
                     //"user_groups" (This permission is only available for apps using Graph API version v2.3 or older.)

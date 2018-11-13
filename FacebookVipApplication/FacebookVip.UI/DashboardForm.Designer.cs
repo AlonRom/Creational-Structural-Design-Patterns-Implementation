@@ -32,7 +32,7 @@
             this.customHeaderPictureBox = new System.Windows.Forms.PictureBox();
             this.userImage = new System.Windows.Forms.PictureBox();
             this.loginSpinner = new System.Windows.Forms.PictureBox();
-            this.stayLogedIn = new System.Windows.Forms.CheckBox();
+            this.StayLoggedInLabel = new System.Windows.Forms.CheckBox();
             this.contentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contentSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).BeginInit();
@@ -321,17 +321,18 @@
             this.loginSpinner.TabIndex = 40;
             this.loginSpinner.TabStop = false;
             // 
-            // stayLogedIn
+            // StayLoggedInLabel
             // 
-            this.stayLogedIn.AutoSize = true;
-            this.stayLogedIn.BackColor = System.Drawing.Color.Transparent;
-            this.stayLogedIn.Location = new System.Drawing.Point(743, 36);
-            this.stayLogedIn.Name = "stayLogedIn";
-            this.stayLogedIn.Size = new System.Drawing.Size(92, 17);
-            this.stayLogedIn.TabIndex = 41;
-            this.stayLogedIn.Text = "Stay Loged In";
-            this.stayLogedIn.UseVisualStyleBackColor = false;
-            this.stayLogedIn.CheckedChanged += new System.EventHandler(this.stayLogedInCheckedChanged);
+            this.StayLoggedInLabel.AutoSize = true;
+            this.StayLoggedInLabel.BackColor = System.Drawing.Color.Transparent;
+            this.StayLoggedInLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.StayLoggedInLabel.Location = new System.Drawing.Point(520, 14);
+            this.StayLoggedInLabel.Name = "StayLoggedInLabel";
+            this.StayLoggedInLabel.Size = new System.Drawing.Size(143, 23);
+            this.StayLoggedInLabel.TabIndex = 41;
+            this.StayLoggedInLabel.Text = "Stay Logged In";
+            this.StayLoggedInLabel.UseVisualStyleBackColor = false;
+            this.StayLoggedInLabel.CheckedChanged += new System.EventHandler(this.stayLogedInCheckedChanged);
             // 
             // DashboardForm
             // 
@@ -339,7 +340,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 537);
-            this.Controls.Add(this.stayLogedIn);
+            this.Controls.Add(this.StayLoggedInLabel);
             this.Controls.Add(this.loginSpinner);
             this.Controls.Add(this.userImage);
             this.Controls.Add(this.loginLabel);
@@ -389,7 +390,7 @@
         private System.Windows.Forms.PictureBox userImage;
         private System.Windows.Forms.PictureBox contentSpinner;
         private System.Windows.Forms.PictureBox loginSpinner;
-        private System.Windows.Forms.CheckBox stayLogedIn;
+        private System.Windows.Forms.CheckBox StayLoggedInLabel;
     }
 }
 
