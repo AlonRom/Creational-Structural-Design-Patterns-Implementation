@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
@@ -13,13 +14,13 @@ using FacebookVip.Model;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
-
 namespace FacebookVip.UI
 {
 
     public partial class DashboardForm : Form
     {
         private readonly ILoginService r_LoginService;
+        //private Chart _pieChart;
 
         public DashboardForm()
         {
@@ -164,7 +165,7 @@ namespace FacebookVip.UI
         {
             setLayoutVisible(true);
             userImage.Visible = true;
-            userImage.Image = r_LoginService.LoggedInUser.ImageSmall;
+            userImage.Image = r_LoginService?.LoggedInUser?.ImageSmall;
             loginLabel.Text = @"Logout";
             loginLabel.Click -= loginButtonClick;
             loginLabel.Click += logoutButtonClick;
@@ -435,8 +436,56 @@ namespace FacebookVip.UI
             try
             {
                 contentSpinner.Visible = true;
-                await Task.Delay(5000);
+                resetContentPanel();
 
+                ChartArea chartArea1 = new ChartArea();
+                Legend legend1 = new Legend()
+                { BackColor = Color.Green, ForeColor = Color.Black, Title = "Salary" };
+                Legend legend2 = new Legend()
+                { BackColor = Color.Green, ForeColor = Color.Black, Title = "Salary" };
+                var _pieChart = new Chart();
+                var barChart = new Chart();
+
+                ((ISupportInitialize)(_pieChart)).BeginInit();
+                ((ISupportInitialize)(barChart)).BeginInit();
+
+                SuspendLayout();
+
+                //===Pie chart
+                chartArea1.Name = "PieChartArea";
+                _pieChart.ChartAreas.Add(chartArea1);
+                _pieChart.Dock = System.Windows.Forms.DockStyle.Fill;
+                legend1.Name = "Legend1";
+                _pieChart.Legends.Add(legend1);
+                _pieChart.Location = new System.Drawing.Point(0, 50);
+
+                _pieChart.Series.Clear();
+                _pieChart.Palette = ChartColorPalette.Fire;
+                _pieChart.BackColor = Color.LightYellow;
+                _pieChart.Titles.Add("Employee Salary");
+                _pieChart.ChartAreas[0].BackColor = Color.Transparent;
+                Series series1 = new Series
+                {
+                    Name = "series1",
+                    IsVisibleInLegend = true,
+                    Color = System.Drawing.Color.Green,
+                    ChartType = SeriesChartType.Pie
+                };
+                _pieChart.Series.Add(series1);
+                series1.Points.Add(70000);
+                series1.Points.Add(30000);
+                var p1 = series1.Points[0];
+                p1.AxisLabel = "70000";
+                p1.LegendText = "Hiren Khirsaria";
+                var p2 = series1.Points[1];
+                p2.AxisLabel = "30000";
+                p2.LegendText = "ABC XYZ";
+                _pieChart.Invalidate();
+
+                //IPostService postService = new PostService(r_LoginService);
+                //List<PostModel> userPosts = await postService.GetUserPostsAsync();
+
+                contentPanel.Controls.Add(_pieChart);
             }
             catch (Exception)
             {
@@ -474,14 +523,21 @@ namespace FacebookVip.UI
             this.Top = appAppConfig.WindowPosition.X;
             this.Left = appAppConfig.WindowPosition.Y;
 
-            if (!string.IsNullOrEmpty(appAppConfig.LastAccessTocken))
+            try
             {
-                LoginResult loginParams = FacebookService.Connect(appAppConfig.LastAccessTocken);
-                if (loginParams != null)
+                if(!string.IsNullOrEmpty(appAppConfig.LastAccessTocken))
                 {
-                    r_LoginService.LoggedInUser = loginParams.LoggedInUser;
-                    postLogin();
+                    LoginResult loginParams = FacebookService.Connect(appAppConfig.LastAccessTocken);
+                    if(loginParams != null)
+                    {
+                        r_LoginService.LoggedInUser = loginParams.LoggedInUser;
+                        postLogin();
+                    }
                 }
+            }
+            catch(Exception)
+            {
+                MessageBox.Show(@"Failed to connect with currnt Token, please try again.", @"Facebook Connect Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
