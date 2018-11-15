@@ -21,6 +21,9 @@ namespace FacebookVip.UI
     {
         private readonly ILoginService r_LoginService;
         //private Chart _pieChart;
+        TableLayoutPanel panel;
+
+
 
         public DashboardForm()
         {
@@ -196,7 +199,7 @@ namespace FacebookVip.UI
                 IProfileService profileService = new ProfileService(r_LoginService);
                 ProfileModel userPorfile = await profileService.GetUserProfileAsync();
 
-                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
+                panel = new TableLayoutPanel { ColumnCount = 2 };
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
                 panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
@@ -236,7 +239,7 @@ namespace FacebookVip.UI
                 IFriendService friendService = new FriendService(r_LoginService);
                 List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(); 
 
-                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
+                panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
                 panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
@@ -279,26 +282,19 @@ namespace FacebookVip.UI
             }
         }
 
-        TableLayoutPanel panel;
+        
         private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
                 contentSpinner.Visible = true;
                 resetContentPanel();
+                panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true, AutoSize = true };
 
                 IPostService postService = new PostService();
                 List<PostModel> userPosts = await postService.GetUserPostsAsync(r_LoginService.LoggedInUser);
-
-                // Why new panel and not one for all??
-                panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true, AutoSize = true };
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                //panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 100F));
-                panel.Width = 1000;
-
+                
                 int tempRowIndex = 0;
-                //int tempColumnIndex = 0;
 
                 #region test list
                 listBox1.SelectionMode = SelectionMode.MultiExtended;
@@ -310,14 +306,19 @@ namespace FacebookVip.UI
                     listBox1.Items.Add(user);
                 }
                 panel.Controls.Add(listBox1);
-                //listBox1.SelectedIndexChanged += this.PersonSelectedAsync;
+                listBox1.SelectedIndexChanged += PersonSelectedAsync;
                 #endregion 
 
+                #region UserPosts
+                panel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+                panel.Padding = new Padding(20, 0, 20, 0);
                 foreach (PostModel post in userPosts)
                 {
                     panel.Controls.Add(new PostControl(post, 0 , tempRowIndex));
+                    
                     tempRowIndex++;
                 }
+                #endregion 
 
                 panel.Padding = new Padding(10);
                 panel.Dock = DockStyle.Fill;
@@ -332,27 +333,21 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = false;
             }
         }
-        /*
-        private Task PersonSelectedAsync(object sender, EventArgs e)
+        
+        private async void PersonSelectedAsync(object sender, EventArgs e)
         {
 
             var postService = new PostService();
             foreach (User user in listBox1.SelectedItems) {
-                List<PostModel> userPosts = postService.GetUserPostsAsync(user);
+                List<PostModel> userPosts = await postService.GetUserPostsAsync(user);
 
                 foreach (PostModel post in userPosts)
                 {
-                    foreach (KeyValuePair<string, string> propertyForDisplay in post.GetPropertiesForDisplay())
-                    {
-                        panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value, AutoSize = true}, tempColumnIndex, tempRowIndex);
-                        //tempColumnIndex++;
-                    }
-                    //tempColumnIndex = 0;
-                    //tempRowIndex++;
+                    panel.Controls.Add(new PostControl(post));
                 }    
             }
         }
-        */
+        
 
         private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
@@ -389,7 +384,7 @@ namespace FacebookVip.UI
                 items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Albums);
                 Dictionary<string, int> userLikesAlbums = await likeService.GetLikesHistogram(items);
 
-                TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 3, AutoScroll = true };
+                panel = new TableLayoutPanel { ColumnCount = 3, AutoScroll = true };
                 panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
 
                 Font labelFont = new Font("Arial", 12);

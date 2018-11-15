@@ -25,6 +25,8 @@ namespace FacebookVip.Logic.Services
                  new PostModel
                  {
                      Id = i_Post.Id,
+                     UserName = i_User.Name,
+                     UserImg = i_User.ImageSmall,
                      Details = getPostDetails(i_Post),
                      UpdateTime = i_Post.UpdateTime
                  }).ToList();
