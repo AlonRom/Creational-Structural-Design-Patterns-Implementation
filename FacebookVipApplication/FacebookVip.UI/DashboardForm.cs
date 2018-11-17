@@ -181,6 +181,12 @@ namespace FacebookVip.UI
             userImage.Visible = i_Visible;
         }
 
+        private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
+        {
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            appConfig.StayLogedIn = StayLoggedInLabel.Checked;
+        }
+
         private async void profileButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
             await updatePanelAsync(new ProfileLayoutPanel());
@@ -189,6 +195,36 @@ namespace FacebookVip.UI
         private async void friendsButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
             await updatePanelAsync(new FriendLayoutPanel());
+        }
+
+        private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            await updatePanelAsync(new PostLayoutPanel());
+        }
+        
+        private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            await updatePanelAsync(new EventLayoutPanel());
+        }
+
+        private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            await updatePanelAsync(new LikesLayoutPanel());
+        }
+
+        private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            await updatePanelAsync(new CheckinLayoutPanel());
+        }
+
+        private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            await updatePanelAsync(new StatsLayoutPanel());
+        }
+
+        private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            await updatePanelAsync(new SettingsLayoutPanel());
         }
 
         private async Task updatePanelAsync(ILayoutPanel i_LayoutPanel)
@@ -210,49 +246,6 @@ namespace FacebookVip.UI
             {
                 contentSpinner.Visible = false;
             }
-        }
-
-        private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            await updatePanelAsync(new PostLayoutPanel());
-        }
-        
-        private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            await updatePanelAsync(new EventLayoutPanel());
-        }
-
-        private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            await updatePanelAsync(new LikesLayoutPanel());
-        }
-
-        private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            try
-            {
-                contentSpinner.Visible = true;
-                await Task.Delay(5000);
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                contentSpinner.Visible = false;
-            }
-        }
-
-        private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            await updatePanelAsync(new StatsLayoutPanel());
-        }
-
-        private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
-        {
-            await updatePanelAsync(new SettingsLayoutPanel());
         }
 
         protected override void OnShown(EventArgs i_EventArgs)
@@ -280,12 +273,6 @@ namespace FacebookVip.UI
                 MessageBox.Show(@"Failed to connect with currnt Token, please try again.", @"Facebook Connect Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-        }
-
-        private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
-        {
-            AppConfigService appConfig = AppConfigService.GetInstance();
-            appConfig.StayLogedIn = StayLoggedInLabel.Checked;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

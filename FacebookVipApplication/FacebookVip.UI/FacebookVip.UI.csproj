@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormControls\CheckinLayoutPanel.cs" />
     <Compile Include="FormControls\EventLayoutPanel.cs" />
     <Compile Include="FormControls\FriendLayoutPanel.cs" />
     <Compile Include="FormControls\ILayoutPanel.cs" />
