@@ -3,6 +3,7 @@ using FacebookVip.Model.Models;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using FacebookVip.UI.Utils;
 
 namespace FacebookVip.UI.FormControls
 {
@@ -25,7 +26,7 @@ namespace FacebookVip.UI.FormControls
             Controls.Add(picBox, i_ColumnIdx++, i_RowIdx);
             foreach (KeyValuePair<string, string> propertyForDisplay in i_Post.GetPropertiesForDisplay())
             {
-                Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value, AutoSize = true }, i_ColumnIdx, i_RowIdx);
+                Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = propertyForDisplay.Value, AutoSize = true }, i_ColumnIdx, i_RowIdx);
                 i_ColumnIdx++;
             }
         }

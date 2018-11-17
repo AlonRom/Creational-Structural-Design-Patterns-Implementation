@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
+using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -29,7 +29,7 @@ namespace FacebookVip.UI.FormControls
 
             foreach (Checkin checkinItem in userCheckins)
             {
-                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12, FontStyle.Bold), Text = checkinItem.Place.Name });
+                m_Panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFontBold, Text = checkinItem.Place.Name });
             }
 
             return m_Panel;

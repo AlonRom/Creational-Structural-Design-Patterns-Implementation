@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.UI.FormControls;
+using FacebookVip.UI.Properties;
 using FacebookWrapper;
 
 namespace FacebookVip.UI
@@ -116,7 +117,7 @@ namespace FacebookVip.UI
                 r_LoginService.Logout();
                 loginLabel.Click -= logoutButtonClick;
                 loginLabel.Click += loginButtonClick;
-                loginLabel.Text = @"Login";
+                loginLabel.Text = Resources.LoginButton;
                 setLayoutVisible(false);
                 r_LoginService.LoggedInUser = null;
 
@@ -152,7 +153,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-                MessageBox.Show(@"Failed to login, please try again.", @"Login Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.LoginErrorMessage, Resources.LoginErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -166,7 +167,7 @@ namespace FacebookVip.UI
             setLayoutVisible(true);
             userImage.Visible = true;
             userImage.Image = r_LoginService?.LoggedInUser?.ImageSmall;
-            loginLabel.Text = @"Logout";
+            loginLabel.Text = Resources.LogoutButton;
             loginLabel.Click -= loginButtonClick;
             loginLabel.Click += logoutButtonClick;
         }
@@ -240,7 +241,7 @@ namespace FacebookVip.UI
             }
             catch (Exception)
             {
-                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.RetriveDataErrorMessage, Resources.RetriveDataErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -270,7 +271,7 @@ namespace FacebookVip.UI
             }
             catch(Exception)
             {
-                MessageBox.Show(@"Failed to connect with currnt Token, please try again.", @"Facebook Connect Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.ConnectWithTokenErrorMessage, Resources.FacebookConnectionErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }

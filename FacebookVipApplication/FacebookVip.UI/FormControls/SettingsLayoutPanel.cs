@@ -6,6 +6,8 @@ using System.Windows.Forms.DataVisualization.Charting;
 using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model.Enums;
+using FacebookVip.UI.Properties;
+using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -24,8 +26,8 @@ namespace FacebookVip.UI.FormControls
 
                     panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 30F));
                     panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 60F));
-                    panel.Controls.Add(new Label { Font = new Font("Arial", 20, FontStyle.Bold), Text = @"Stats", AutoSize = true, Padding = new Padding(0, 7, 7, 7) }, 0, currentRow);
-                    panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Chart Type:", AutoSize = true, Padding = new Padding(5) }, 0, ++currentRow);
+                    panel.Controls.Add(new Label { Font = AppUtil.sr_TitleFont, Text = Resources.StatsTitle, AutoSize = true, Padding = new Padding(0, 7, 7, 7) }, 0, currentRow);
+                    panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = Resources.ChartTypeTitle, AutoSize = true, Padding = new Padding(5) }, 0, ++currentRow);
 
                     FlowLayoutPanel chartTypePanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true };
                     RadioButton columnChartRadioButton = new RadioButton
@@ -53,7 +55,7 @@ namespace FacebookVip.UI.FormControls
                     chartTypePanel.Controls.Add(pieChartRadioButton);
                     panel.Controls.Add(chartTypePanel, 1, currentRow);
 
-                    panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Number Of Friends To Consider:", AutoSize = true, Padding = new Padding(5, 5, 5, 15) }, 0, ++currentRow);
+                    panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = Resources.NumberOfFriendsToConsiderTitle, AutoSize = true, Padding = new Padding(5, 5, 5, 15) }, 0, ++currentRow);
 
                     NumericUpDown numberOfFriendUpDown = new NumericUpDown
                     {
@@ -80,7 +82,7 @@ namespace FacebookVip.UI.FormControls
                     };
                     panel.Controls.Add(numberOfFriendUpDown, 1, currentRow);
 
-                    panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Collect Data From:", AutoSize = true, Padding = new Padding(5) }, 0, ++currentRow);
+                    panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = Resources.CollectDataFromTitle, AutoSize = true, Padding = new Padding(5) }, 0, ++currentRow);
                     FlowLayoutPanel likedItemsPanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true };
                     foreach (eLikedItem likedItem in Enum.GetValues(typeof(eLikedItem)))
                     {

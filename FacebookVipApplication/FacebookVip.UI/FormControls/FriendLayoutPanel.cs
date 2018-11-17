@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model.Models;
+using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -41,7 +41,7 @@ namespace FacebookVip.UI.FormControls
                     }
                     else
                     {
-                        panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                        panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                     }
                 }
                 tempRowIndex++;

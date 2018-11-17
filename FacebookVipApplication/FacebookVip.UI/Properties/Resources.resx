@@ -160,4 +160,43 @@
   <data name="app_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\app_logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginErrorMessage" xml:space="preserve">
+    <value>Failed to login, please try again.</value>
+  </data>
+  <data name="LoginErrorTitle" xml:space="preserve">
+    <value>Login Failure</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="RetriveDataErrorMessage" xml:space="preserve">
+    <value>Failed to retrive data, please try again.</value>
+  </data>
+  <data name="RetriveDataErrorTitle" xml:space="preserve">
+    <value>Fetch Data Failure</value>
+  </data>
+  <data name="ConnectWithTokenErrorMessage" xml:space="preserve">
+    <value>Failed to connect with current Token, please try again.</value>
+  </data>
+  <data name="FacebookConnectionErrorTitle" xml:space="preserve">
+    <value>Facebook Connect Failure</value>
+  </data>
+  <data name="StatsTitle" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="ChartTypeTitle" xml:space="preserve">
+    <value>Chart Type:</value>
+  </data>
+  <data name="NumberOfFriendsToConsiderTitle" xml:space="preserve">
+    <value>Number Of Friends To Consider:</value>
+  </data>
+  <data name="CollectDataFromTitle" xml:space="preserve">
+    <value>Collect Data From:</value>
+  </data>
+  <data name="FailedToRretrieveDataLikesForErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve data likes for: </value>
+  </data>
 </root>

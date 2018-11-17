@@ -71,6 +71,15 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chart Type:.
+        /// </summary>
+        internal static string ChartTypeTitle {
+            get {
+                return ResourceManager.GetString("ChartTypeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap checkin {
@@ -81,12 +90,48 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collect Data From:.
+        /// </summary>
+        internal static string CollectDataFromTitle {
+            get {
+                return ResourceManager.GetString("CollectDataFromTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect with current Token, please try again..
+        /// </summary>
+        internal static string ConnectWithTokenErrorMessage {
+            get {
+                return ResourceManager.GetString("ConnectWithTokenErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap events {
             get {
                 object obj = ResourceManager.GetObject("events", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facebook Connect Failure.
+        /// </summary>
+        internal static string FacebookConnectionErrorTitle {
+            get {
+                return ResourceManager.GetString("FacebookConnectionErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve data likes for: .
+        /// </summary>
+        internal static string FailedToRretrieveDataLikesForErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToRretrieveDataLikesForErrorMessage", resourceCulture);
             }
         }
         
@@ -141,12 +186,57 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string LoginButton {
+            get {
+                return ResourceManager.GetString("LoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to login, please try again..
+        /// </summary>
+        internal static string LoginErrorMessage {
+            get {
+                return ResourceManager.GetString("LoginErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Failure.
+        /// </summary>
+        internal static string LoginErrorTitle {
+            get {
+                return ResourceManager.GetString("LoginErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap logo_inside_out {
             get {
                 object obj = ResourceManager.GetObject("logo_inside_out", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string LogoutButton {
+            get {
+                return ResourceManager.GetString("LogoutButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number Of Friends To Consider:.
+        /// </summary>
+        internal static string NumberOfFriendsToConsiderTitle {
+            get {
+                return ResourceManager.GetString("NumberOfFriendsToConsiderTitle", resourceCulture);
             }
         }
         
@@ -167,6 +257,24 @@ namespace FacebookVip.UI.Properties {
             get {
                 object obj = ResourceManager.GetObject("profile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrive data, please try again..
+        /// </summary>
+        internal static string RetriveDataErrorMessage {
+            get {
+                return ResourceManager.GetString("RetriveDataErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetch Data Failure.
+        /// </summary>
+        internal static string RetriveDataErrorTitle {
+            get {
+                return ResourceManager.GetString("RetriveDataErrorTitle", resourceCulture);
             }
         }
         
@@ -197,6 +305,15 @@ namespace FacebookVip.UI.Properties {
             get {
                 object obj = ResourceManager.GetObject("statistics", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stats.
+        /// </summary>
+        internal static string StatsTitle {
+            get {
+                return ResourceManager.GetString("StatsTitle", resourceCulture);
             }
         }
     }

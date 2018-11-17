@@ -9,7 +9,7 @@ namespace FacebookVip.Logic.Extensions
         {
             if(i_Collection == null)
             {
-                throw new ArgumentNullException(@"Collection is null");
+                throw new ArgumentNullException($"Collection is null");
             }
 
             foreach(var item in i_Collection)

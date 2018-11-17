@@ -14,6 +14,7 @@ using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model.Enums;
 using FacebookVip.Model.Models;
+using FacebookVip.UI.Properties;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -56,7 +57,7 @@ namespace FacebookVip.UI.FormControls
                                 }
                                 catch(Exception)
                                 {
-                                    Console.WriteLine(@"Failed to retrieve data likes for:" + propertyInfo);
+                                    Console.WriteLine(Resources.FailedToRretrieveDataLikesForErrorMessage + propertyInfo);
                                 }
                             }
                         });

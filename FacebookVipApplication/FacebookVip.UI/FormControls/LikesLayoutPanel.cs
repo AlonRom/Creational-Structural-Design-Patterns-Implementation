@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
+using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -26,24 +26,21 @@ namespace FacebookVip.UI.FormControls
             TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 3, AutoScroll = true };
             panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
 
-            Font labelFont = new Font("Arial", 12);
-            Font titleFont = new Font("Arial", 20);
-
-            fillLikeToTable("Photos", userLikesPhotos, panel, labelFont, titleFont, 0, 0);
-            fillLikeToTable("Posts", userLikesPosts, panel, labelFont, titleFont, 0, 1);
-            fillLikeToTable("Albums", userLikesAlbums, panel, labelFont, titleFont, 0, 2);
+            fillLikeToTable("Photos", userLikesPhotos, panel, 0, 0);
+            fillLikeToTable("Posts", userLikesPosts, panel, 0, 1);
+            fillLikeToTable("Albums", userLikesAlbums, panel, 0, 2);
 
             return panel;
         }
 
-        private void fillLikeToTable(string i_LableName, Dictionary<string, int> i_UserLikesPhotos, TableLayoutPanel i_Panel, Font i_LabelFont, Font i_TitleFont, int i_RowIndex, int i_ColumnIndex)
+        private void fillLikeToTable(string i_LableName, Dictionary<string, int> i_UserLikesPhotos, TableLayoutPanel i_Panel, int i_RowIndex, int i_ColumnIndex)
         {
             i_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 50F));
-            i_Panel.Controls.Add(new Label { Font = i_TitleFont, Text = i_LableName, AutoSize = true }, i_ColumnIndex, i_RowIndex);
+            i_Panel.Controls.Add(new Label { Font = AppUtil.sr_TitleFont, Text = i_LableName, AutoSize = true }, i_ColumnIndex, i_RowIndex);
             foreach (KeyValuePair<string, int> propertyForDisplay in i_UserLikesPhotos)
             {
                 i_RowIndex++;
-                i_Panel.Controls.Add(new Label { Font = i_LabelFont, Text = propertyForDisplay.Key + @" " + propertyForDisplay.Value, AutoSize = true }, i_ColumnIndex, i_RowIndex);
+                i_Panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = propertyForDisplay.Key + @" " + propertyForDisplay.Value, AutoSize = true }, i_ColumnIndex, i_RowIndex);
             }
         }
     }

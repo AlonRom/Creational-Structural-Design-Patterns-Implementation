@@ -6,6 +6,7 @@ using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model.Models;
+using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -28,8 +29,8 @@ namespace FacebookVip.UI.FormControls
 
             foreach (KeyValuePair<string, string> propertyForDisplay in userPorfile.GetPropertiesForDisplay())
             {
-                panel.Controls.Add(new Label { Font = new Font("Arial", 12, FontStyle.Bold), Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
-                panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFontBold, Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
+                panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                 tempRowIndex++;
             }
             return panel;
