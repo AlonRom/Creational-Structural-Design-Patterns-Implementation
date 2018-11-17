@@ -15,10 +15,11 @@ namespace FacebookVip.UI.FormControls
     {
         public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
         {
+            AppConfigService appConfigService = AppConfigService.GetInstance();
             IProfileService profileService = new ProfileService();
             ProfileModel userPorfile = await profileService.GetUserProfileAsync(i_LoggedInUser);
 
-            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2 };
+            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoSize = true, Padding = new Padding(10) };
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
             panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
@@ -29,8 +30,8 @@ namespace FacebookVip.UI.FormControls
 
             foreach (KeyValuePair<string, string> propertyForDisplay in userPorfile.GetPropertiesForDisplay())
             {
-                panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFontBold, Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
-                panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                panel.Controls.Add(new Label { Font = new Font(AppUtil.sr_FontFamily, appConfigService.LabelFontSize, FontStyle.Bold), Text = propertyForDisplay.Key, AutoSize = true }, k_PropertyColumnIndex, tempRowIndex);
+                panel.Controls.Add(new Label { Font = new Font(AppUtil.sr_FontFamily, appConfigService.LabelFontSize), Text = propertyForDisplay.Value, AutoSize = true }, k_DetailsColumnIndex, tempRowIndex);
                 tempRowIndex++;
             }
             return panel;

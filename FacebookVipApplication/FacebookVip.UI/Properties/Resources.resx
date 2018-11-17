@@ -199,4 +199,13 @@
   <data name="FailedToRretrieveDataLikesForErrorMessage" xml:space="preserve">
     <value>Failed to retrieve data likes for: </value>
   </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="LabelFontSizeTitle" xml:space="preserve">
+    <value>Label Font Size</value>
+  </data>
+  <data name="TitleFontSizeTitle" xml:space="preserve">
+    <value>Title Font Size</value>
+  </data>
 </root>

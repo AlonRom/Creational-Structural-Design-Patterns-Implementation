@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
@@ -18,7 +19,7 @@ namespace FacebookVip.UI.FormControls
             IFriendService friendService = new FriendService();
             List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(i_LoggedInUser);
 
-            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true };
+            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true, Padding = new Padding(10)};
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
             panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
@@ -41,7 +42,7 @@ namespace FacebookVip.UI.FormControls
                     }
                     else
                     {
-                        panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFont, Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                        panel.Controls.Add(new Label { Font = new Font(AppUtil.sr_FontFamily, AppConfigService.GetInstance().LabelFontSize), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                     }
                 }
                 tempRowIndex++;

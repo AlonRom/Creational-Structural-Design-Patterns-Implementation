@@ -16,6 +16,10 @@ namespace FacebookVip.Logic.Services
 
         public StateSettings StateSettings { get; set; }
 
+        public int LabelFontSize { get; set; } = 12;
+
+        public int TitleFontSize { get; set; } = 20;
+
         private AppConfigService()
         {
             // Load from file

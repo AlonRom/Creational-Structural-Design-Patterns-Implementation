@@ -67,7 +67,7 @@ namespace FacebookVip.UI
 
         private void customHeaderLayout()
         {
-            Icon = Properties.Resources.app_logo;
+            Icon = Resources.app_logo;
 
             Point headerFacebookLabelPosition = PointToScreen(headerFacebookLabel.Location);
             headerFacebookLabelPosition = customHeaderPictureBox.PointToClient(headerFacebookLabelPosition);

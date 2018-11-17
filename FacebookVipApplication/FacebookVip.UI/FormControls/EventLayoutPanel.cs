@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Interfaces;
@@ -43,7 +44,7 @@ namespace FacebookVip.UI.FormControls
 
             foreach (Event eventItem in userEvents)
             {
-                m_Panel.Controls.Add(new Label { Font = AppUtil.sr_LabelFontBold, Text = eventItem.Description });
+                m_Panel.Controls.Add(new Label { Font = new Font(AppUtil.sr_FontFamily, AppConfigService.GetInstance().LabelFontSize), Text = eventItem.Description });
             }
 
             return m_Panel;

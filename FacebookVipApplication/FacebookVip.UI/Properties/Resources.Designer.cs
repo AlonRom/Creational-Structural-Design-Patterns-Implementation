@@ -71,6 +71,15 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        internal static string ApplicationTitle {
+            get {
+                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chart Type:.
         /// </summary>
         internal static string ChartTypeTitle {
@@ -152,6 +161,15 @@ namespace FacebookVip.UI.Properties {
             get {
                 object obj = ResourceManager.GetObject("gold", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label Font Size.
+        /// </summary>
+        internal static string LabelFontSizeTitle {
+            get {
+                return ResourceManager.GetString("LabelFontSizeTitle", resourceCulture);
             }
         }
         
@@ -314,6 +332,15 @@ namespace FacebookVip.UI.Properties {
         internal static string StatsTitle {
             get {
                 return ResourceManager.GetString("StatsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title Font Size.
+        /// </summary>
+        internal static string TitleFontSizeTitle {
+            get {
+                return ResourceManager.GetString("TitleFontSizeTitle", resourceCulture);
             }
         }
     }
