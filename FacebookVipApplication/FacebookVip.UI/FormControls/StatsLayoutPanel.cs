@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -14,48 +13,53 @@ using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model.Enums;
+using FacebookVip.Model.Models;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
 {
-    class StatsLayoutPanel : ILayoutPanel
+    internal class StatsLayoutPanel : ILayoutPanel
     {
-        public async Task<TableLayoutPanel> GetLayoutAsync(User loggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
         {
-            TableLayoutPanel m_Panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true };
-
-            ILikeService likeService = new LikesService(loggedInUser);
+            StateSettings appConfigServiceStateSettings = AppConfigService.GetInstance().StateSettings;
+            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true };
+            ILikeService likeService = new LikesService(i_LoggedInUser);
 
             // get data as defined in settings
             List<Task> getDataTasks = new List<Task>();
             Dictionary<string, int> allPostemItemsLikes = new Dictionary<string, int>();
-            foreach (KeyValuePair<eLikedItem, bool> keyValuePair in AppAppConfigService.GetInstance().StateSettings.LikedItems.Where(i_Item => i_Item.Value))
+            foreach(KeyValuePair<eLikedItem, bool> keyValuePair in appConfigServiceStateSettings.LikedItems.Where(i_Item => i_Item.Value))
             {
-                Task getDataTask = Task.Run(async () =>
-                {
-                    PropertyInfo propertyInfo = loggedInUser.GetType().GetProperty(keyValuePair.Key.ToString());
-                    if (propertyInfo != null)
-                    {
-                        try
+                Task getDataTask = Task.Run(
+                    async () =>
                         {
-                            object prop = propertyInfo.GetValue(loggedInUser, null);
-                            IEnumerable collectionOfUnknownType = (IEnumerable)prop;
-                            ObservableCollection<PostedItem> currentPostedItems = new ObservableCollection<PostedItem>();
-                            foreach (PostedItem o in collectionOfUnknownType)
+                            PropertyInfo propertyInfo = i_LoggedInUser.GetType()
+                                .GetProperty(keyValuePair.Key.ToString());
+                            if(propertyInfo != null)
                             {
-                                currentPostedItems.Add(o);
+                                try
+                                {
+                                    object prop = propertyInfo.GetValue(i_LoggedInUser, null);
+                                    IEnumerable collectionOfUnknownType = (IEnumerable)prop;
+                                    ObservableCollection<PostedItem> currentPostedItems =
+                                        new ObservableCollection<PostedItem>();
+                                    foreach(PostedItem o in collectionOfUnknownType)
+                                    {
+                                        currentPostedItems.Add(o);
+                                    }
+
+                                    Dictionary<string, int> currenLikes =
+                                        await likeService.GetLikesHistogram(currentPostedItems).ConfigureAwait(false);
+                                    allPostemItemsLikes.AddRange<string, int>(currenLikes);
+
+                                }
+                                catch(Exception)
+                                {
+                                    Console.WriteLine(@"Failed to retrieve data likes for:" + propertyInfo);
+                                }
                             }
-
-                            Dictionary<string, int> currenLikes = await likeService.GetLikesHistogram(currentPostedItems).ConfigureAwait(false);
-                            allPostemItemsLikes.AddRange<string, int>(currenLikes);
-
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                    }
-                });
+                        });
                 getDataTasks.Add(getDataTask);
             }
 
@@ -66,14 +70,22 @@ namespace FacebookVip.UI.FormControls
             ((ISupportInitialize)likeMeTheMostChart).BeginInit();
             ((ISupportInitialize)likeMeTheLeastChart).BeginInit();
 
-            //SuspendLayout();
-
             ChartArea chartsArea = new ChartArea();
             likeMeTheMostChart.ChartAreas.Add(chartsArea);
             likeMeTheMostChart.Dock = DockStyle.Top;
 
+            if(appConfigServiceStateSettings.SelectedChartType == SeriesChartType.Pie)
+            {
+                Legend likeMeTheMostLegend = new Legend { BackColor = Color.White, ForeColor = Color.Black};
+                Legend likeMeTheLeastLegend = new Legend { BackColor = Color.White, ForeColor = Color.Black };
+
+                likeMeTheMostChart.Legends.Add(likeMeTheMostLegend);
+                likeMeTheLeastChart.Legends.Add(likeMeTheLeastLegend);
+            }
+
             Title title = likeMeTheMostChart.Titles.Add("Who Likes me the most!");
             title.Font = new Font("Arial", 16, FontStyle.Bold);
+            title.Alignment = ContentAlignment.TopCenter;
 
             likeMeTheMostChart.Series.Clear();
             likeMeTheMostChart.Palette = ChartColorPalette.Fire;
@@ -81,15 +93,18 @@ namespace FacebookVip.UI.FormControls
             likeMeTheMostChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             likeMeTheMostChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             Series series = new Series
-            {
-                IsVisibleInLegend = false,
-                ChartType = AppAppConfigService.GetInstance().StateSettings.SelectedChartType
-            };
+                                {
+                                    IsVisibleInLegend = true,
+                                    ChartType = appConfigServiceStateSettings.SelectedChartType
+                                };
             likeMeTheMostChart.Series.Add(series);
 
             int i = 0;
             Random rnd = new Random();
-            foreach (KeyValuePair<string, int> userLikesPhoto in allPostemItemsLikes.OrderByDescending(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
+            foreach(
+                KeyValuePair<string, int> userLikesPhoto in
+                allPostemItemsLikes.OrderByDescending(i_L => i_L.Value)
+                    .Take(appConfigServiceStateSettings.NumberOfFriend))
             {
                 series.Points.Add(userLikesPhoto.Value);
                 DataPoint dataPoint = series.Points[i];
@@ -106,11 +121,9 @@ namespace FacebookVip.UI.FormControls
             likeMeTheLeastChart.ChartAreas.Add(chartsArea2);
             likeMeTheLeastChart.Dock = DockStyle.Bottom;
 
-            //AutoScaleDimensions = new SizeF(6F, 13F);
-            //AutoScaleMode = AutoScaleMode.Font;
-
             Title likeMeTheLeastChartTitle = likeMeTheLeastChart.Titles.Add("Who Likes me the least!");
             likeMeTheLeastChartTitle.Font = new Font("Arial", 16, FontStyle.Bold);
+            title.Alignment = ContentAlignment.TopCenter;
 
             likeMeTheLeastChart.Series.Clear();
             likeMeTheLeastChart.Palette = ChartColorPalette.Fire;
@@ -118,14 +131,15 @@ namespace FacebookVip.UI.FormControls
             likeMeTheLeastChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             likeMeTheLeastChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             Series series2 = new Series
-            {
-                IsVisibleInLegend = false,
-                ChartType = AppAppConfigService.GetInstance().StateSettings.SelectedChartType
-            };
+                                 {
+                                     IsVisibleInLegend = true,
+                                     ChartType = appConfigServiceStateSettings.SelectedChartType
+                                 };
             likeMeTheLeastChart.Series.Add(series2);
 
             i = 0;
-            foreach (KeyValuePair<string, int> userLikesPhoto in allPostemItemsLikes.OrderBy(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
+            foreach(KeyValuePair<string, int> userLikesPhoto in allPostemItemsLikes.OrderBy(i_L => i_L.Value)
+                                                            .Take(appConfigServiceStateSettings.NumberOfFriend))
             {
                 series2.Points.Add(userLikesPhoto.Value);
                 DataPoint dataPoint = series2.Points[i];
@@ -136,17 +150,16 @@ namespace FacebookVip.UI.FormControls
                 dataPoint.Label = userLikesPhoto.Value.ToString();
                 i++;
             }
+
             likeMeTheLeastChart.Invalidate();
 
             ((ISupportInitialize)likeMeTheMostChart).EndInit();
             ((ISupportInitialize)likeMeTheLeastChart).EndInit();
 
-            m_Panel.Controls.Add(likeMeTheMostChart,0,0);
-            m_Panel.Controls.Add(likeMeTheLeastChart,0,1);
+            panel.Controls.Add(likeMeTheMostChart, 0, 0);
+            panel.Controls.Add(likeMeTheLeastChart, 0, 1);
 
-            return m_Panel;
+            return panel;
         }
-
-        
     }
 }

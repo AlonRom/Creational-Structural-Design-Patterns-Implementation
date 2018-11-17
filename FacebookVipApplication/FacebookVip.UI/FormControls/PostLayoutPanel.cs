@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model.Models;
@@ -13,37 +11,38 @@ namespace FacebookVip.UI.FormControls
 {
     public class PostLayoutPanel : ILayoutPanel
     {
-        private Font TextFont{ get; set; }
-        private ListBox usersListBox { get; set; }
+        private ListBox UsersListBox { get; set; }
         private TableLayoutPanel m_Panel;
-        private int numSelectedItems;
+        private int m_NumSelectedItems;
 
-        public PostLayoutPanel() {
-            numSelectedItems = 0;
-            usersListBox = new ListBox();
+        public PostLayoutPanel()
+        {
+            m_NumSelectedItems = 0;
+            UsersListBox = new ListBox();
         }
 
-        public async Task<TableLayoutPanel> GetLayoutAsync(User LoggedInUser) {
+        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        {
             m_Panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true, AutoSize = true };
 
             IPostService postService = new PostService();
-            List<PostModel> userPosts = await postService.GetUserPostsAsync(LoggedInUser);
+            List<PostModel> userPosts = await postService.GetUserPostsAsync(i_LoggedInUser);
 
             int tempRowIndex = 0;
 
             #region test list
             
-            usersListBox.SelectionMode = SelectionMode.MultiExtended;
-            usersListBox.Width = 150;
-            usersListBox.Margin = new Padding(50, 20, 20, 20);
+            UsersListBox.SelectionMode = SelectionMode.MultiExtended;
+            UsersListBox.Width = 150;
+            UsersListBox.Margin = new Padding(50, 20, 20, 20);
 
-            foreach (var user in LoggedInUser.Friends)
+            foreach (var user in i_LoggedInUser.Friends)
             {
                 //var posts = user.Posts;
-                usersListBox.Items.Add(user);
+                UsersListBox.Items.Add(user);
             }
-            m_Panel.Controls.Add(usersListBox);
-            usersListBox.SelectedIndexChanged += personSelectedAsync;
+            m_Panel.Controls.Add(UsersListBox);
+            UsersListBox.SelectedIndexChanged += personSelectedAsync;
             
             #endregion
 
@@ -68,7 +67,7 @@ namespace FacebookVip.UI.FormControls
             User selectedUser = (User)list.SelectedItem;
             int currentlySelected = list.SelectedItems.Count;
 
-            if (currentlySelected > this.numSelectedItems) {
+            if (currentlySelected > m_NumSelectedItems) {
                 // add user data.
                 PostService postService = new PostService();
 
@@ -83,11 +82,7 @@ namespace FacebookVip.UI.FormControls
                 // remove user from table
                 m_Panel.Controls.RemoveByKey(selectedUser.Name);
             }
-            this.numSelectedItems = currentlySelected;
-
-
-
-            
+            m_NumSelectedItems = currentlySelected;       
         }
 
     }

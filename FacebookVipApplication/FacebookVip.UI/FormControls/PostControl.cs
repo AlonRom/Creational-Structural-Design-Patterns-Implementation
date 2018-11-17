@@ -1,11 +1,7 @@
 ﻿using FacebookVip.Logic.Extensions;
 using FacebookVip.Model.Models;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FacebookVip.UI.FormControls
@@ -24,7 +20,6 @@ namespace FacebookVip.UI.FormControls
 
             Padding = new Padding(10, 10, 10, 10);
             Margin = new Padding(10, 10, 10, 0);
-            Font TextFont = new Font("Arial", 12);
 
             PictureBox picBox = new PictureBox { Image = i_Post.UserImg };
             Controls.Add(picBox, i_ColumnIdx++, i_RowIdx);

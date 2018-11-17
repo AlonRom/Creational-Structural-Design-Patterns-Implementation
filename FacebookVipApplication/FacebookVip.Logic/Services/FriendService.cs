@@ -9,10 +9,6 @@ namespace FacebookVip.Logic.Services
 {
     public class FriendService : IFriendService
     {
-        public FriendService()
-        {
-        }
-
         public Task<List<FriendModel>> GetUserFriendsAsync(User i_User)
         {
             return Task.Run(() =>

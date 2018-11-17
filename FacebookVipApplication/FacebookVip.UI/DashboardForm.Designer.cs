@@ -70,7 +70,7 @@
             this.contentPanel.Controls.Add(this.contentSpinner);
             this.contentPanel.Location = new System.Drawing.Point(210, 66);
             this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(800, 594);
+            this.contentPanel.Size = new System.Drawing.Size(800, 680);
             this.contentPanel.TabIndex = 5;
             this.contentPanel.Visible = false;
             // 
@@ -79,7 +79,7 @@
             this.contentSpinner.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.contentSpinner.BackColor = System.Drawing.Color.White;
             this.contentSpinner.Image = global::FacebookVip.UI.Properties.Resources.Spinner;
-            this.contentSpinner.Location = new System.Drawing.Point(199, 167);
+            this.contentSpinner.Location = new System.Drawing.Point(199, 210);
             this.contentSpinner.Name = "contentSpinner";
             this.contentSpinner.Size = new System.Drawing.Size(148, 148);
             this.contentSpinner.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;

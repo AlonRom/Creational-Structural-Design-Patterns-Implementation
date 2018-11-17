@@ -9,14 +9,6 @@ namespace FacebookVip.Logic.Services
 {
     public class PostService : IPostService
     {
-        //private readonly ILoginService r_LoginService;
-
-        public PostService()
-        {
-            //r_LoginService = i_LoginService;
-        }
-
-        // This function should get a user.
         public Task<List<PostModel>> GetUserPostsAsync(User i_User)
         {
             return Task.Run(() =>

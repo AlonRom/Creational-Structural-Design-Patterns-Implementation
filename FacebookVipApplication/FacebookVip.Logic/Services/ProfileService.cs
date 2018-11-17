@@ -7,11 +7,6 @@ namespace FacebookVip.Logic.Services
 {
     public class ProfileService : IProfileService
     {
-        public ProfileService()
-        {
-            
-        }
-
         public Task<ProfileModel> GetUserProfileAsync(User i_User)
         {
             return Task.Run(() => new ProfileModel

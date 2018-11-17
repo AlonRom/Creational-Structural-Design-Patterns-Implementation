@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
@@ -13,17 +11,17 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
 {
-    class FriendLayoutPanel : ILayoutPanel
+    internal class FriendLayoutPanel : ILayoutPanel
     {
-        public async Task<TableLayoutPanel> GetLayoutAsync(User loggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
         {
             IFriendService friendService = new FriendService();
-            List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(loggedInUser);
+            List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(i_LoggedInUser);
 
-            TableLayoutPanel m_Panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true };
-            m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-            m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
-            m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true };
+            panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+            panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
+            panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
 
             int tempRowIndex = 0;
             const int k_ImageColumnIndex = 0;
@@ -39,16 +37,16 @@ namespace FacebookVip.UI.FormControls
 
                     if (isImageUrl)
                     {
-                        m_Panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value }, k_ImageColumnIndex, tempRowIndex);
+                        panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value }, k_ImageColumnIndex, tempRowIndex);
                     }
                     else
                     {
-                        m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                        panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                     }
                 }
                 tempRowIndex++;
             }
-            return m_Panel;
+            return panel;
         }
     }
 }

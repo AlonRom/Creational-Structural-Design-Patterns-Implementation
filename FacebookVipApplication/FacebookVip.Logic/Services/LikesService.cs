@@ -9,11 +9,11 @@ namespace FacebookVip.Logic.Services
 {
     public class LikesService :ILikeService
     {
-        private readonly User user;
+        private readonly User r_User;
 
-        public LikesService(User user)
+        public LikesService(User i_User)
         {
-            this.user = user;
+            r_User = i_User;
         }
 
         public Task<Dictionary<string, int>> GetLikesHistogram(ObservableCollection<PostedItem> i_PostedItems)
@@ -47,7 +47,7 @@ namespace FacebookVip.Logic.Services
         {
             Random rnd = new Random();
 
-            foreach(User friend in user.Friends)
+            foreach(User friend in r_User.Friends)
             {
                 i_UsersLikesHistogram[friend.Name] = rnd.Next(0, 50);
             }

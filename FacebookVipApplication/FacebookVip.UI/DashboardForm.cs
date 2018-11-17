@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
-using FacebookVip.Model.Enums;
-using FacebookVip.Model.Models;
 using FacebookVip.UI.FormControls;
 using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI
 {
@@ -25,7 +16,7 @@ namespace FacebookVip.UI
     {
         private readonly ILoginService r_LoginService;
 
-        TableLayoutPanel m_Panel;
+        private TableLayoutPanel m_Panel;
 
         public DashboardForm()
         {
@@ -54,7 +45,7 @@ namespace FacebookVip.UI
         private void setFormSize()
         {
             Width = (int)(Screen.PrimaryScreen.WorkingArea.Width * 0.6);
-            Height = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.7);
+            Height = (int)(Screen.PrimaryScreen.WorkingArea.Height * 0.8);
             customHeaderPictureBox.Width = Screen.GetWorkingArea(this).Width; // make it the same width as the form
         }
 
@@ -129,8 +120,8 @@ namespace FacebookVip.UI
                 setLayoutVisible(false);
                 r_LoginService.LoggedInUser = null;
 
-                AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-                appAppConfig.LastAccessTocken = "";
+                AppConfigService appConfig = AppConfigService.GetInstance();
+                appConfig.LastAccessTocken = "";
             }
             finally
             {
@@ -152,7 +143,6 @@ namespace FacebookVip.UI
                 if (!string.IsNullOrEmpty(loginResult.AccessToken))
                 {
                     r_LoginService.LoggedInUser = loginResult.LoggedInUser;
-
                     postLogin();
                 }
                 else
@@ -193,22 +183,23 @@ namespace FacebookVip.UI
 
         private async void profileButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
-            updatePanelAsync(new ProfileLayoutPanel());
+            await updatePanelAsync(new ProfileLayoutPanel());
         }
 
         private async void friendsButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
-            updatePanelAsync(new FriendLayoutPanel());
+            await updatePanelAsync(new FriendLayoutPanel());
         }
 
-        private async void updatePanelAsync(ILayoutPanel layoutPanel) {
+        private async Task updatePanelAsync(ILayoutPanel i_LayoutPanel)
+        {
             contentSpinner.Visible = true;
             resetContentPanel();
             try
             {
-                m_Panel = await layoutPanel.GetLayoutAsync(r_LoginService.LoggedInUser);
+                m_Panel = await i_LayoutPanel.GetLayoutAsync(r_LoginService.LoggedInUser);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -221,9 +212,9 @@ namespace FacebookVip.UI
             contentPanel.Controls.Add(m_Panel);
         }
 
-        private void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            updatePanelAsync(new PostLayoutPanel());
+            await updatePanelAsync(new PostLayoutPanel());
         }
         
         private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
@@ -246,7 +237,7 @@ namespace FacebookVip.UI
 
         private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            updatePanelAsync(new LikesLayoutPanel());
+            await updatePanelAsync(new LikesLayoutPanel());
         }
 
         private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
@@ -269,30 +260,27 @@ namespace FacebookVip.UI
 
         private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            //AutoScaleDimensions = new SizeF(6F, 13F);
-            //AutoScaleMode = AutoScaleMode.Font;
-
-            updatePanelAsync(new StatsLayoutPanel());
+            await updatePanelAsync(new StatsLayoutPanel());
         }
 
-        private void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            updatePanelAsync(new SettingsLayoutPanel());
+            await updatePanelAsync(new SettingsLayoutPanel());
         }
 
         protected override void OnShown(EventArgs i_EventArgs)
         {
             base.OnShown(i_EventArgs);
 
-            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            Top = appAppConfig.WindowPosition.X;
-            Left = appAppConfig.WindowPosition.Y;
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            Top = appConfig.WindowPosition.X;
+            Left = appConfig.WindowPosition.Y;
   
             try
             {
-                if(!string.IsNullOrEmpty(appAppConfig.LastAccessTocken))
+                if(!string.IsNullOrEmpty(appConfig.LastAccessTocken))
                 {
-                    LoginResult loginParams = FacebookService.Connect(appAppConfig.LastAccessTocken);
+                    LoginResult loginParams = FacebookService.Connect(appConfig.LastAccessTocken);
                     if(loginParams != null)
                     {
                         r_LoginService.LoggedInUser = loginParams.LoggedInUser;
@@ -309,8 +297,8 @@ namespace FacebookVip.UI
 
         private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            appAppConfig.StayLogedIn = StayLoggedInLabel.Checked;
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            appConfig.StayLogedIn = StayLoggedInLabel.Checked;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -321,10 +309,10 @@ namespace FacebookVip.UI
         protected override void OnClosing(CancelEventArgs i_EventArgs)
         {
             base.OnClosing(i_EventArgs);
-            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            appAppConfig.WindowPosition = new Point(this.Top, this.Left);
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            appConfig.WindowPosition = new Point(this.Top, this.Left);
 
-            AppAppConfigService.SaveToFile();
+            AppConfigService.SaveToFile();
         }
 
         protected override void Dispose(bool i_Disposing)

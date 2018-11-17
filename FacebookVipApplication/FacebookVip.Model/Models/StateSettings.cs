@@ -7,9 +7,9 @@ namespace FacebookVip.Model.Models
 {
     public class StateSettings
     {
-        public SeriesChartType SelectedChartType { get; set; }
+        public SeriesChartType SelectedChartType { get; set; } = SeriesChartType.Column;
 
-        public int NumberOfFriend { get; set; } = 10;
+        public int NumberOfFriend { get; set; } = 7;
 
         public SerializableDictionary<eLikedItem, bool> LikedItems { get; set; }
 
@@ -18,7 +18,7 @@ namespace FacebookVip.Model.Models
             LikedItems = new SerializableDictionary<eLikedItem, bool>();
             foreach(eLikedItem likedItem in Enum.GetValues(typeof(eLikedItem)))
             {
-                LikedItems.Add(likedItem, false);
+                LikedItems.Add(likedItem, true);
             }
         }
     }

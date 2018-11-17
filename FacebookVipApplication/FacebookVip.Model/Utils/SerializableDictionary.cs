@@ -178,5 +178,4 @@ namespace FacebookVip.Model.Utils
         #endregion
 
     }
-
 }

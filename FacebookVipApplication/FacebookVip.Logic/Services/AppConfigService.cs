@@ -4,11 +4,11 @@ using FacebookVip.Model.Models;
 
 namespace FacebookVip.Logic.Services
 {
-    public class AppAppConfigService
+    public class AppConfigService
     {
-        private const string k_FilePath = "appAppConfig.xml";
+        private const string k_FilePath = "appConfig.xml";
         private static readonly object sr_InstanceLock = new object();
-        private static AppAppConfigService AppAppConf { get; set; }
+        private static AppConfigService AppConf { get; set; }
 
         public Point WindowPosition { get; set; }
         public bool StayLogedIn { get; set; }
@@ -16,34 +16,35 @@ namespace FacebookVip.Logic.Services
 
         public StateSettings StateSettings { get; set; }
 
-        private AppAppConfigService()
+        private AppConfigService()
         {
             // Load from file
             StayLogedIn = true;
         }
 
         // Add some word here to spesify it's a singelton ?
-        public static AppAppConfigService GetInstance()
+        public static AppConfigService GetInstance()
         {
-            if (AppAppConf == null)
+            if (AppConf == null)
             {
                 lock (sr_InstanceLock)
                 {
-                    if (AppAppConf == null)
+                    if (AppConf == null)
                     {
                         try
                         {
-                            AppAppConf = SerializerService.LoadFromFile<AppAppConfigService>(
+                            AppConf = SerializerService.LoadFromFile<AppConfigService>(
                                 k_FilePath,
-                                typeof(AppAppConfigService));
+                                typeof(AppConfigService));
                         }
-                        catch (Exception) {
-                            AppAppConf = new AppAppConfigService{StateSettings = new StateSettings()};
+                        catch (Exception)
+                        {
+                            AppConf = new AppConfigService{StateSettings = new StateSettings()};
                         } 
                     }
                 }
             }
-            return AppAppConf;
+            return AppConf;
         }
 
         public static void SaveToFile()

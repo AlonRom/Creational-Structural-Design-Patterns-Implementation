@@ -42,7 +42,7 @@ namespace FacebookVip.Logic.Services
                 return null;
             }
 
-            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
+            AppConfigService appConfig = AppConfigService.GetInstance();
 
             #region Login Service
 
@@ -96,9 +96,9 @@ namespace FacebookVip.Logic.Services
 
             #endregion
 
-            if (appAppConfig.StayLogedIn == true)
+            if (appConfig.StayLogedIn == true)
             {
-                appAppConfig.LastAccessTocken = loginParams.AccessToken;
+                appConfig.LastAccessTocken = loginParams.AccessToken;
             }
 
             return loginParams;
