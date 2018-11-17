@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
@@ -23,6 +24,27 @@ namespace FacebookVip.Logic.Services
                      UpdateTime = i_Post.UpdateTime
                  }).ToList();
             });
+        }
+
+        private static int postID { get; set; }
+        public List<PostModel> GetUserPostsMockData(User i_User)
+        {
+            var postsList = new List<PostModel>();
+            var rnd = new Random();
+            rnd.Next(0, 50);
+
+            for (int i = 0; i < rnd.Next(1,5); i++)
+            {
+                postsList.Add(new PostModel
+                {
+                    Id = "" + postID++,
+                    UserName = i_User.Name,
+                    UserImg = i_User.ImageSmall,
+                    Details = "Mock Post " + postID, //getPostDetails(i_Post),
+                    UpdateTime = DateTime.Now
+                });
+            }
+            return postsList;
         }
 
         private string getPostDetails(Post i_Post)
