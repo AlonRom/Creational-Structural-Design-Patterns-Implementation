@@ -33,7 +33,6 @@
             this.userImage = new System.Windows.Forms.PictureBox();
             this.loginSpinner = new System.Windows.Forms.PictureBox();
             this.StayLoggedInLabel = new System.Windows.Forms.CheckBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.contentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contentSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).BeginInit();
@@ -68,7 +67,6 @@
             // contentPanel
             // 
             this.contentPanel.BackColor = System.Drawing.Color.White;
-            this.contentPanel.Controls.Add(this.listBox1);
             this.contentPanel.Controls.Add(this.contentSpinner);
             this.contentPanel.Location = new System.Drawing.Point(210, 66);
             this.contentPanel.Name = "contentPanel";
@@ -336,14 +334,6 @@
             this.StayLoggedInLabel.UseVisualStyleBackColor = false;
             this.StayLoggedInLabel.CheckedChanged += new System.EventHandler(this.stayLogedInCheckedChanged);
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(4, 4);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
-            this.listBox1.TabIndex = 1;
-            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,7 +391,6 @@
         private System.Windows.Forms.PictureBox contentSpinner;
         private System.Windows.Forms.PictureBox loginSpinner;
         private System.Windows.Forms.CheckBox StayLoggedInLabel;
-        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

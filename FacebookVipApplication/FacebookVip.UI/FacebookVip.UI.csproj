@@ -57,6 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormControls\FriendLayoutPanel.cs" />
+    <Compile Include="FormControls\ILayoutPanel.cs" />
+    <Compile Include="FormControls\LikesLayoutPanel.cs" />
+    <Compile Include="FormControls\PostControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormControls\ProfileLayoutPanel.cs" />
+    <Compile Include="FormControls\SettingsLayoutPanel.cs" />
+    <Compile Include="FormControls\StatsLayoutPanel.cs" />
     <Compile Include="Utils\AppUtil.cs" />
     <Compile Include="Utils\ChartsUtil.cs" />
     <Compile Include="DashboardForm.cs">
@@ -65,9 +74,7 @@
     <Compile Include="DashboardForm.Designer.cs">
       <DependentUpon>DashboardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormControls\PostControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FormControls\PostLayoutPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DashboardForm.resx">

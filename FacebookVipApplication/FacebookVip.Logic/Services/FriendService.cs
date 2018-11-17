@@ -3,23 +3,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Model.Models;
+using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.Logic.Services
 {
     public class FriendService : IFriendService
     {
-        private readonly ILoginService r_LoginService;
-
-        public FriendService(ILoginService i_LoginService)
+        public FriendService()
         {
-            r_LoginService = i_LoginService;
         }
 
-        public Task<List<FriendModel>> GetUserFriendsAsync()
+        public Task<List<FriendModel>> GetUserFriendsAsync(User i_User)
         {
             return Task.Run(() =>
                   {
-                      return r_LoginService.LoggedInUser.Friends.Select(i_Friend =>
+                      return i_User.Friends.Select(i_Friend =>
                         new FriendModel
                         {
                             Id = i_Friend.Id,

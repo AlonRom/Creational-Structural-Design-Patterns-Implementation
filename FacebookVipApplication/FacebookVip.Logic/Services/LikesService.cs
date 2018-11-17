@@ -9,11 +9,11 @@ namespace FacebookVip.Logic.Services
 {
     public class LikesService :ILikeService
     {
-        private readonly ILoginService r_LoginService;
+        private readonly User user;
 
-        public LikesService(ILoginService i_LoginService)
+        public LikesService(User user)
         {
-            r_LoginService = i_LoginService;
+            this.user = user;
         }
 
         public Task<Dictionary<string, int>> GetLikesHistogram(ObservableCollection<PostedItem> i_PostedItems)
@@ -25,9 +25,9 @@ namespace FacebookVip.Logic.Services
                 foreach (PostedItem item in i_PostedItems)
                 {
                     FacebookObjectCollection<User> likes = item.LikedBy;
-                    foreach (User like in likes)
+                    foreach (User userLike in likes)
                     {
-                        string friendName = like.Name;
+                        string friendName = userLike.Name;
                         if (friendName == null) continue;
                         if (!usersLikesHistogram.ContainsKey(friendName))
                         {
@@ -47,7 +47,7 @@ namespace FacebookVip.Logic.Services
         {
             Random rnd = new Random();
 
-            foreach(User friend in r_LoginService.LoggedInUser.Friends)
+            foreach(User friend in user.Friends)
             {
                 i_UsersLikesHistogram[friend.Name] = rnd.Next(0, 50);
             }
