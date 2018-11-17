@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using FacebookVip.Model;
 
 namespace FacebookVip.Logic.Services
 {
@@ -12,6 +13,8 @@ namespace FacebookVip.Logic.Services
         public Point WindowPosition { get; set; }
         public bool StayLogedIn { get; set; }
         public string LastAccessTocken { get; set; }
+
+        public StateSettings StateSettings { get; set; }
 
         private AppAppConfigService()
         {
@@ -35,7 +38,7 @@ namespace FacebookVip.Logic.Services
                                 typeof(AppAppConfigService));
                         }
                         catch (Exception) {
-                            AppAppConf = new AppAppConfigService();
+                            AppAppConf = new AppAppConfigService{StateSettings = new StateSettings()};
                         } 
                     }
                 }

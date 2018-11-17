@@ -9,6 +9,13 @@ namespace FacebookVip.Logic.Services
 {
     public class LikesService :ILikeService
     {
+        private readonly ILoginService r_LoginService;
+
+        public LikesService(ILoginService i_LoginService)
+        {
+            r_LoginService = i_LoginService;
+        }
+
         public Task<Dictionary<string, int>> GetLikesHistogram(ObservableCollection<PostedItem> i_PostedItems)
         {
             return Task.Run(() =>
@@ -18,7 +25,7 @@ namespace FacebookVip.Logic.Services
                 foreach (PostedItem item in i_PostedItems)
                 {
                     FacebookObjectCollection<User> likes = item.LikedBy;
-                    foreach (var like in likes)
+                    foreach (User like in likes)
                     {
                         string friendName = like.Name;
                         if (friendName == null) continue;
@@ -30,32 +37,20 @@ namespace FacebookVip.Logic.Services
                     }
                 }
 
-                usersLikesHistogram = getMockData();
+                setMockData(usersLikesHistogram);
 
                 return usersLikesHistogram;
             });
         }
 
-        private Dictionary<string, int> getMockData()
+        private void setMockData(Dictionary<string, int> i_UsersLikesHistogram)
         {
             Random rnd = new Random();
 
-            return new Dictionary<string, int>
-                       {
-                            {"Igor Gumush", rnd.Next(0, 50)},
-                            {"Alon Rom", rnd.Next(0, 50)},
-                            {"Muhamad Ali", rnd.Next(0, 50)},
-                            {"Madona", rnd.Next(0, 50) },
-                            {"Shula Mokshim", rnd.Next(0, 50) },
-                            {"Bibi", rnd.Next(0, 50) },
-                            {"Wolverine", rnd.Next(0, 50) },
-                            {"Batman", rnd.Next(0, 50) },
-                            {"Spiderman", rnd.Next(0, 50) },
-                            {"Venom", rnd.Next(0, 50) },
-                            {"The Godfather", rnd.Next(0, 50) },
-                            {"Messi", rnd.Next(0, 50) },
-                            {"Ronaldo", rnd.Next(0, 50) },
-                       };
+            foreach(User friend in r_LoginService.LoggedInUser.Friends)
+            {
+                i_UsersLikesHistogram[friend.Name] = rnd.Next(0, 50);
+            }
         }
     }
 }

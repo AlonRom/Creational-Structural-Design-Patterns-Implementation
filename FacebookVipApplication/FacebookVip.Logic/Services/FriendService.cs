@@ -20,12 +20,12 @@ namespace FacebookVip.Logic.Services
             return Task.Run(() =>
                   {
                       return r_LoginService.LoggedInUser.Friends.Select(i_Friend =>
-                    new FriendModel
-                    {
-                        Id = i_Friend.Id,
-                        Name = i_Friend.Name,
-                        ProfileImageUrl = i_Friend.PictureNormalURL
-                    }).ToList();
+                        new FriendModel
+                        {
+                            Id = i_Friend.Id,
+                            Name = i_Friend.Name,
+                            ProfileImageUrl = i_Friend.PictureNormalURL
+                        }).ToList();
                   });
         }
     }

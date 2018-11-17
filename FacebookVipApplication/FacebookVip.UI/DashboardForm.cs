@@ -11,6 +11,7 @@ using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
 using FacebookVip.Model;
+using FacebookVip.UI.FormControls;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
@@ -20,10 +21,8 @@ namespace FacebookVip.UI
     public partial class DashboardForm : Form
     {
         private readonly ILoginService r_LoginService;
-        //private Chart _pieChart;
-        TableLayoutPanel panel;
 
-
+        TableLayoutPanel m_Panel;
 
         public DashboardForm()
         {
@@ -199,10 +198,10 @@ namespace FacebookVip.UI
                 IProfileService profileService = new ProfileService(r_LoginService);
                 ProfileModel userPorfile = await profileService.GetUserProfileAsync();
 
-                panel = new TableLayoutPanel { ColumnCount = 2 };
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+                m_Panel = new TableLayoutPanel { ColumnCount = 2 };
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
 
                 int tempRowIndex = 0;
                 const int k_PropertyColumnIndex = 0;
@@ -210,14 +209,14 @@ namespace FacebookVip.UI
 
                 foreach (KeyValuePair<string, string> propertyForDisplay in userPorfile.GetPropertiesForDisplay())
                 {
-                    panel.Controls.Add(new Label { Font = new Font("Arial", 12, FontStyle.Bold), Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
-                    panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                    m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12, FontStyle.Bold), Text = propertyForDisplay.Key }, k_PropertyColumnIndex, tempRowIndex);
+                    m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                     tempRowIndex++;
                 }
 
-                panel.Padding = new Padding(10);
-                panel.Dock = DockStyle.Fill;
-                contentPanel.Controls.Add(panel);
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
             }
             catch (Exception)
             {
@@ -239,10 +238,10 @@ namespace FacebookVip.UI
                 IFriendService friendService = new FriendService(r_LoginService);
                 List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(); 
 
-                panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
-                panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
-                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
+                m_Panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true};
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
+                m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
 
                 int tempRowIndex = 0;
                 const int k_ImageColumnIndex = 0;
@@ -258,19 +257,19 @@ namespace FacebookVip.UI
 
                         if(isImageUrl)
                         {
-                            panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value }, k_ImageColumnIndex, tempRowIndex);
+                            m_Panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value }, k_ImageColumnIndex, tempRowIndex);
                         }
                         else
                         {
-                            panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                            m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                         }             
                     }
                     tempRowIndex++;
                 }
 
-                panel.Padding = new Padding(10);
-                panel.Dock = DockStyle.Fill;
-                contentPanel.Controls.Add(panel);
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
             }
             catch (Exception)
             {
@@ -289,7 +288,7 @@ namespace FacebookVip.UI
             {
                 contentSpinner.Visible = true;
                 resetContentPanel();
-                panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true, AutoSize = true };
+                m_Panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true, AutoSize = true };
 
                 IPostService postService = new PostService();
                 List<PostModel> userPosts = await postService.GetUserPostsAsync(r_LoginService.LoggedInUser);
@@ -305,24 +304,24 @@ namespace FacebookVip.UI
                     //var posts = user.Posts;
                     listBox1.Items.Add(user);
                 }
-                panel.Controls.Add(listBox1);
-                listBox1.SelectedIndexChanged += PersonSelectedAsync;
+                m_Panel.Controls.Add(listBox1);
+                listBox1.SelectedIndexChanged += personSelectedAsync;
                 #endregion 
 
                 #region UserPosts
-                panel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-                panel.Padding = new Padding(20, 0, 20, 0);
+                m_Panel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+                m_Panel.Padding = new Padding(20, 0, 20, 0);
                 foreach (PostModel post in userPosts)
                 {
-                    panel.Controls.Add(new PostControl(post, 0 , tempRowIndex));
+                    m_Panel.Controls.Add(new PostControl(post, 0 , tempRowIndex));
                     
                     tempRowIndex++;
                 }
                 #endregion 
 
-                panel.Padding = new Padding(10);
-                panel.Dock = DockStyle.Fill;
-                contentPanel.Controls.Add(panel);
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
             }
             catch (Exception)
             {
@@ -334,16 +333,16 @@ namespace FacebookVip.UI
             }
         }
         
-        private async void PersonSelectedAsync(object sender, EventArgs e)
+        private async void personSelectedAsync(object i_Sender, EventArgs i_EventArgs)
         {
 
-            var postService = new PostService();
+            PostService postService = new PostService();
             foreach (User user in listBox1.SelectedItems) {
                 List<PostModel> userPosts = await postService.GetUserPostsAsync(user);
 
                 foreach (PostModel post in userPosts)
                 {
-                    panel.Controls.Add(new PostControl(post));
+                    m_Panel.Controls.Add(new PostControl(post));
                 }    
             }
         }
@@ -374,7 +373,7 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                ILikeService likeService = new LikesService();
+                ILikeService likeService = new LikesService(r_LoginService);
                 ObservableCollection<PostedItem> items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.PhotosTaggedIn);
                 Dictionary<string, int> userLikesPhotos = await likeService.GetLikesHistogram(items);
 
@@ -384,19 +383,19 @@ namespace FacebookVip.UI
                 items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Albums);
                 Dictionary<string, int> userLikesAlbums = await likeService.GetLikesHistogram(items);
 
-                panel = new TableLayoutPanel { ColumnCount = 3, AutoScroll = true };
-                panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
+                m_Panel = new TableLayoutPanel { ColumnCount = 3, AutoScroll = true };
+                m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
 
                 Font labelFont = new Font("Arial", 12);
                 Font titleFont = new Font("Arial", 20);
 
-                fillLikeToTable("Photos", userLikesPhotos, panel, labelFont, titleFont, 0, 0);
-                fillLikeToTable("Posts", userLikesPosts, panel, labelFont, titleFont, 0, 1);
-                fillLikeToTable("Albums", userLikesAlbums, panel, labelFont, titleFont, 0, 2);
+                fillLikeToTable("Photos", userLikesPhotos, m_Panel, labelFont, titleFont, 0, 0);
+                fillLikeToTable("Posts", userLikesPosts, m_Panel, labelFont, titleFont, 0, 1);
+                fillLikeToTable("Albums", userLikesAlbums, m_Panel, labelFont, titleFont, 0, 2);
 
-                panel.Padding = new Padding(10);
-                panel.Dock = DockStyle.Fill;
-                contentPanel.Controls.Add(panel);
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
             }
             catch (Exception)
             {
@@ -444,54 +443,105 @@ namespace FacebookVip.UI
                 contentSpinner.Visible = true;
                 resetContentPanel();
 
-                ChartArea chartArea1 = new ChartArea();
-                Legend legend1 = new Legend()
-                { BackColor = Color.Green, ForeColor = Color.Black, Title = "Salary" };
-                Legend legend2 = new Legend()
-                { BackColor = Color.Green, ForeColor = Color.Black, Title = "Salary" };
-                var _pieChart = new Chart();
-                var barChart = new Chart();
+                m_Panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true };
 
-                ((ISupportInitialize)(_pieChart)).BeginInit();
-                ((ISupportInitialize)(barChart)).BeginInit();
+                ILikeService likeService = new LikesService(r_LoginService);
+                ObservableCollection<PostedItem> items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.PhotosTaggedIn);
+                Dictionary<string, int> userLikesPhotos = await likeService.GetLikesHistogram(items);
+
+                //items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Posts);
+                //Dictionary<string, int> userLikesPosts = await likeService.GetLikesHistogram(items);
+
+                //items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Albums);
+                //Dictionary<string, int> userLikesAlbums = await likeService.GetLikesHistogram(items);
+
+                Chart likeMeTheMostChart = new Chart();
+                Chart likeMeTheLeastChart = new Chart();
+                ((ISupportInitialize)likeMeTheMostChart).BeginInit();
+                ((ISupportInitialize)likeMeTheLeastChart).BeginInit();
 
                 SuspendLayout();
 
-                //===Pie chart
-                chartArea1.Name = "PieChartArea";
-                _pieChart.ChartAreas.Add(chartArea1);
-                _pieChart.Dock = System.Windows.Forms.DockStyle.Fill;
-                legend1.Name = "Legend1";
-                _pieChart.Legends.Add(legend1);
-                _pieChart.Location = new System.Drawing.Point(0, 50);
+                ChartArea chartsArea = new ChartArea();
+                likeMeTheMostChart.ChartAreas.Add(chartsArea);
+                likeMeTheMostChart.Dock = DockStyle.Top;
 
-                _pieChart.Series.Clear();
-                _pieChart.Palette = ChartColorPalette.Fire;
-                _pieChart.BackColor = Color.LightYellow;
-                _pieChart.Titles.Add("Employee Salary");
-                _pieChart.ChartAreas[0].BackColor = Color.Transparent;
-                Series series1 = new Series
+                AutoScaleDimensions = new SizeF(6F, 13F);
+                AutoScaleMode = AutoScaleMode.Font;
+
+                Title title = likeMeTheMostChart.Titles.Add("Who Likes me the most!");
+                title.Font = new Font("Arial", 16, FontStyle.Bold);
+
+                likeMeTheMostChart.Series.Clear();
+                likeMeTheMostChart.Palette = ChartColorPalette.Fire;
+                likeMeTheMostChart.ChartAreas[0].BackColor = Color.Transparent;
+                likeMeTheMostChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                likeMeTheMostChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+                Series series = new Series
                 {
-                    Name = "series1",
-                    IsVisibleInLegend = true,
-                    Color = System.Drawing.Color.Green,
-                    ChartType = SeriesChartType.Pie
+                    IsVisibleInLegend = false,
+                    ChartType = AppAppConfigService.GetInstance().StateSettings.SelectedChartType
                 };
-                _pieChart.Series.Add(series1);
-                series1.Points.Add(70000);
-                series1.Points.Add(30000);
-                var p1 = series1.Points[0];
-                p1.AxisLabel = "70000";
-                p1.LegendText = "Hiren Khirsaria";
-                var p2 = series1.Points[1];
-                p2.AxisLabel = "30000";
-                p2.LegendText = "ABC XYZ";
-                _pieChart.Invalidate();
+                likeMeTheMostChart.Series.Add(series);
 
-                IPostService postService = new PostService();
-                List<PostModel> userPosts = await postService.GetUserPostsAsync(r_LoginService.LoggedInUser);
+                int i = 0;
+                Random rnd = new Random();
+                foreach (KeyValuePair<string, int> userLikesPhoto in userLikesPhotos.OrderByDescending(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
+                {
+                    series.Points.Add(userLikesPhoto.Value);
+                    DataPoint dataPoint = series.Points[i];
+                    Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                    dataPoint.Color = randomColor;
+                    dataPoint.AxisLabel = userLikesPhoto.Key;
+                    dataPoint.LegendText = userLikesPhoto.Key;
+                    dataPoint.Label = userLikesPhoto.Value.ToString();
+                    i++;
+                }
+                likeMeTheMostChart.Invalidate();
 
-                contentPanel.Controls.Add(_pieChart);
+                ChartArea chartsArea2 = new ChartArea();
+                likeMeTheLeastChart.ChartAreas.Add(chartsArea2);
+                likeMeTheLeastChart.Dock = DockStyle.Bottom;
+
+                AutoScaleDimensions = new SizeF(6F, 13F);
+                AutoScaleMode = AutoScaleMode.Font;
+
+                Title likeMeTheLeastChartTitle = likeMeTheLeastChart.Titles.Add("Who Likes me the least!");
+                likeMeTheLeastChartTitle.Font = new Font("Arial", 16, FontStyle.Bold);
+
+                likeMeTheLeastChart.Series.Clear();
+                likeMeTheLeastChart.Palette = ChartColorPalette.Fire;
+                likeMeTheLeastChart.ChartAreas[0].BackColor = Color.Transparent;
+                likeMeTheLeastChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                likeMeTheLeastChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+                Series series2 = new Series
+                {
+                    IsVisibleInLegend = false,
+                    ChartType = AppAppConfigService.GetInstance().StateSettings.SelectedChartType
+                };
+                likeMeTheLeastChart.Series.Add(series2);
+
+                i = 0;
+                foreach (KeyValuePair<string, int> userLikesPhoto in userLikesPhotos.OrderBy(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
+                {
+                    series2.Points.Add(userLikesPhoto.Value);
+                    DataPoint dataPoint = series2.Points[i];
+                    Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                    dataPoint.Color = randomColor;
+                    dataPoint.AxisLabel = userLikesPhoto.Key;
+                    dataPoint.LegendText = userLikesPhoto.Key;
+                    dataPoint.Label = userLikesPhoto.Value.ToString();
+                    i++;
+                }
+                likeMeTheLeastChart.Invalidate();
+
+                ((ISupportInitialize)likeMeTheMostChart).EndInit();
+                ((ISupportInitialize)likeMeTheLeastChart).EndInit();
+
+                contentPanel.Controls.Add(likeMeTheMostChart);
+                contentPanel.Controls.Add(likeMeTheLeastChart);
+                this.ResumeLayout(false);
+
             }
             catch (Exception)
             {
@@ -503,12 +553,72 @@ namespace FacebookVip.UI
             }
         }
 
-        private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
             try
             {
                 contentSpinner.Visible = true;
-                await Task.Delay(5000);
+                resetContentPanel();
+
+                m_Panel = new TableLayoutPanel { ColumnCount = 2, AutoSize = true, AutoScroll = true };
+                m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
+  
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 50F));
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 20, FontStyle.Bold), Text = @"Stats", AutoSize = true }, 0, 0);
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Chart Type", AutoSize = true }, 1, 2);
+
+                FlowLayoutPanel pnl = new FlowLayoutPanel { Dock = DockStyle.Fill };
+                RadioButton columnChartRadioButton = new RadioButton
+                {
+                    Text = SeriesChartType.Column.ToString(),
+                    Checked = AppAppConfigService.GetInstance().StateSettings.SelectedChartType == SeriesChartType.Column
+                };
+                columnChartRadioButton.CheckedChanged += delegate
+                {
+                    AppAppConfigService.GetInstance().StateSettings.SelectedChartType = SeriesChartType.Column;
+                };
+                
+                RadioButton pieChartRadioButton = new RadioButton
+                {
+                    Text = SeriesChartType.Pie.ToString(),
+                    Checked = AppAppConfigService.GetInstance().StateSettings.SelectedChartType == SeriesChartType.Pie
+                };
+
+                pieChartRadioButton.CheckedChanged += delegate
+                {
+                    AppAppConfigService.GetInstance().StateSettings.SelectedChartType = SeriesChartType.Pie;
+                };
+     
+                pnl.Controls.Add(columnChartRadioButton);
+                pnl.Controls.Add(pieChartRadioButton);
+                m_Panel.Controls.Add(pnl, 1, 3);
+
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Number Of Friends To Consider", AutoSize = true }, 1,4);
+                TextBox numberOfFriendsTextBox = new TextBox{Text = AppAppConfigService.GetInstance().StateSettings.NumberOfFriend.ToString()};
+                numberOfFriendsTextBox.TextChanged += delegate
+                {
+                    int value;
+                    if(int.TryParse(numberOfFriendsTextBox.Text, out value))
+                    {
+                        AppAppConfigService.GetInstance().StateSettings.NumberOfFriend = value;
+                    }                      
+                };
+                numberOfFriendsTextBox.KeyPress += delegate (object i_S, KeyPressEventArgs i_E)
+                {
+                    char ch = i_E.KeyChar;
+                    if(!((ch >= '0') && (ch <= '9')) && ch!=8 && ch!= 46)
+                    {
+                        i_E.Handled = true;
+                    }
+                };
+                m_Panel.Controls.Add(numberOfFriendsTextBox, 1, 5);
+
+                //m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Collect Data From", AutoSize = true }, 0, 2);           
+
+
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
 
             }
             catch (Exception)
@@ -526,9 +636,9 @@ namespace FacebookVip.UI
             base.OnShown(i_EventArgs);
 
             AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            this.Top = appAppConfig.WindowPosition.X;
-            this.Left = appAppConfig.WindowPosition.Y;
-
+            Top = appAppConfig.WindowPosition.X;
+            Left = appAppConfig.WindowPosition.Y;
+  
             try
             {
                 if(!string.IsNullOrEmpty(appAppConfig.LastAccessTocken))
@@ -545,6 +655,17 @@ namespace FacebookVip.UI
             {
                 MessageBox.Show(@"Failed to connect with currnt Token, please try again.", @"Facebook Connect Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+        }
+
+        private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
+        {
+            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
+            appAppConfig.StayLogedIn = StayLoggedInLabel.Checked;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 
@@ -566,17 +687,6 @@ namespace FacebookVip.UI
             }
 
             base.Dispose(i_Disposing);
-        }
-
-        private void stayLogedInCheckedChanged(object i_Sender, EventArgs i_EventArgs)
-        {
-            AppAppConfigService appAppConfig = AppAppConfigService.GetInstance();
-            appAppConfig.StayLogedIn = StayLoggedInLabel.Checked;
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
