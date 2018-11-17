@@ -18,5 +18,16 @@ namespace FacebookVip.Logic.Extensions
                    orderby propertyOrder
                    select new KeyValuePair<string, string>(propertyDisplayValue, propertyValue.ToString());
         }
+
+        public static string GetPropertyForDisplay(this object i_Obj)
+        {
+            MemberInfo[] memInfo = i_Obj?.GetType().GetMember(i_Obj.ToString());
+            object[] attributes = memInfo?[0]?.GetCustomAttributes(typeof(DisplayAttribute), false);
+            if(attributes != null)
+            {
+                return ((DisplayAttribute)attributes[0])?.Name;
+            }
+            return string.Empty;
+        }
     }
 }

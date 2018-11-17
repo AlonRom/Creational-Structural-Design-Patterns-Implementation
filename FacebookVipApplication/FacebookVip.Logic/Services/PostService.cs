@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
-using FacebookVip.Model;
+using FacebookVip.Model.Models;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.Logic.Services

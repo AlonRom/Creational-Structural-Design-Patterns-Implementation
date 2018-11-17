@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
-using FacebookVip.Model;
+using FacebookVip.Model.Models;
 
 namespace FacebookVip.UI.FormControls
 {

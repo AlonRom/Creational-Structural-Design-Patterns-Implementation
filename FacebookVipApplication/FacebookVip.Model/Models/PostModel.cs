@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
-namespace FacebookVip.Model
+namespace FacebookVip.Model.Models
 {
     public class PostModel
     {

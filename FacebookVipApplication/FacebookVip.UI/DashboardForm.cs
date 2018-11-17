@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FacebookVip.Logic.Extensions;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
-using FacebookVip.Model;
+using FacebookVip.Model.Enums;
+using FacebookVip.Model.Models;
 using FacebookVip.UI.FormControls;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
@@ -446,14 +449,41 @@ namespace FacebookVip.UI
                 m_Panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true };
 
                 ILikeService likeService = new LikesService(r_LoginService);
-                ObservableCollection<PostedItem> items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.PhotosTaggedIn);
-                Dictionary<string, int> userLikesPhotos = await likeService.GetLikesHistogram(items);
 
-                //items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Posts);
-                //Dictionary<string, int> userLikesPosts = await likeService.GetLikesHistogram(items);
+                // get data as defined in settings
+                List<Task> getDataTasks = new List<Task>();
+                Dictionary<string, int> allPostemItemsLikes = new Dictionary<string, int>();
+                foreach(KeyValuePair<eLikedItem, bool> keyValuePair in AppAppConfigService.GetInstance().StateSettings.LikedItems.Where(i_Item => i_Item.Value))
+                {
+                    Task getDataTask = Task.Run(async () =>
+                    {
+                        PropertyInfo propertyInfo = r_LoginService.LoggedInUser.GetType().GetProperty(keyValuePair.Key.ToString());
+                        if (propertyInfo != null)
+                        {
+                            try
+                            {
+                                object prop = propertyInfo.GetValue(r_LoginService.LoggedInUser, null);
+                                IEnumerable collectionOfUnknownType = (IEnumerable)prop;
+                                ObservableCollection<PostedItem> currentPostedItems = new ObservableCollection<PostedItem>();
+                                foreach (PostedItem o in collectionOfUnknownType)
+                                {
+                                    currentPostedItems.Add(o);
+                                }
 
-                //items = new ObservableCollection<PostedItem>(r_LoginService.LoggedInUser.Albums);
-                //Dictionary<string, int> userLikesAlbums = await likeService.GetLikesHistogram(items);
+                                Dictionary<string, int> currenLikes = await likeService.GetLikesHistogram(currentPostedItems).ConfigureAwait(false);
+                                allPostemItemsLikes.AddRange<string, int>(currenLikes);
+
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+                    });
+                    getDataTasks.Add(getDataTask);
+                }
+
+                await Task.WhenAll(getDataTasks);
 
                 Chart likeMeTheMostChart = new Chart();
                 Chart likeMeTheLeastChart = new Chart();
@@ -486,7 +516,7 @@ namespace FacebookVip.UI
 
                 int i = 0;
                 Random rnd = new Random();
-                foreach (KeyValuePair<string, int> userLikesPhoto in userLikesPhotos.OrderByDescending(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
+                foreach (KeyValuePair<string, int> userLikesPhoto in allPostemItemsLikes.OrderByDescending(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
                 {
                     series.Points.Add(userLikesPhoto.Value);
                     DataPoint dataPoint = series.Points[i];
@@ -522,7 +552,7 @@ namespace FacebookVip.UI
                 likeMeTheLeastChart.Series.Add(series2);
 
                 i = 0;
-                foreach (KeyValuePair<string, int> userLikesPhoto in userLikesPhotos.OrderBy(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
+                foreach (KeyValuePair<string, int> userLikesPhoto in allPostemItemsLikes.OrderBy(i_L => i_L.Value).Take(AppAppConfigService.GetInstance().StateSettings.NumberOfFriend))
                 {
                     series2.Points.Add(userLikesPhoto.Value);
                     DataPoint dataPoint = series2.Points[i];
@@ -561,13 +591,16 @@ namespace FacebookVip.UI
                 resetContentPanel();
 
                 m_Panel = new TableLayoutPanel { ColumnCount = 2, AutoSize = true, AutoScroll = true };
-                m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 40F));
-  
-                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 50F));
-                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 20, FontStyle.Bold), Text = @"Stats", AutoSize = true }, 0, 0);
-                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Chart Type", AutoSize = true }, 1, 2);
+                m_Panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
 
-                FlowLayoutPanel pnl = new FlowLayoutPanel { Dock = DockStyle.Fill };
+                int currentRow = 0;
+  
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 30F));
+                m_Panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 60F));
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 20, FontStyle.Bold), Text = @"Stats", AutoSize = true, Padding = new Padding(0, 7, 7, 7) }, 0, currentRow);
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Chart Type:", AutoSize = true, Padding = new Padding(5) }, 0, ++currentRow);
+
+                FlowLayoutPanel chartTypePanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true};
                 RadioButton columnChartRadioButton = new RadioButton
                 {
                     Text = SeriesChartType.Column.ToString(),
@@ -588,12 +621,13 @@ namespace FacebookVip.UI
                 {
                     AppAppConfigService.GetInstance().StateSettings.SelectedChartType = SeriesChartType.Pie;
                 };
-     
-                pnl.Controls.Add(columnChartRadioButton);
-                pnl.Controls.Add(pieChartRadioButton);
-                m_Panel.Controls.Add(pnl, 1, 3);
 
-                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Number Of Friends To Consider", AutoSize = true }, 1,4);
+                chartTypePanel.Controls.Add(columnChartRadioButton);
+                chartTypePanel.Controls.Add(pieChartRadioButton);
+                m_Panel.Controls.Add(chartTypePanel, 1, currentRow);
+
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Number Of Friends To Consider:", AutoSize = true, Padding = new Padding(5, 5, 5, 15) }, 0, ++currentRow);
+
                 TextBox numberOfFriendsTextBox = new TextBox{Text = AppAppConfigService.GetInstance().StateSettings.NumberOfFriend.ToString()};
                 numberOfFriendsTextBox.TextChanged += delegate
                 {
@@ -606,15 +640,25 @@ namespace FacebookVip.UI
                 numberOfFriendsTextBox.KeyPress += delegate (object i_S, KeyPressEventArgs i_E)
                 {
                     char ch = i_E.KeyChar;
-                    if(!((ch >= '0') && (ch <= '9')) && ch!=8 && ch!= 46)
+                    if(!ch.IsDigid())
                     {
                         i_E.Handled = true;
                     }
                 };
-                m_Panel.Controls.Add(numberOfFriendsTextBox, 1, 5);
+                m_Panel.Controls.Add(numberOfFriendsTextBox, 1, currentRow);
 
-                //m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Collect Data From", AutoSize = true }, 0, 2);           
-
+                m_Panel.Controls.Add(new Label { Font = new Font("Arial", 12), Text = @"Collect Data From:", AutoSize = true, Padding = new Padding(5) }, 0, ++currentRow);
+                FlowLayoutPanel likedItemsPanel = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true };
+                foreach (eLikedItem likedItem in Enum.GetValues(typeof(eLikedItem)))
+                {
+                    CheckBox checkBox = new CheckBox { Text = likedItem.GetPropertyForDisplay(), Checked = AppAppConfigService.GetInstance().StateSettings.LikedItems[likedItem] };
+                    checkBox.CheckedChanged += delegate (object i_S, EventArgs i_E)
+                    {
+                        AppAppConfigService.GetInstance().StateSettings.LikedItems[likedItem] = ((CheckBox)i_S).Checked;
+                    };
+                    likedItemsPanel.Controls.Add(checkBox);
+                }
+                m_Panel.Controls.Add(likedItemsPanel, 1, currentRow);
 
                 m_Panel.Padding = new Padding(10);
                 m_Panel.Dock = DockStyle.Fill;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using FacebookWrapper.ObjectModel;
 
-namespace FacebookVip.Model
+namespace FacebookVip.Model.Models
 {
     public class ProfileModel
     {

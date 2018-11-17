@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FacebookVip.Model
+namespace FacebookVip.Model.Models
 {
     public class FriendModel 
     {

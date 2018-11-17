@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using FacebookVip.Model;
+using FacebookVip.Model.Models;
 
 namespace FacebookVip.Logic.Services
 {

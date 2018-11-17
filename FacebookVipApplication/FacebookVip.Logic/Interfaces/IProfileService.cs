@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using FacebookVip.Model;
+using FacebookVip.Model.Models;
 
 namespace FacebookVip.Logic.Interfaces
 {

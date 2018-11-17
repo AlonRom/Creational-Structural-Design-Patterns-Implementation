@@ -41,6 +41,7 @@
       <HintPath>..\FacebookVip.API\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Globalization" />
     <Reference Include="System.Runtime" />
@@ -56,7 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartsHelper.cs" />
+    <Compile Include="Utils\AppUtil.cs" />
+    <Compile Include="Utils\ChartsUtil.cs" />
     <Compile Include="DashboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
