@@ -38,11 +38,11 @@ namespace FacebookVip.UI.FormControls
 
                     if (isImageUrl)
                     {
-                        panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value }, k_ImageColumnIndex, tempRowIndex);
+                        panel.Controls.Add(new PictureBox { ImageLocation = propertyForDisplay.Value, AutoSize = true }, k_ImageColumnIndex, tempRowIndex);
                     }
                     else
                     {
-                        panel.Controls.Add(new Label { Font = new Font(AppUtil.sr_FontFamily, AppConfigService.GetInstance().LabelFontSize), Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
+                        panel.Controls.Add(new Label { Font = new Font(AppUtil.sr_FontFamily, AppConfigService.GetInstance().LabelFontSize), AutoSize = true, Text = propertyForDisplay.Value }, k_DetailsColumnIndex, tempRowIndex);
                     }
                 }
                 tempRowIndex++;
