@@ -58,7 +58,7 @@ namespace FacebookVip.Logic.Services
                     //"user_about_me",
                     "user_friends",
                     //"publish_actions",
-                    //"user_events",
+                    "user_events",
                     //"user_games_activity",
                     //"user_groups" (This permission is only available for apps using Graph API version v2.3 or older.)
                     "user_hometown",
@@ -96,7 +96,7 @@ namespace FacebookVip.Logic.Services
 
             #endregion
 
-            if (appConfig.StayLogedIn == true)
+            if (appConfig.StayLogedIn)
             {
                 appConfig.LastAccessTocken = loginParams.AccessToken;
             }

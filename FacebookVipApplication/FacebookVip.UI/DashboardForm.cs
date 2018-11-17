@@ -198,6 +198,9 @@ namespace FacebookVip.UI
             try
             {
                 m_Panel = await i_LayoutPanel.GetLayoutAsync(r_LoginService.LoggedInUser);
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
             }
             catch (Exception)
             {
@@ -207,9 +210,6 @@ namespace FacebookVip.UI
             {
                 contentSpinner.Visible = false;
             }
-            m_Panel.Padding = new Padding(10);
-            m_Panel.Dock = DockStyle.Fill;
-            contentPanel.Controls.Add(m_Panel);
         }
 
         private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
@@ -219,20 +219,7 @@ namespace FacebookVip.UI
         
         private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            try
-            {
-                contentSpinner.Visible = true;
-                await Task.Delay(5000);
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(@"Failed to retrive data, please try again.", @"Fetch Data Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                contentSpinner.Visible = false;
-            }
+            await updatePanelAsync(new EventLayoutPanel());
         }
 
         private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
