@@ -108,7 +108,6 @@ namespace FacebookVip.UI.FormControls
         }
         */
 
-        private Object funcLock = new Object();
         private async void personSelectedAsync(object i_Sender, EventArgs i_EventArgs)
         {
             Cursor.Current = Cursors.WaitCursor;
