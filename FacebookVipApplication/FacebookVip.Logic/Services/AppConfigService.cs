@@ -11,19 +11,21 @@ namespace FacebookVip.Logic.Services
         private static AppConfigService AppConf { get; set; }
 
         public Point WindowPosition { get; set; }
+        public int WindowWidth { get; set; }
+        public int WindowHeight { get; set; }
         public bool StayLogedIn { get; set; }
         public string LastAccessTocken { get; set; }
 
         public StateSettings StateSettings { get; set; }
-
         public int LabelFontSize { get; set; } = 12;
-
         public int TitleFontSize { get; set; } = 20;
 
         private AppConfigService()
         {
             // Load from file
             StayLogedIn = true;
+            WindowWidth = 1038;
+            WindowHeight = 730;
         }
 
         // Add some word here to spesify it's a singelton ?

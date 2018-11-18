@@ -256,7 +256,9 @@ namespace FacebookVip.UI
             AppConfigService appConfig = AppConfigService.GetInstance();
             Top = appConfig.WindowPosition.X;
             Left = appConfig.WindowPosition.Y;
-  
+            Height = appConfig.WindowHeight;
+            Width = appConfig.WindowWidth;
+
             try
             {
                 if(!string.IsNullOrEmpty(appConfig.LastAccessTocken))
@@ -286,7 +288,8 @@ namespace FacebookVip.UI
             base.OnClosing(i_EventArgs);
             AppConfigService appConfig = AppConfigService.GetInstance();
             appConfig.WindowPosition = new Point(this.Top, this.Left);
-
+            appConfig.WindowWidth = this.Width;
+            appConfig.WindowHeight = this.Height;
             AppConfigService.SaveToFile();
         }
 
