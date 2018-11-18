@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -15,6 +13,7 @@ using FacebookVip.Logic.Services;
 using FacebookVip.Model.Enums;
 using FacebookVip.Model.Models;
 using FacebookVip.UI.Properties;
+using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
 namespace FacebookVip.UI.FormControls
@@ -66,96 +65,12 @@ namespace FacebookVip.UI.FormControls
 
             await Task.WhenAll(getDataTasks);
 
-            Chart likeMeTheMostChart = new Chart();
-            Chart likeMeTheLeastChart = new Chart();
-            ((ISupportInitialize)likeMeTheMostChart).BeginInit();
-            ((ISupportInitialize)likeMeTheLeastChart).BeginInit();
-
-            ChartArea chartsArea = new ChartArea();
-            likeMeTheMostChart.ChartAreas.Add(chartsArea);
-            likeMeTheMostChart.Dock = DockStyle.Top;
-
-            if(appConfigServiceStateSettings.SelectedChartType == SeriesChartType.Pie)
-            {
-                Legend likeMeTheMostLegend = new Legend { BackColor = Color.White, ForeColor = Color.Black};
-                Legend likeMeTheLeastLegend = new Legend { BackColor = Color.White, ForeColor = Color.Black };
-
-                likeMeTheMostChart.Legends.Add(likeMeTheMostLegend);
-                likeMeTheLeastChart.Legends.Add(likeMeTheLeastLegend);
-            }
-
-            Title title = likeMeTheMostChart.Titles.Add("Who Likes me the most!");
-            title.Font = new Font("Arial", 16, FontStyle.Bold);
-            title.Alignment = ContentAlignment.TopCenter;
-
-            likeMeTheMostChart.Series.Clear();
-            likeMeTheMostChart.Palette = ChartColorPalette.Fire;
-            likeMeTheMostChart.ChartAreas[0].BackColor = Color.Transparent;
-            likeMeTheMostChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            likeMeTheMostChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            Series series = new Series
-                                {
-                                    IsVisibleInLegend = true,
-                                    ChartType = appConfigServiceStateSettings.SelectedChartType
-                                };
-            likeMeTheMostChart.Series.Add(series);
-
-            int i = 0;
-            Random rnd = new Random();
-            foreach(
-                KeyValuePair<string, int> userLikesPhoto in
-                allPostemItemsLikes.OrderByDescending(i_L => i_L.Value)
-                    .Take(appConfigServiceStateSettings.NumberOfFriend))
-            {
-                series.Points.Add(userLikesPhoto.Value);
-                DataPoint dataPoint = series.Points[i];
-                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-                dataPoint.Color = randomColor;
-                dataPoint.AxisLabel = userLikesPhoto.Key;
-                dataPoint.LegendText = userLikesPhoto.Key;
-                dataPoint.Label = userLikesPhoto.Value.ToString();
-                i++;
-            }
-            likeMeTheMostChart.Invalidate();
-
-            ChartArea chartsArea2 = new ChartArea();
-            likeMeTheLeastChart.ChartAreas.Add(chartsArea2);
-            likeMeTheLeastChart.Dock = DockStyle.Bottom;
-
-            Title likeMeTheLeastChartTitle = likeMeTheLeastChart.Titles.Add("Who Likes me the least!");
-            likeMeTheLeastChartTitle.Font = new Font("Arial", 16, FontStyle.Bold);
-            title.Alignment = ContentAlignment.TopCenter;
-
-            likeMeTheLeastChart.Series.Clear();
-            likeMeTheLeastChart.Palette = ChartColorPalette.Fire;
-            likeMeTheLeastChart.ChartAreas[0].BackColor = Color.Transparent;
-            likeMeTheLeastChart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            likeMeTheLeastChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            Series series2 = new Series
-                                 {
-                                     IsVisibleInLegend = true,
-                                     ChartType = appConfigServiceStateSettings.SelectedChartType
-                                 };
-            likeMeTheLeastChart.Series.Add(series2);
-
-            i = 0;
-            foreach(KeyValuePair<string, int> userLikesPhoto in allPostemItemsLikes.OrderBy(i_L => i_L.Value)
-                                                            .Take(appConfigServiceStateSettings.NumberOfFriend))
-            {
-                series2.Points.Add(userLikesPhoto.Value);
-                DataPoint dataPoint = series2.Points[i];
-                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-                dataPoint.Color = randomColor;
-                dataPoint.AxisLabel = userLikesPhoto.Key;
-                dataPoint.LegendText = userLikesPhoto.Key;
-                dataPoint.Label = userLikesPhoto.Value.ToString();
-                i++;
-            }
-
-            likeMeTheLeastChart.Invalidate();
-
-            ((ISupportInitialize)likeMeTheMostChart).EndInit();
-            ((ISupportInitialize)likeMeTheLeastChart).EndInit();
+            Chart likeMeTheMostChart = ChartsUtil.CreateChart("Who Likes me the most!", DockStyle.Top, 
+                                                                allPostemItemsLikes.OrderByDescending(i_L => i_L.Value).
+                                                                Take(appConfigServiceStateSettings.NumberOfFriend));
+            Chart likeMeTheLeastChart = ChartsUtil.CreateChart("Who Likes me the least!", DockStyle.Bottom, 
+                                                                allPostemItemsLikes.OrderBy(i_L => i_L.Value).
+                                                                Take(appConfigServiceStateSettings.NumberOfFriend));
 
             panel.Controls.Add(likeMeTheMostChart, 0, 0);
             panel.Controls.Add(likeMeTheLeastChart, 0, 1);
