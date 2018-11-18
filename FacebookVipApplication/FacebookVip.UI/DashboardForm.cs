@@ -58,9 +58,9 @@ namespace FacebookVip.UI
         private void centerControlInParent(Control i_Control)
         {
             i_Control.Location = new Point(
-                                   i_Control.Parent.ClientSize.Width/2 - i_Control.Width/2,
-                                   i_Control.Parent.ClientSize.Height/2 - i_Control.Height/2);
-
+                (Width  - i_Control.Size.Width - profileButton.Size.Width) / 2,
+                (Height  - i_Control.Size.Height ) /2 - customHeaderPictureBox.Size.Height
+            );
             i_Control.BringToFront();
             i_Control.Refresh();
         }
