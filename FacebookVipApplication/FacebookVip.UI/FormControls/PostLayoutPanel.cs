@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Interfaces;
@@ -17,6 +18,7 @@ namespace FacebookVip.UI.FormControls
 
         private int m_NumSelectedItems;
         private int m_RowIndex;
+        private System.Windows.Forms.PictureBox Spinner;
 
         public PostLayoutPanel()
         {
@@ -25,14 +27,14 @@ namespace FacebookVip.UI.FormControls
             m_PostsPanel = new TableLayoutPanel {
                 ColumnCount = 1,
                 AutoScroll = true,
-                AutoSize = true,
+                Height = 300,
+                Width = 350,
                 Dock = DockStyle.Fill
             };
 
             m_Panel = new TableLayoutPanel
             {
                 ColumnCount = 1,
-                AutoScroll = true,
                 AutoSize = true,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
                 Padding = new Padding(20, 0, 20, 0),
@@ -44,7 +46,8 @@ namespace FacebookVip.UI.FormControls
         public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
         {            
             IPostService postService = new PostService();
-            List<PostModel> userPosts = await postService.GetUserPostsAsync(i_LoggedInUser);
+            Label commentLabel = new Label { Text = "* Select Friend whose POSTs you like to see - using Ctrl button", AutoSize = true };
+           
 
             UsersListBox.SelectionMode = SelectionMode.MultiExtended;
             UsersListBox.Width = 150;
@@ -56,18 +59,20 @@ namespace FacebookVip.UI.FormControls
                 //var posts = user.Posts;
                 UsersListBox.Items.Add(user);
             }
+            m_Panel.Controls.Add(commentLabel);
             m_Panel.Controls.Add(UsersListBox);
             UsersListBox.SelectedIndexChanged += personSelectedAsync;
 
-
-            //addUsersPosts(userPosts);
-            //UsersListBox.SelectedIndex=0;
-            //personSelectedAsync(null, null);
-            m_Panel.Controls.Add(m_PostsPanel,0,1);
+            List<PostModel> userPosts = await postService.GetUserPostsAsync(i_LoggedInUser);
+            addUsersPosts(userPosts);
+            UsersListBox.SelectedIndex=0;
+            personSelectedAsync(null, null);
+            m_Panel.Controls.Add(m_PostsPanel);
 
             return m_Panel;
         }
 
+        
         private void addUsersPosts(List<PostModel> userPosts)
         {
             foreach (PostModel post in userPosts)
@@ -103,8 +108,11 @@ namespace FacebookVip.UI.FormControls
         }
         */
 
+        private Object funcLock = new Object();
         private async void personSelectedAsync(object i_Sender, EventArgs i_EventArgs)
         {
+            Cursor.Current = Cursors.WaitCursor;
+            UsersListBox.SelectedIndexChanged -= personSelectedAsync;
             PostService postService = new PostService();
 
             m_PostsPanel.Controls.Clear();
@@ -116,6 +124,8 @@ namespace FacebookVip.UI.FormControls
 
                 addUsersPosts(userPosts);
             }
+            UsersListBox.SelectedIndexChanged += personSelectedAsync;
+            Cursor.Current = Cursors.Arrow;
         }
     }
 
