@@ -9,6 +9,7 @@ using FacebookVip.Logic.Services;
 using FacebookVip.UI.FormControls;
 using FacebookVip.UI.Properties;
 using FacebookWrapper;
+using static FacebookVip.UI.FormControls.LayoutPanelFactory;
 
 namespace FacebookVip.UI
 {
@@ -190,48 +191,49 @@ namespace FacebookVip.UI
 
         private async void profileButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new ProfileLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.ProfileLayoutPanel);
         }
 
         private async void friendsButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new FriendLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.FriendLayoutPanel);
         }
 
         private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new PostLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.PostsLayoutPanel);
         }
         
         private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new EventLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.EventLayoutPanel);
         }
 
         private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new LikesLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.LikesLayoutPanel);
         }
 
         private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new CheckinLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.CheckinLayoutPanel);
         }
 
         private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new StatsLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.StatsLayoutPanel);
         }
 
         private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(new SettingsLayoutPanel());
+            await updatePanelAsync(LayoutPanelType.SettingsLayoutPanel);
         }
 
-        private async Task updatePanelAsync(ILayoutPanel i_LayoutPanel)
+        private async Task updatePanelAsync(LayoutPanelType i_LayoutType)
         {
             contentSpinner.Visible = true;
             resetContentPanel();
+            ILayoutPanel i_LayoutPanel = LayoutPanelFactory.GetLayoutPanel(i_LayoutType);
             try
             {
                 m_Panel = await i_LayoutPanel.GetLayoutAsync(r_LoginService.LoggedInUser);
@@ -275,11 +277,6 @@ namespace FacebookVip.UI
             {
                 MessageBox.Show(Resources.ConnectWithTokenErrorMessage, Resources.FacebookConnectionErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
 
