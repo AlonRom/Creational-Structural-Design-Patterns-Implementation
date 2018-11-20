@@ -111,7 +111,7 @@ namespace FacebookVip.UI.FormControls
         private async void personSelectedAsync(object i_Sender, EventArgs i_EventArgs)
         {
             Cursor.Current = Cursors.WaitCursor;
-            UsersListBox.SelectedIndexChanged -= personSelectedAsync;
+            UsersListBox.Enabled = false;
             PostService postService = new PostService();
 
             m_PostsPanel.Controls.Clear();
@@ -123,7 +123,7 @@ namespace FacebookVip.UI.FormControls
 
                 addUsersPosts(userPosts);
             }
-            UsersListBox.SelectedIndexChanged += personSelectedAsync;
+            UsersListBox.Enabled = true;
             Cursor.Current = Cursors.Arrow;
         }
     }
