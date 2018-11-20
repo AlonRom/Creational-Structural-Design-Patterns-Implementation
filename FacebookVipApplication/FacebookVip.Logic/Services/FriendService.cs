@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FacebookVip.Logic.Interfaces;
@@ -21,6 +22,15 @@ namespace FacebookVip.Logic.Services
                             ProfileImageUrl = i_Friend.PictureNormalURL
                         }).ToList();
                   });
+        }
+
+        public Task<FacebookObjectCollection<User>> GetFriendsAsync(User i_User)
+        {
+            return Task.Run(() =>
+            {
+                FacebookObjectCollection<User> usersList = i_User.Friends;
+                return usersList;
+            });
         }
     }
 }

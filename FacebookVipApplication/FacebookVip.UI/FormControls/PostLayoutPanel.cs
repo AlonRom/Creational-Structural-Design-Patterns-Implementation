@@ -23,7 +23,13 @@ namespace FacebookVip.UI.FormControls
         public PostLayoutPanel()
         {
             m_NumSelectedItems = 0;
-            UsersListBox = new ListBox();
+            UsersListBox = new ListBox
+            {
+                SelectionMode = SelectionMode.MultiExtended,
+                Width = 150,
+                Margin = new Padding(50, 20, 20, 20)
+            };
+
             m_PostsPanel = new TableLayoutPanel {
                 ColumnCount = 1,
                 AutoScroll = true,
@@ -44,27 +50,20 @@ namespace FacebookVip.UI.FormControls
         }
 
         public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
-        {            
-            IPostService postService = new PostService();
+        {
+            IFriendService friendsService = new FriendService();
+            var friendsList = await friendsService.GetFriendsAsync(i_LoggedInUser);
             Label commentLabel = new Label { Text = "* Select Friend whose POSTs you like to see - using Ctrl button", AutoSize = true };
-           
-
-            UsersListBox.SelectionMode = SelectionMode.MultiExtended;
-            UsersListBox.Width = 150;
-            UsersListBox.Margin = new Padding(50, 20, 20, 20);
-
+            
             UsersListBox.Items.Add(i_LoggedInUser);
             foreach (var user in i_LoggedInUser.Friends)
             {
-                //var posts = user.Posts;
                 UsersListBox.Items.Add(user);
             }
             m_Panel.Controls.Add(commentLabel);
             m_Panel.Controls.Add(UsersListBox);
             UsersListBox.SelectedIndexChanged += personSelectedAsync;
 
-            List<PostModel> userPosts = await postService.GetUserPostsAsync(i_LoggedInUser);
-            addUsersPosts(userPosts);
             UsersListBox.SelectedIndex=0;
             personSelectedAsync(null, null);
             m_Panel.Controls.Add(m_PostsPanel);
