@@ -191,45 +191,45 @@ namespace FacebookVip.UI
 
         private async void profileButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.ProfileLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.ProfileLayoutPanel);
         }
 
         private async void friendsButtonClickAsync(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.FriendLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.FriendLayoutPanel);
         }
 
         private async void postsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.PostsLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.PostsLayoutPanel);
         }
         
         private async void eventsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.EventLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.EventLayoutPanel);
         }
 
         private async void likesButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.LikesLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.LikesLayoutPanel);
         }
 
         private async void checkinsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.CheckinLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.CheckinLayoutPanel);
         }
 
         private async void statsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.StatsLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.StatsLayoutPanel);
         }
 
         private async void settingsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {
-            await updatePanelAsync(LayoutPanelType.SettingsLayoutPanel);
+            await updatePanelAsync(eLayoutPanelType.SettingsLayoutPanel);
         }
 
-        private async Task updatePanelAsync(LayoutPanelType i_LayoutType)
+        private async Task updatePanelAsync(eLayoutPanelType i_LayoutType)
         {
             contentSpinner.Visible = true;
             resetContentPanel();

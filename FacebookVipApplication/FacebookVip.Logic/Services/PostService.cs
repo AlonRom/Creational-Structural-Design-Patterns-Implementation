@@ -26,21 +26,20 @@ namespace FacebookVip.Logic.Services
             });
         }
 
-        private static int postID { get; set; }
+        private static int PostId { get; set; }
         public List<PostModel> GetUserPostsMockData(User i_User)
         {
             var postsList = new List<PostModel>();
             var rnd = new Random();
-            rnd.Next(0, 50);
 
             for (int i = 0; i < rnd.Next(1,5); i++)
             {
                 postsList.Add(new PostModel
                 {
-                    Id = "" + postID++,
+                    Id = "" + PostId++,
                     UserName = i_User.Name,
                     UserImg = i_User.ImageSmall,
-                    Details = "Mock Post " + postID, //getPostDetails(i_Post),
+                    Details = "Mock Post " + PostId, //getPostDetails(i_Post),
                     UpdateTime = DateTime.Now
                 });
             }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FacebookVip.UI.FormControls
+﻿namespace FacebookVip.UI.FormControls
 {
-    class LayoutPanelFactory
+    static class LayoutPanelFactory
     {
-        public enum LayoutPanelType
+        public enum eLayoutPanelType
         {
             CheckinLayoutPanel,
             EventLayoutPanel,
@@ -20,24 +14,24 @@ namespace FacebookVip.UI.FormControls
             PostsLayoutPanel
         }
 
-        public static ILayoutPanel GetLayoutPanel(LayoutPanelType i_LayoutPanelType) {
+        public static ILayoutPanel GetLayoutPanel(eLayoutPanelType i_LayoutPanelType) {
             
             switch (i_LayoutPanelType) {
-                case LayoutPanelType.CheckinLayoutPanel:
+                case eLayoutPanelType.CheckinLayoutPanel:
                     return new CheckinLayoutPanel();
-                case LayoutPanelType.EventLayoutPanel:
+                case eLayoutPanelType.EventLayoutPanel:
                     return new EventLayoutPanel();
-                case LayoutPanelType.FriendLayoutPanel:
+                case eLayoutPanelType.FriendLayoutPanel:
                     return new FriendLayoutPanel();
-                case LayoutPanelType.LikesLayoutPanel:
+                case eLayoutPanelType.LikesLayoutPanel:
                     return new LikesLayoutPanel();
-                case LayoutPanelType.ProfileLayoutPanel:
+                case eLayoutPanelType.ProfileLayoutPanel:
                     return new ProfileLayoutPanel();
-                case LayoutPanelType.SettingsLayoutPanel:
+                case eLayoutPanelType.SettingsLayoutPanel:
                     return new SettingsLayoutPanel();
-                case LayoutPanelType.StatsLayoutPanel:
+                case eLayoutPanelType.StatsLayoutPanel:
                     return new StatsLayoutPanel();
-                case LayoutPanelType.PostsLayoutPanel:
+                case eLayoutPanelType.PostsLayoutPanel:
                     return new PostLayoutPanel();
                 default:
                     return null;

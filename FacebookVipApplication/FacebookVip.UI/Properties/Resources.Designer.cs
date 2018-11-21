@@ -297,6 +297,15 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to * Select Friend whose POSTs you like to see - using Ctrl button.
+        /// </summary>
+        internal static string SelectFriendWhosePOSTsYouLikeToSee {
+            get {
+                return ResourceManager.GetString("SelectFriendWhosePOSTsYouLikeToSee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap settings {

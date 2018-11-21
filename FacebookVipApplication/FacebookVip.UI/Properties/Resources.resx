@@ -208,4 +208,7 @@
   <data name="TitleFontSizeTitle" xml:space="preserve">
     <value>Title Font Size</value>
   </data>
+  <data name="SelectFriendWhosePOSTsYouLikeToSee" xml:space="preserve">
+    <value>* Select Friend whose POSTs you like to see - using Ctrl button</value>
+  </data>
 </root>
