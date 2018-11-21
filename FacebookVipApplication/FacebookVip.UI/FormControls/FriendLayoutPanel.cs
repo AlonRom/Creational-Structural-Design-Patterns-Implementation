@@ -14,7 +14,7 @@ namespace FacebookVip.UI.FormControls
 {
     internal class FriendLayoutPanel : ILayoutPanel
     {
-        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             IFriendService friendService = new FriendService();
             List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(i_LoggedInUser);

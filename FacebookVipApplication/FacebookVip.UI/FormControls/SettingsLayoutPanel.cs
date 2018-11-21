@@ -14,7 +14,7 @@ namespace FacebookVip.UI.FormControls
 {
     internal class SettingsLayoutPanel : ILayoutPanel
     {
-        public Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             return Task.Run(() =>
             {

@@ -14,7 +14,7 @@ namespace FacebookVip.UI.FormControls
     {
         private readonly AppConfigService r_AppConfigService = AppConfigService.GetInstance();
 
-        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             ILikeService likeService = new LikesService(i_LoggedInUser);
             ObservableCollection<PostedItem> items = new ObservableCollection<PostedItem>(i_LoggedInUser.PhotosTaggedIn);

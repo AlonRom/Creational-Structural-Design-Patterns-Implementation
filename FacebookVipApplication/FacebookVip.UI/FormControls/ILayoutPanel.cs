@@ -6,6 +6,6 @@ namespace FacebookVip.UI.FormControls
 {
     public interface ILayoutPanel
     {
-        Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser);
+        Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser);
     }
 }

@@ -233,10 +233,10 @@ namespace FacebookVip.UI
         {
             contentSpinner.Visible = true;
             resetContentPanel();
-            ILayoutPanel i_LayoutPanel = LayoutPanelFactory.GetLayoutPanel(i_LayoutType);
+            ILayoutPanel layout = LayoutPanelFactory.CreateLayout(i_LayoutType);
             try
             {
-                m_Panel = await i_LayoutPanel.GetLayoutAsync(r_LoginService.LoggedInUser);
+                m_Panel = await layout.GetLayoutPanelAsync(r_LoginService.LoggedInUser);
                 m_Panel.Padding = new Padding(10);
                 m_Panel.Dock = DockStyle.Fill;
                 contentPanel.Controls.Add(m_Panel);

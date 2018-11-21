@@ -14,8 +14,8 @@
             PostsLayoutPanel
         }
 
-        public static ILayoutPanel GetLayoutPanel(eLayoutPanelType i_LayoutPanelType) {
-            
+        public static ILayoutPanel CreateLayout(eLayoutPanelType i_LayoutPanelType)
+        {            
             switch (i_LayoutPanelType) {
                 case eLayoutPanelType.CheckinLayoutPanel:
                     return new CheckinLayoutPanel();

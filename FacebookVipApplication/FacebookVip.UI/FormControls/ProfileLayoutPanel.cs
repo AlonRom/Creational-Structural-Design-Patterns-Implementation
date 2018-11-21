@@ -13,7 +13,7 @@ namespace FacebookVip.UI.FormControls
 {
     internal class ProfileLayoutPanel : ILayoutPanel
     {
-        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             AppConfigService appConfigService = AppConfigService.GetInstance();
             IProfileService profileService = new ProfileService();

@@ -46,7 +46,7 @@ namespace FacebookVip.UI.FormControls
 
         }
 
-        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             IFriendService friendsService = new FriendService();
             var friendsList = await friendsService.GetFriendsAsync(i_LoggedInUser);
@@ -86,7 +86,8 @@ namespace FacebookVip.UI.FormControls
 
             r_PostsPanel.Controls.Clear();
 
-            foreach (User selectedUser in UsersListBox.SelectedItems) { 
+            foreach (User selectedUser in UsersListBox.SelectedItems)
+            { 
                 // add user data.
                 List<PostModel> userPosts = await postService.GetUserPostsAsync(selectedUser);
                 if (userPosts.Count == 0) userPosts = postService.GetUserPostsMockData(selectedUser);

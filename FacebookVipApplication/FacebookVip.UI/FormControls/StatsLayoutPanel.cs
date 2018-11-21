@@ -20,7 +20,7 @@ namespace FacebookVip.UI.FormControls
 {
     internal class StatsLayoutPanel : ILayoutPanel
     {
-        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             StateSettings appConfigServiceStateSettings = AppConfigService.GetInstance().StateSettings;
             TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 1, AutoScroll = true };

@@ -13,7 +13,7 @@ namespace FacebookVip.UI.FormControls
     {
         private TableLayoutPanel m_Panel;
 
-        public async Task<TableLayoutPanel> GetLayoutAsync(User i_LoggedInUser)
+        public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
             ICheckinService checkinService = new CheckinService();
             List<Checkin> userCheckins = await checkinService.GetUserCheckinsAsync(i_LoggedInUser);
