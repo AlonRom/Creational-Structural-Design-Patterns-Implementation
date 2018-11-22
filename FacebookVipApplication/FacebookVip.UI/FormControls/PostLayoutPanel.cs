@@ -90,7 +90,10 @@ namespace FacebookVip.UI.FormControls
             { 
                 // add user data.
                 List<PostModel> userPosts = await postService.GetUserPostsAsync(selectedUser);
-                if (userPosts.Count == 0) userPosts = postService.GetUserPostsMockData(selectedUser);
+                if (userPosts.Count == 0)
+                {
+                    userPosts = postService.GetUserPostsMockData(selectedUser);
+                }
 
                 addUsersPosts(userPosts);
             }
