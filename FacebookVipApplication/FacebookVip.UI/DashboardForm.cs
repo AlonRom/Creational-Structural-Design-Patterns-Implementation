@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Interfaces;
@@ -9,6 +10,7 @@ using FacebookVip.Logic.Services;
 using FacebookVip.UI.FormControls;
 using FacebookVip.UI.Properties;
 using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 using static FacebookVip.UI.FormControls.LayoutPanelFactory;
 
 namespace FacebookVip.UI
@@ -299,6 +301,48 @@ namespace FacebookVip.UI
             }
 
             base.Dispose(i_Disposing);
+        }
+
+        private void dataBindinFriendsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {        
+            contentSpinner.Visible = true;
+            resetContentPanel();
+
+            try
+            {
+                friendsDataBindingContentPanel.Visible = true;
+
+                friendsDataBindingContentPanel.Padding = new Padding(10);
+                friendsDataBindingContentPanel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(friendsDataBindingContentPanel);
+
+                new Thread(() =>
+                {
+                    //time consuming operation
+                    IFriendService friendService = new FriendService();
+                    FacebookObjectCollection<User> userFriends = friendService.GetUserFriends(r_LoginService.LoggedInUser);
+
+                    //invoke the UI
+                    if(!friendsListBox.InvokeRequired)
+                    {
+                        //binding the data source of the binding source, to our data source
+                        friendListBindingSource.DataSource = userFriends;
+                        contentSpinner.Visible = false;
+                    }
+                    else
+                    {
+                        // In case of cross-thread operation, invoking the binding code on the listBox's thread
+                        friendsListBox.Invoke(new Action(() => friendListBindingSource.DataSource = userFriends));
+                        contentSpinner.Invoke(new Action(() => contentSpinner.Visible = false));
+                    }
+
+                }).Start();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Resources.RetriveDataErrorMessage, Resources.RetriveDataErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+ 
         }
     }
 }

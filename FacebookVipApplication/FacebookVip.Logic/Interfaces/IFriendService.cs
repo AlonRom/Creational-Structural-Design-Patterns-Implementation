@@ -8,6 +8,10 @@ namespace FacebookVip.Logic.Interfaces
     public interface IFriendService
     {
         Task<List<FriendModel>> GetUserFriendsAsync(User i_User);
+
+        FacebookObjectCollection<User> GetUserFriends(User i_User);
+
         Task<FacebookObjectCollection<User>> GetFriendsAsync(User i_User);
+
     }
 }

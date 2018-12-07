@@ -23,6 +23,11 @@ namespace FacebookVip.Logic.Services
                   });
         }
 
+        public FacebookObjectCollection<User> GetUserFriends(User i_User)
+        {
+            return i_User.Friends;
+        }
+
         public Task<FacebookObjectCollection<User>> GetFriendsAsync(User i_User)
         {
             return Task.Run(() =>
