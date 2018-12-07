@@ -65,7 +65,7 @@ namespace FacebookVip.UI.FormControls
             personSelectedAsync(null, null);
             r_Panel.Controls.Add(r_PostsPanel);
 
-            return r_Panel;
+            return r_Panel; 
         }
 
         
