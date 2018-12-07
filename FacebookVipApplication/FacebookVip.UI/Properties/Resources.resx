@@ -211,4 +211,10 @@
   <data name="SelectFriendWhosePOSTsYouLikeToSee" xml:space="preserve">
     <value>* Select Friend whose POSTs you like to see - using Ctrl button</value>
   </data>
+  <data name="PostLayoutPanel_PostLayoutPanel_Compare" xml:space="preserve">
+    <value>Compare</value>
+  </data>
+  <data name="ProfileLayoutPanel_cloneProfilePanel_Cloned_Profile" xml:space="preserve">
+    <value>Cloned Profile</value>
+  </data>
 </root>

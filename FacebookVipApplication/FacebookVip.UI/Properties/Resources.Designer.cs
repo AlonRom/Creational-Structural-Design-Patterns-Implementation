@@ -269,12 +269,30 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compare.
+        /// </summary>
+        internal static string PostLayoutPanel_PostLayoutPanel_Compare {
+            get {
+                return ResourceManager.GetString("PostLayoutPanel_PostLayoutPanel_Compare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap profile {
             get {
                 object obj = ResourceManager.GetObject("profile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloned Profile.
+        /// </summary>
+        internal static string ProfileLayoutPanel_cloneProfilePanel_Cloned_Profile {
+            get {
+                return ResourceManager.GetString("ProfileLayoutPanel_cloneProfilePanel_Cloned_Profile", resourceCulture);
             }
         }
         

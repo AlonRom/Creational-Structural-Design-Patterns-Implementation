@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using FacebookWrapper.ObjectModel;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FacebookVip.Model.Models
 {
+    [Serializable]
     public class ProfileModel
     {
         public string Id { get; set; }
@@ -20,6 +21,6 @@ namespace FacebookVip.Model.Models
         public string Email { get; set; }
 
         [Display(Name = "Location", Order = 5)]
-        public City Location { get; set; }
+        public string Location { get; set; }
     }
 }
