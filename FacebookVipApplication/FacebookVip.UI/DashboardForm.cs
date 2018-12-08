@@ -326,13 +326,13 @@ namespace FacebookVip.UI
                     if(!friendsListBox.InvokeRequired)
                     {
                         //binding the data source of the binding source, to our data source
-                        friendListBindingSource.DataSource = userFriends;
+                        userBindingSource.DataSource = userFriends;
                         contentSpinner.Visible = false;
                     }
                     else
                     {
                         // In case of cross-thread operation, invoking the binding code on the listBox's thread
-                        friendsListBox.Invoke(new Action(() => friendListBindingSource.DataSource = userFriends));
+                        friendsListBox.Invoke(new Action(() => userBindingSource.DataSource = userFriends));
                         contentSpinner.Invoke(new Action(() => contentSpinner.Visible = false));
                     }
 

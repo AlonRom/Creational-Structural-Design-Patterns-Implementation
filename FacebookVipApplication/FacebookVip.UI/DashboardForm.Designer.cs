@@ -16,17 +16,27 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label idLabel;
-            System.Windows.Forms.Label nameLabel;
             System.Windows.Forms.Label birthdayLabel;
             System.Windows.Forms.Label emailLabel;
+            System.Windows.Forms.Label firstNameLabel;
+            System.Windows.Forms.Label idLabel;
+            System.Windows.Forms.Label lastNameLabel;
+            System.Windows.Forms.Label middleNameLabel;
+            System.Windows.Forms.Label userNameLabel;
             this.headerTitleLabel = new System.Windows.Forms.Label();
             this.headerFacebookLabel = new System.Windows.Forms.Label();
             this.contentPanel = new System.Windows.Forms.Panel();
             this.friendsDataBindingContentPanel = new System.Windows.Forms.Panel();
             this.friendDetailsPanel = new System.Windows.Forms.Panel();
-            this.membersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.friendListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.birthdayTextBox = new System.Windows.Forms.TextBox();
+            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.emailTextBox = new System.Windows.Forms.TextBox();
+            this.firstNameLabel1 = new System.Windows.Forms.Label();
+            this.idLabel1 = new System.Windows.Forms.Label();
+            this.imageNormalPictureBox = new System.Windows.Forms.PictureBox();
+            this.lastNameLabel1 = new System.Windows.Forms.Label();
+            this.middleNameTextBox = new System.Windows.Forms.TextBox();
+            this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.friendsListBox = new System.Windows.Forms.ListBox();
@@ -46,27 +56,87 @@
             this.loginSpinner = new System.Windows.Forms.PictureBox();
             this.StayLoggedInLabel = new System.Windows.Forms.CheckBox();
             this.dataBindinFriendsButton = new System.Windows.Forms.Button();
-            this.idLabel1 = new System.Windows.Forms.Label();
-            this.nameLabel1 = new System.Windows.Forms.Label();
-            this.birthdayLabel1 = new System.Windows.Forms.Label();
-            this.emailLabel1 = new System.Windows.Forms.Label();
-            this.imageSquarePictureBox = new System.Windows.Forms.PictureBox();
-            idLabel = new System.Windows.Forms.Label();
-            nameLabel = new System.Windows.Forms.Label();
             birthdayLabel = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
+            firstNameLabel = new System.Windows.Forms.Label();
+            idLabel = new System.Windows.Forms.Label();
+            lastNameLabel = new System.Windows.Forms.Label();
+            middleNameLabel = new System.Windows.Forms.Label();
+            userNameLabel = new System.Windows.Forms.Label();
             this.contentPanel.SuspendLayout();
             this.friendsDataBindingContentPanel.SuspendLayout();
             this.friendDetailsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.friendListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contentSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customHeaderPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginSpinner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).BeginInit();
             this.SuspendLayout();
+            // 
+            // birthdayLabel
+            // 
+            birthdayLabel.AutoSize = true;
+            birthdayLabel.Location = new System.Drawing.Point(22, 183);
+            birthdayLabel.Name = "birthdayLabel";
+            birthdayLabel.Size = new System.Drawing.Size(60, 16);
+            birthdayLabel.TabIndex = 0;
+            birthdayLabel.Text = "Birthday:";
+            // 
+            // emailLabel
+            // 
+            emailLabel.AutoSize = true;
+            emailLabel.Location = new System.Drawing.Point(22, 211);
+            emailLabel.Name = "emailLabel";
+            emailLabel.Size = new System.Drawing.Size(45, 16);
+            emailLabel.TabIndex = 2;
+            emailLabel.Text = "Email:";
+            // 
+            // firstNameLabel
+            // 
+            firstNameLabel.AutoSize = true;
+            firstNameLabel.Location = new System.Drawing.Point(20, 59);
+            firstNameLabel.Name = "firstNameLabel";
+            firstNameLabel.Size = new System.Drawing.Size(76, 16);
+            firstNameLabel.TabIndex = 4;
+            firstNameLabel.Text = "First Name:";
+            // 
+            // idLabel
+            // 
+            idLabel.AutoSize = true;
+            idLabel.Location = new System.Drawing.Point(20, 32);
+            idLabel.Name = "idLabel";
+            idLabel.Size = new System.Drawing.Size(22, 16);
+            idLabel.TabIndex = 6;
+            idLabel.Text = "Id:";
+            // 
+            // lastNameLabel
+            // 
+            lastNameLabel.AutoSize = true;
+            lastNameLabel.Location = new System.Drawing.Point(20, 88);
+            lastNameLabel.Name = "lastNameLabel";
+            lastNameLabel.Size = new System.Drawing.Size(75, 16);
+            lastNameLabel.TabIndex = 10;
+            lastNameLabel.Text = "Last Name:";
+            // 
+            // middleNameLabel
+            // 
+            middleNameLabel.AutoSize = true;
+            middleNameLabel.Location = new System.Drawing.Point(21, 118);
+            middleNameLabel.Name = "middleNameLabel";
+            middleNameLabel.Size = new System.Drawing.Size(88, 16);
+            middleNameLabel.TabIndex = 12;
+            middleNameLabel.Text = "Middle Name:";
+            // 
+            // userNameLabel
+            // 
+            userNameLabel.AutoSize = true;
+            userNameLabel.Location = new System.Drawing.Point(21, 149);
+            userNameLabel.Name = "userNameLabel";
+            userNameLabel.Size = new System.Drawing.Size(77, 16);
+            userNameLabel.TabIndex = 14;
+            userNameLabel.Text = "User Name:";
             // 
             // headerTitleLabel
             // 
@@ -117,29 +187,95 @@
             // 
             // friendDetailsPanel
             // 
-            this.friendDetailsPanel.Controls.Add(this.imageSquarePictureBox);
-            this.friendDetailsPanel.Controls.Add(emailLabel);
-            this.friendDetailsPanel.Controls.Add(this.emailLabel1);
             this.friendDetailsPanel.Controls.Add(birthdayLabel);
-            this.friendDetailsPanel.Controls.Add(this.birthdayLabel1);
+            this.friendDetailsPanel.Controls.Add(this.birthdayTextBox);
+            this.friendDetailsPanel.Controls.Add(emailLabel);
+            this.friendDetailsPanel.Controls.Add(this.emailTextBox);
+            this.friendDetailsPanel.Controls.Add(firstNameLabel);
+            this.friendDetailsPanel.Controls.Add(this.firstNameLabel1);
             this.friendDetailsPanel.Controls.Add(idLabel);
             this.friendDetailsPanel.Controls.Add(this.idLabel1);
-            this.friendDetailsPanel.Controls.Add(nameLabel);
-            this.friendDetailsPanel.Controls.Add(this.nameLabel1);
+            this.friendDetailsPanel.Controls.Add(this.imageNormalPictureBox);
+            this.friendDetailsPanel.Controls.Add(lastNameLabel);
+            this.friendDetailsPanel.Controls.Add(this.lastNameLabel1);
+            this.friendDetailsPanel.Controls.Add(middleNameLabel);
+            this.friendDetailsPanel.Controls.Add(this.middleNameTextBox);
+            this.friendDetailsPanel.Controls.Add(userNameLabel);
+            this.friendDetailsPanel.Controls.Add(this.userNameTextBox);
             this.friendDetailsPanel.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.friendDetailsPanel.Location = new System.Drawing.Point(311, 54);
             this.friendDetailsPanel.Name = "friendDetailsPanel";
-            this.friendDetailsPanel.Size = new System.Drawing.Size(319, 336);
+            this.friendDetailsPanel.Size = new System.Drawing.Size(402, 336);
             this.friendDetailsPanel.TabIndex = 4;
             // 
-            // membersBindingSource
+            // birthdayTextBox
             // 
-            this.membersBindingSource.DataMember = "Members";
-            this.membersBindingSource.DataSource = this.friendListBindingSource;
+            this.birthdayTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Birthday", true));
+            this.birthdayTextBox.Location = new System.Drawing.Point(120, 180);
+            this.birthdayTextBox.Name = "birthdayTextBox";
+            this.birthdayTextBox.Size = new System.Drawing.Size(100, 22);
+            this.birthdayTextBox.TabIndex = 1;
             // 
-            // friendListBindingSource
+            // userBindingSource
             // 
-            this.friendListBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.FriendList);
+            this.userBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
+            // 
+            // emailTextBox
+            // 
+            this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Email", true));
+            this.emailTextBox.Location = new System.Drawing.Point(120, 208);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(100, 22);
+            this.emailTextBox.TabIndex = 3;
+            // 
+            // firstNameLabel1
+            // 
+            this.firstNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "FirstName", true));
+            this.firstNameLabel1.Location = new System.Drawing.Point(118, 59);
+            this.firstNameLabel1.Name = "firstNameLabel1";
+            this.firstNameLabel1.Size = new System.Drawing.Size(100, 23);
+            this.firstNameLabel1.TabIndex = 5;
+            // 
+            // idLabel1
+            // 
+            this.idLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Id", true));
+            this.idLabel1.Location = new System.Drawing.Point(118, 32);
+            this.idLabel1.Name = "idLabel1";
+            this.idLabel1.Size = new System.Drawing.Size(100, 23);
+            this.idLabel1.TabIndex = 7;
+            // 
+            // imageNormalPictureBox
+            // 
+            this.imageNormalPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.userBindingSource, "ImageNormal", true));
+            this.imageNormalPictureBox.Location = new System.Drawing.Point(273, 27);
+            this.imageNormalPictureBox.Name = "imageNormalPictureBox";
+            this.imageNormalPictureBox.Size = new System.Drawing.Size(100, 50);
+            this.imageNormalPictureBox.TabIndex = 9;
+            this.imageNormalPictureBox.TabStop = false;
+            // 
+            // lastNameLabel1
+            // 
+            this.lastNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "LastName", true));
+            this.lastNameLabel1.Location = new System.Drawing.Point(118, 88);
+            this.lastNameLabel1.Name = "lastNameLabel1";
+            this.lastNameLabel1.Size = new System.Drawing.Size(100, 23);
+            this.lastNameLabel1.TabIndex = 11;
+            // 
+            // middleNameTextBox
+            // 
+            this.middleNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "MiddleName", true));
+            this.middleNameTextBox.Location = new System.Drawing.Point(119, 115);
+            this.middleNameTextBox.Name = "middleNameTextBox";
+            this.middleNameTextBox.Size = new System.Drawing.Size(100, 22);
+            this.middleNameTextBox.TabIndex = 13;
+            // 
+            // userNameTextBox
+            // 
+            this.userNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "UserName", true));
+            this.userNameTextBox.Location = new System.Drawing.Point(120, 146);
+            this.userNameTextBox.Name = "userNameTextBox";
+            this.userNameTextBox.Size = new System.Drawing.Size(100, 22);
+            this.userNameTextBox.TabIndex = 15;
             // 
             // label2
             // 
@@ -164,7 +300,7 @@
             // friendsListBox
             // 
             this.friendsListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.friendsListBox.DataSource = this.friendListBindingSource;
+            this.friendsListBox.DataSource = this.userBindingSource;
             this.friendsListBox.DisplayMember = "Name";
             this.friendsListBox.Font = new System.Drawing.Font("Arial", 9.75F);
             this.friendsListBox.FormattingEnabled = true;
@@ -456,83 +592,6 @@
             this.dataBindinFriendsButton.Visible = false;
             this.dataBindinFriendsButton.Click += new System.EventHandler(this.dataBindinFriendsButtonClick);
             // 
-            // idLabel
-            // 
-            idLabel.AutoSize = true;
-            idLabel.Location = new System.Drawing.Point(17, 19);
-            idLabel.Name = "idLabel";
-            idLabel.Size = new System.Drawing.Size(22, 16);
-            idLabel.TabIndex = 0;
-            idLabel.Text = "Id:";
-            // 
-            // idLabel1
-            // 
-            this.idLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.friendListBindingSource, "Id", true));
-            this.idLabel1.Location = new System.Drawing.Point(69, 19);
-            this.idLabel1.Name = "idLabel1";
-            this.idLabel1.Size = new System.Drawing.Size(100, 23);
-            this.idLabel1.TabIndex = 1;
-            // 
-            // nameLabel
-            // 
-            nameLabel.AutoSize = true;
-            nameLabel.Location = new System.Drawing.Point(17, 43);
-            nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(46, 16);
-            nameLabel.TabIndex = 2;
-            nameLabel.Text = "Name:";
-            // 
-            // nameLabel1
-            // 
-            this.nameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.friendListBindingSource, "Name", true));
-            this.nameLabel1.Location = new System.Drawing.Point(69, 42);
-            this.nameLabel1.Name = "nameLabel1";
-            this.nameLabel1.Size = new System.Drawing.Size(100, 23);
-            this.nameLabel1.TabIndex = 3;
-            // 
-            // birthdayLabel
-            // 
-            birthdayLabel.AutoSize = true;
-            birthdayLabel.Location = new System.Drawing.Point(16, 68);
-            birthdayLabel.Name = "birthdayLabel";
-            birthdayLabel.Size = new System.Drawing.Size(60, 16);
-            birthdayLabel.TabIndex = 4;
-            birthdayLabel.Text = "Birthday:";
-            // 
-            // birthdayLabel1
-            // 
-            this.birthdayLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.membersBindingSource, "Birthday", true));
-            this.birthdayLabel1.Location = new System.Drawing.Point(82, 69);
-            this.birthdayLabel1.Name = "birthdayLabel1";
-            this.birthdayLabel1.Size = new System.Drawing.Size(100, 23);
-            this.birthdayLabel1.TabIndex = 5;
-            // 
-            // emailLabel
-            // 
-            emailLabel.AutoSize = true;
-            emailLabel.Location = new System.Drawing.Point(17, 94);
-            emailLabel.Name = "emailLabel";
-            emailLabel.Size = new System.Drawing.Size(45, 16);
-            emailLabel.TabIndex = 6;
-            emailLabel.Text = "Email:";
-            // 
-            // emailLabel1
-            // 
-            this.emailLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.membersBindingSource, "Email", true));
-            this.emailLabel1.Location = new System.Drawing.Point(73, 95);
-            this.emailLabel1.Name = "emailLabel1";
-            this.emailLabel1.Size = new System.Drawing.Size(100, 23);
-            this.emailLabel1.TabIndex = 7;
-            // 
-            // imageSquarePictureBox
-            // 
-            this.imageSquarePictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.membersBindingSource, "ImageSquare", true));
-            this.imageSquarePictureBox.Location = new System.Drawing.Point(204, 15);
-            this.imageSquarePictureBox.Name = "imageSquarePictureBox";
-            this.imageSquarePictureBox.Size = new System.Drawing.Size(100, 50);
-            this.imageSquarePictureBox.TabIndex = 9;
-            this.imageSquarePictureBox.TabStop = false;
-            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -565,14 +624,13 @@
             this.friendsDataBindingContentPanel.PerformLayout();
             this.friendDetailsPanel.ResumeLayout(false);
             this.friendDetailsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.friendListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.contentSpinner)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoInsideOutImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customHeaderPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loginSpinner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -604,13 +662,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel friendDetailsPanel;
-        private System.Windows.Forms.BindingSource friendListBindingSource;
-        private System.Windows.Forms.BindingSource membersBindingSource;
-        private System.Windows.Forms.PictureBox imageSquarePictureBox;
-        private System.Windows.Forms.Label emailLabel1;
-        private System.Windows.Forms.Label birthdayLabel1;
+        private System.Windows.Forms.TextBox birthdayTextBox;
+        private System.Windows.Forms.BindingSource userBindingSource;
+        private System.Windows.Forms.TextBox emailTextBox;
+        private System.Windows.Forms.Label firstNameLabel1;
         private System.Windows.Forms.Label idLabel1;
-        private System.Windows.Forms.Label nameLabel1;
+        private System.Windows.Forms.PictureBox imageNormalPictureBox;
+        private System.Windows.Forms.Label lastNameLabel1;
+        private System.Windows.Forms.TextBox middleNameTextBox;
+        private System.Windows.Forms.TextBox userNameTextBox;
     }
 }
 
