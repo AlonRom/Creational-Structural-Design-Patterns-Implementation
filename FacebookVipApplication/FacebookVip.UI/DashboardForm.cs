@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FacebookVip.Logic.Adapters;
 using FacebookVip.Logic.Interfaces;
 using FacebookVip.Logic.Services;
+using FacebookVip.Model.Models;
 using FacebookVip.UI.FormControls;
 using FacebookVip.UI.Properties;
 using FacebookWrapper;
@@ -303,7 +306,7 @@ namespace FacebookVip.UI
             base.Dispose(i_Disposing);
         }
 
-        private void dataBindinFriendsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        private void dataBindingFriendsButtonClick(object i_Sender, EventArgs i_EventArgs)
         {        
             contentSpinner.Visible = true;
             resetContentPanel();
@@ -343,6 +346,31 @@ namespace FacebookVip.UI
                 MessageBox.Show(Resources.RetriveDataErrorMessage, Resources.RetriveDataErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
  
+        }
+
+        private async void adapterFriendsButtonClick(object i_Sender, EventArgs i_EventArgs)
+        {
+            contentSpinner.Visible = true;
+            resetContentPanel();
+            FriendLayoutPanel layout = (FriendLayoutPanel)LayoutPanelFactory.CreateLayout(eLayoutPanelType.FriendLayoutPanel);
+            try
+            {
+                IFriendsAdapter friendsAdapter = new FriendsAdapter();
+                List<FriendModel> userFriends = await friendsAdapter.GetUserFriendsAsync();
+
+                m_Panel = layout.GetLayoutPanelAsync(userFriends);
+                m_Panel.Padding = new Padding(10);
+                m_Panel.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(m_Panel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Resources.RetriveDataErrorMessage, Resources.RetriveDataErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                contentSpinner.Visible = false;
+            }
         }
     }
 }

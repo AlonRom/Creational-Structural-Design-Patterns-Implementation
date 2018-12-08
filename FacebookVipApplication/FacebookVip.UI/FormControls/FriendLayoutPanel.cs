@@ -18,8 +18,12 @@ namespace FacebookVip.UI.FormControls
         {
             IFriendService friendService = new FriendService();
             List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(i_LoggedInUser);
+            return GetLayoutPanelAsync(userFriends);
+        }
 
-            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true, Padding = new Padding(10)};
+        public TableLayoutPanel GetLayoutPanelAsync(List<FriendModel> i_UserFriends)
+        {
+            TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true, Padding = new Padding(10) };
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 20F));
             panel.RowStyles.Add(new RowStyle(SizeType.AutoSize, 50F));
@@ -28,7 +32,7 @@ namespace FacebookVip.UI.FormControls
             const int k_ImageColumnIndex = 0;
             const int k_DetailsColumnIndex = 1;
 
-            foreach (FriendModel friend in userFriends)
+            foreach (FriendModel friend in i_UserFriends)
             {
                 foreach (KeyValuePair<string, string> propertyForDisplay in friend.GetPropertiesForDisplay())
                 {

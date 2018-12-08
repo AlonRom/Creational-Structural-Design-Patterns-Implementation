@@ -48,7 +48,7 @@
             this.userImage = new System.Windows.Forms.PictureBox();
             this.loginSpinner = new System.Windows.Forms.PictureBox();
             this.StayLoggedInLabel = new System.Windows.Forms.CheckBox();
-            this.dataBindinFriendsButton = new System.Windows.Forms.Button();
+            this.dataBindingFriendsButton = new System.Windows.Forms.Button();
             this.aboutTextBox = new System.Windows.Forms.TextBox();
             this.birthdayLabel1 = new System.Windows.Forms.Label();
             this.emailLabel1 = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
             this.lastNameLabel1 = new System.Windows.Forms.Label();
             this.middleNameLabel1 = new System.Windows.Forms.Label();
             this.userNameLabel1 = new System.Windows.Forms.Label();
+            this.adapterFriendsButton = new System.Windows.Forms.Button();
             aboutLabel = new System.Windows.Forms.Label();
             birthdayLabel = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
@@ -447,27 +448,27 @@
             this.StayLoggedInLabel.UseVisualStyleBackColor = false;
             this.StayLoggedInLabel.CheckedChanged += new System.EventHandler(this.stayLogedInCheckedChanged);
             // 
-            // dataBindinFriendsButton
+            // dataBindingFriendsButton
             // 
-            this.dataBindinFriendsButton.BackColor = System.Drawing.Color.Transparent;
-            this.dataBindinFriendsButton.BackgroundImage = global::FacebookVip.UI.Properties.Resources.friends;
-            this.dataBindinFriendsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.dataBindinFriendsButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dataBindinFriendsButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.dataBindinFriendsButton.FlatAppearance.BorderSize = 0;
-            this.dataBindinFriendsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dataBindinFriendsButton.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.dataBindinFriendsButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataBindinFriendsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.dataBindinFriendsButton.Location = new System.Drawing.Point(12, 414);
-            this.dataBindinFriendsButton.Name = "dataBindinFriendsButton";
-            this.dataBindinFriendsButton.Size = new System.Drawing.Size(190, 40);
-            this.dataBindinFriendsButton.TabIndex = 42;
-            this.dataBindinFriendsButton.Text = "Friends with\r\nData Binding";
-            this.dataBindinFriendsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.dataBindinFriendsButton.UseVisualStyleBackColor = false;
-            this.dataBindinFriendsButton.Visible = false;
-            this.dataBindinFriendsButton.Click += new System.EventHandler(this.dataBindinFriendsButtonClick);
+            this.dataBindingFriendsButton.BackColor = System.Drawing.Color.Transparent;
+            this.dataBindingFriendsButton.BackgroundImage = global::FacebookVip.UI.Properties.Resources.friends;
+            this.dataBindingFriendsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.dataBindingFriendsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dataBindingFriendsButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.dataBindingFriendsButton.FlatAppearance.BorderSize = 0;
+            this.dataBindingFriendsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dataBindingFriendsButton.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.dataBindingFriendsButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.dataBindingFriendsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dataBindingFriendsButton.Location = new System.Drawing.Point(12, 414);
+            this.dataBindingFriendsButton.Name = "dataBindingFriendsButton";
+            this.dataBindingFriendsButton.Size = new System.Drawing.Size(190, 40);
+            this.dataBindingFriendsButton.TabIndex = 42;
+            this.dataBindingFriendsButton.Text = "Friends with\r\nData Binding";
+            this.dataBindingFriendsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.dataBindingFriendsButton.UseVisualStyleBackColor = false;
+            this.dataBindingFriendsButton.Visible = false;
+            this.dataBindingFriendsButton.Click += new System.EventHandler(this.dataBindingFriendsButtonClick);
             // 
             // aboutLabel
             // 
@@ -614,13 +615,36 @@
             this.userNameLabel1.Size = new System.Drawing.Size(100, 23);
             this.userNameLabel1.TabIndex = 17;
             // 
+            // adapterFriendsButton
+            // 
+            this.adapterFriendsButton.BackColor = System.Drawing.Color.Transparent;
+            this.adapterFriendsButton.BackgroundImage = global::FacebookVip.UI.Properties.Resources.friends;
+            this.adapterFriendsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.adapterFriendsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.adapterFriendsButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.adapterFriendsButton.FlatAppearance.BorderSize = 0;
+            this.adapterFriendsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.adapterFriendsButton.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
+            this.adapterFriendsButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.adapterFriendsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.adapterFriendsButton.Location = new System.Drawing.Point(12, 460);
+            this.adapterFriendsButton.Name = "adapterFriendsButton";
+            this.adapterFriendsButton.Size = new System.Drawing.Size(190, 40);
+            this.adapterFriendsButton.TabIndex = 43;
+            this.adapterFriendsButton.Text = "Friends with\r\nAdapter";
+            this.adapterFriendsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.adapterFriendsButton.UseVisualStyleBackColor = false;
+            this.adapterFriendsButton.Visible = false;
+            this.adapterFriendsButton.Click += new System.EventHandler(this.adapterFriendsButtonClick);
+            // 
             // DashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1010, 746);
-            this.Controls.Add(this.dataBindinFriendsButton);
+            this.Controls.Add(this.adapterFriendsButton);
+            this.Controls.Add(this.dataBindingFriendsButton);
             this.Controls.Add(this.StayLoggedInLabel);
             this.Controls.Add(this.loginSpinner);
             this.Controls.Add(this.userImage);
@@ -678,7 +702,7 @@
         private System.Windows.Forms.PictureBox contentSpinner;
         private System.Windows.Forms.PictureBox loginSpinner;
         private System.Windows.Forms.CheckBox StayLoggedInLabel;
-        private System.Windows.Forms.Button dataBindinFriendsButton;
+        private System.Windows.Forms.Button dataBindingFriendsButton;
         private System.Windows.Forms.Panel friendsDataBindingContentPanel;
         private System.Windows.Forms.ListBox friendsListBox;
         private System.Windows.Forms.Label label2;
@@ -694,6 +718,7 @@
         private System.Windows.Forms.Label lastNameLabel1;
         private System.Windows.Forms.Label middleNameLabel1;
         private System.Windows.Forms.Label userNameLabel1;
+        private System.Windows.Forms.Button adapterFriendsButton;
     }
 }
 

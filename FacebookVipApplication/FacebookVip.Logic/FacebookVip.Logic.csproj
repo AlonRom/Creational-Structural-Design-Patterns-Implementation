@@ -49,10 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\FriendsAdaptee.cs" />
+    <Compile Include="Adapters\FriendsAdapter.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Interfaces\ICheckinService.cs" />
     <Compile Include="Interfaces\IEventService.cs" />
+    <Compile Include="Interfaces\IFriendsAdapter.cs" />
     <Compile Include="Interfaces\IFriendService.cs" />
     <Compile Include="Interfaces\ILikeService.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
