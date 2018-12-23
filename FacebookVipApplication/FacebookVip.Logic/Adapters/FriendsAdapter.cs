@@ -10,21 +10,19 @@ namespace FacebookVip.Logic.Adapters
 {
     public class FriendsAdapter : IFriendsAdapter
     {
+        private readonly FriendService m_FriendsService;
+
+        public FriendsAdapter()
+        {
+            m_FriendsService = new FriendService();
+        }
+
         public Task<List<FriendModel>> GetUserFriendsAsync()
         {
             return Task.Run(() =>
             {
                 LoginService loginService = LoginService.GetInstance();
-                FriendsAdaptee friendsAdaptee = new FriendsAdaptee();
-                Task<FacebookObjectCollection<User>> userFriends = friendsAdaptee.GetFriendsAsync(loginService.LoggedInUser);
-
-                return userFriends.Result.Select(i_Friend =>
-                  new FriendModel
-                  {
-                      Id = i_Friend.Id,
-                      Name = i_Friend.Name,
-                      ProfileImageUrl = i_Friend.PictureNormalURL
-                  }).ToList();
+                return m_FriendsService.GetUserFriendsAsync(loginService.LoggedInUser);
             });
 
         }
