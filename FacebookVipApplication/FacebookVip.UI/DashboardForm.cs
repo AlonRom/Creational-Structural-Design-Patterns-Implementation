@@ -358,10 +358,10 @@ namespace FacebookVip.UI
                 IFriendsAdapter friendsAdapter = new FriendsAdapter();
                 List<FriendModel> userFriends = await friendsAdapter.GetUserFriendsAsync();
 
-                m_Panel = layout.GetLayoutPanelAsync(userFriends);
-                m_Panel.Padding = new Padding(10);
-                m_Panel.Dock = DockStyle.Fill;
-                contentPanel.Controls.Add(m_Panel);
+                //m_Panel = layout.GetLayoutPanelAsync(userFriends);
+                //m_Panel.Padding = new Padding(10);
+                //m_Panel.Dock = DockStyle.Fill;
+                //contentPanel.Controls.Add(m_Panel);
             }
             catch (Exception)
             {

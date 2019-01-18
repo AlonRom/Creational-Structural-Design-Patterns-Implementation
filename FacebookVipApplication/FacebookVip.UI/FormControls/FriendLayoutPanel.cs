@@ -4,9 +4,8 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookVip.Logic.Extensions;
-using FacebookVip.Logic.Interfaces;
+using FacebookVip.Logic.Iterator;
 using FacebookVip.Logic.Services;
-using FacebookVip.Model.Models;
 using FacebookVip.UI.Utils;
 using FacebookWrapper.ObjectModel;
 
@@ -16,12 +15,14 @@ namespace FacebookVip.UI.FormControls
     {
         public async Task<TableLayoutPanel> GetLayoutPanelAsync(User i_LoggedInUser)
         {
-            IFriendService friendService = new FriendService();
-            List<FriendModel> userFriends = await friendService.GetUserFriendsAsync(i_LoggedInUser);
-            return GetLayoutPanelAsync(userFriends);
+            UserConcreteAggregate userConcreteAggregate = new UserConcreteAggregate(i_LoggedInUser);
+            //this waits for the initialization to finish
+            await userConcreteAggregate.Initialization;
+            IIterator it = userConcreteAggregate.CreateIterator();
+            return GetLayoutPanelAsync(it);
         }
 
-        public TableLayoutPanel GetLayoutPanelAsync(List<FriendModel> i_UserFriends)
+        public TableLayoutPanel GetLayoutPanelAsync(IIterator i_Iterator)
         {
             TableLayoutPanel panel = new TableLayoutPanel { ColumnCount = 2, AutoScroll = true, Padding = new Padding(10) };
             panel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 40F));
@@ -32,9 +33,9 @@ namespace FacebookVip.UI.FormControls
             const int k_ImageColumnIndex = 0;
             const int k_DetailsColumnIndex = 1;
 
-            foreach (FriendModel friend in i_UserFriends)
+            while (i_Iterator.MoveNext())
             {
-                foreach (KeyValuePair<string, string> propertyForDisplay in friend.GetPropertiesForDisplay())
+                foreach (KeyValuePair<string, string> propertyForDisplay in i_Iterator.Current.GetPropertiesForDisplay())
                 {
                     Uri uriResult;
                     bool isImageUrl = Uri.TryCreate(propertyForDisplay.Value, UriKind.Absolute, out uriResult)

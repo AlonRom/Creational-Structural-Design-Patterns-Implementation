@@ -605,7 +605,7 @@
             userNameLabel.Name = "userNameLabel";
             userNameLabel.Size = new System.Drawing.Size(77, 16);
             userNameLabel.TabIndex = 16;
-            userNameLabel.Text = "User Name:";
+            userNameLabel.Text = "ConcreteAggregate Name:";
             // 
             // userNameLabel1
             // 
