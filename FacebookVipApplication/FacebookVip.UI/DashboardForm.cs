@@ -368,10 +368,59 @@ namespace FacebookVip.UI
             m_ContextMenuStrip.Show(menu, new Point(-130, menu.Height));
         }
 
+        #region Command Operations
+        private void clearDahsboard()
+        {
+            resetContentPanel();
+        }
+
+        private void changeTheme()
+        {
+            contentPanel.BackColor = contentPanel.BackColor == Color.White ? Color.LightSkyBlue : Color.White;
+        }
+
+        private void stayLoggedIn(bool i_Checked)
+        {
+            AppConfigService appConfig = AppConfigService.GetInstance();
+            appConfig.StayLogedIn = i_Checked;
+        }
+
+        private async void showSettings()
+        {
+            await updatePanelAsync(eLayoutPanelType.SettingsLayoutPanel);
+        }
+
+        private void logout()
+        {
+            try
+            {
+                loginLabel.Enabled = false;
+                loginSpinner.Visible = true;
+
+                r_LoginService.Logout();
+                loginLabel.Click -= logoutButtonClick;
+                loginLabel.Click += loginButtonClick;
+                loginLabel.Text = Resources.LoginButton;
+                setLayoutVisible(false);
+                r_LoginService.LoggedInUser = null;
+
+                AppConfigService appConfig = AppConfigService.GetInstance();
+                appConfig.LastAccessTocken = "";
+                loginLabel.Visible = true;
+            }
+            finally
+            {
+                loginLabel.Enabled = true;
+                loginSpinner.Visible = false;
+            }
+        }
+
+        #endregion
+
         #region Menu Commands
 
-            #region Clear Dashboard Command
-            private class ClearDashboardCommand : ICommand
+        #region Clear Dashboard Command
+        private class ClearDashboardCommand : ICommand
             {
                 public DashboardForm Client { get; set; }
 
@@ -379,11 +428,6 @@ namespace FacebookVip.UI
                 {
                     Client.clearDahsboard();
                 }
-            }
-
-            private void clearDahsboard()
-            {
-                resetContentPanel();
             }
 
             #endregion
@@ -397,11 +441,6 @@ namespace FacebookVip.UI
                 {
                     Client.changeTheme();
                 }
-            }
-
-            private void changeTheme()
-            {
-                contentPanel.BackColor = contentPanel.BackColor == Color.White ? Color.LightSkyBlue : Color.White;
             }
 
             #endregion
@@ -418,12 +457,6 @@ namespace FacebookVip.UI
                 }
             }
 
-            private void stayLoggedIn(bool i_Checked)
-            {
-                AppConfigService appConfig = AppConfigService.GetInstance();
-                appConfig.StayLogedIn = i_Checked;
-            }
-
             #endregion
 
             #region Show Settings Command
@@ -438,14 +471,9 @@ namespace FacebookVip.UI
                 }
             }
 
-            private async void showSettings()
-            {
-                await updatePanelAsync(eLayoutPanelType.SettingsLayoutPanel);
-            }
-
             #endregion
 
-            #region Logou Command
+            #region Logout Command
 
             private class LogoutCommand : ICommand
             {
@@ -454,31 +482,6 @@ namespace FacebookVip.UI
                 public void Execute()
                 {
                     Client.logout();
-                }
-            }
-
-            private void logout()
-            {
-                try
-                {
-                    loginLabel.Enabled = false;
-                    loginSpinner.Visible = true;
-
-                    r_LoginService.Logout();
-                    loginLabel.Click -= logoutButtonClick;
-                    loginLabel.Click += loginButtonClick;
-                    loginLabel.Text = Resources.LoginButton;
-                    setLayoutVisible(false);
-                    r_LoginService.LoggedInUser = null;
-
-                    AppConfigService appConfig = AppConfigService.GetInstance();
-                    appConfig.LastAccessTocken = "";
-                    loginLabel.Visible = true;
-                }
-                finally
-                {
-                    loginLabel.Enabled = true;
-                    loginSpinner.Visible = false;
                 }
             }
 
