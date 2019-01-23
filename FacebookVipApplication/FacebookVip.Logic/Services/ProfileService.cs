@@ -16,7 +16,7 @@ namespace FacebookVip.Logic.Services
                 LastName = i_User.LastName,
                 BirthDate = i_User.Birthday,
                 Email = i_User.Email,
-                Location = i_User.Location.Name
+                Location = i_User.Location?.Name
             });
         }
     }

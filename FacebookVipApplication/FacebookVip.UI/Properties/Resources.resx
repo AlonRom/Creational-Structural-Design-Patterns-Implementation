@@ -117,104 +117,122 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Spinner" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gifs\Spinner.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo_inside_out" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\logo_inside_out.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="login1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="statistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\statistics.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="friends" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\friends.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="like" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\like.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="events" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\events.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="checkin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\checkin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icons\profile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="app_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\app_logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LoginButton" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="LoginErrorMessage" xml:space="preserve">
-    <value>Failed to login, please try again.</value>
-  </data>
-  <data name="LoginErrorTitle" xml:space="preserve">
-    <value>Login Failure</value>
-  </data>
-  <data name="LogoutButton" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="RetriveDataErrorMessage" xml:space="preserve">
-    <value>Failed to retrive data, please try again.</value>
-  </data>
   <data name="RetriveDataErrorTitle" xml:space="preserve">
     <value>Fetch Data Failure</value>
-  </data>
-  <data name="ConnectWithTokenErrorMessage" xml:space="preserve">
-    <value>Failed to connect with current Token, please try again.</value>
-  </data>
-  <data name="FacebookConnectionErrorTitle" xml:space="preserve">
-    <value>Facebook Connect Failure</value>
-  </data>
-  <data name="StatsTitle" xml:space="preserve">
-    <value>Stats</value>
-  </data>
-  <data name="ChartTypeTitle" xml:space="preserve">
-    <value>Chart Type:</value>
-  </data>
-  <data name="NumberOfFriendsToConsiderTitle" xml:space="preserve">
-    <value>Number Of Friends To Consider:</value>
-  </data>
-  <data name="CollectDataFromTitle" xml:space="preserve">
-    <value>Collect Data From:</value>
   </data>
   <data name="FailedToRretrieveDataLikesForErrorMessage" xml:space="preserve">
     <value>Failed to retrieve data likes for: </value>
   </data>
-  <data name="ApplicationTitle" xml:space="preserve">
-    <value>Application</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ConnectWithTokenErrorMessage" xml:space="preserve">
+    <value>Failed to connect with current Token, please try again.</value>
+  </data>
+  <data name="NumberOfFriendsToConsiderTitle" xml:space="preserve">
+    <value>Number Of Friends To Consider:</value>
+  </data>
+  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RetriveDataErrorMessage" xml:space="preserve">
+    <value>Failed to retrive data, please try again.</value>
   </data>
   <data name="LabelFontSizeTitle" xml:space="preserve">
     <value>Label Font Size</value>
   </data>
-  <data name="TitleFontSizeTitle" xml:space="preserve">
-    <value>Title Font Size</value>
+  <data name="profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\profile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="friends" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\friends.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginErrorMessage" xml:space="preserve">
+    <value>Failed to login, please try again.</value>
+  </data>
+  <data name="like" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\like.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ChartTypeTitle" xml:space="preserve">
+    <value>Chart Type:</value>
+  </data>
+  <data name="statistics" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\statistics.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SelectFriendWhosePOSTsYouLikeToSee" xml:space="preserve">
     <value>* Select Friend whose POSTs you like to see - using Ctrl button</value>
   </data>
+  <data name="ProfileLayoutPanel_cloneProfilePanel_Cloned_Profile" xml:space="preserve">
+    <value>Cloned Profile</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="CollectDataFromTitle" xml:space="preserve">
+    <value>Collect Data From:</value>
+  </data>
+  <data name="Spinner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gifs\Spinner.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="FacebookConnectionErrorTitle" xml:space="preserve">
+    <value>Facebook Connect Failure</value>
+  </data>
+  <data name="logo_inside_out" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\logo_inside_out.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StatsTitle" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="events" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\events.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="app_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\app_logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PostLayoutPanel_PostLayoutPanel_Compare" xml:space="preserve">
     <value>Compare</value>
   </data>
-  <data name="ProfileLayoutPanel_cloneProfilePanel_Cloned_Profile" xml:space="preserve">
-    <value>Cloned Profile</value>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="LoginErrorTitle" xml:space="preserve">
+    <value>Login Failure</value>
+  </data>
+  <data name="checkin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\checkin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="login1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TitleFontSizeTitle" xml:space="preserve">
+    <value>Title Font Size</value>
+  </data>
+  <data name="arrow-down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\arrow-down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DashboardForm_initMenu_Clear_Dashboard" xml:space="preserve">
+    <value>Clear Dashboard</value>
+  </data>
+  <data name="DashboardForm_initMenu_Change_Theme" xml:space="preserve">
+    <value>Change Theme</value>
+  </data>
+  <data name="DashboardForm_initMenu_Stay_Logged_In" xml:space="preserve">
+    <value>Stay Logged In</value>
+  </data>
+  <data name="DashboardForm_initMenu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="DashboardForm_initMenu_Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
 </root>

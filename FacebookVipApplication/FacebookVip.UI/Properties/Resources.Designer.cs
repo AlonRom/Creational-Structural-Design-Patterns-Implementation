@@ -80,6 +80,16 @@ namespace FacebookVip.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow_down {
+            get {
+                object obj = ResourceManager.GetObject("arrow-down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chart Type:.
         /// </summary>
         internal static string ChartTypeTitle {
@@ -113,6 +123,51 @@ namespace FacebookVip.UI.Properties {
         internal static string ConnectWithTokenErrorMessage {
             get {
                 return ResourceManager.GetString("ConnectWithTokenErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Theme.
+        /// </summary>
+        internal static string DashboardForm_initMenu_Change_Theme {
+            get {
+                return ResourceManager.GetString("DashboardForm_initMenu_Change_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Dashboard.
+        /// </summary>
+        internal static string DashboardForm_initMenu_Clear_Dashboard {
+            get {
+                return ResourceManager.GetString("DashboardForm_initMenu_Clear_Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string DashboardForm_initMenu_Logout {
+            get {
+                return ResourceManager.GetString("DashboardForm_initMenu_Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string DashboardForm_initMenu_Settings {
+            get {
+                return ResourceManager.GetString("DashboardForm_initMenu_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stay Logged In.
+        /// </summary>
+        internal static string DashboardForm_initMenu_Stay_Logged_In {
+            get {
+                return ResourceManager.GetString("DashboardForm_initMenu_Stay_Logged_In", resourceCulture);
             }
         }
         

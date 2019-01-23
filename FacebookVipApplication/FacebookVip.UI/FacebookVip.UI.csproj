@@ -57,7 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormControls\CheckBoxMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormControls\CheckinLayoutPanel.cs" />
+    <Compile Include="FormControls\MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FormControls\EventLayoutPanel.cs" />
     <Compile Include="FormControls\FriendLayoutPanel.cs" />
     <Compile Include="FormControls\ILayoutPanel.cs" />
@@ -108,6 +114,7 @@
     <Content Include="app_logo.ico" />
     <Content Include="favicon.ico" />
     <None Include="Resources\app_logo.bmp" />
+    <None Include="Resources\Icons\arrow-down.png" />
     <Content Include="Resources\Gifs\Spinner.gif" />
     <Content Include="Resources\Icons\checkin.png" />
     <Content Include="Resources\Icons\events.png" />
