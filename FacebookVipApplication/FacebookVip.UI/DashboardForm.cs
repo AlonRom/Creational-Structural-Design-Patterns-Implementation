@@ -419,7 +419,7 @@ namespace FacebookVip.UI
 
         #region Menu Commands
 
-        #region Clear Dashboard Command
+            #region Clear Dashboard Command
         private class ClearDashboardCommand : ICommand
             {
                 public DashboardForm Client { get; set; }
