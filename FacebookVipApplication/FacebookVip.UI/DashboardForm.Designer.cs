@@ -57,7 +57,6 @@
             this.userImage = new System.Windows.Forms.PictureBox();
             this.loginSpinner = new System.Windows.Forms.PictureBox();
             this.dataBindingFriendsButton = new System.Windows.Forms.Button();
-            this.adapterFriendsButton = new System.Windows.Forms.Button();
             this.menu = new System.Windows.Forms.Button();
             aboutLabel = new System.Windows.Forms.Label();
             birthdayLabel = new System.Windows.Forms.Label();
@@ -580,28 +579,6 @@
             this.dataBindingFriendsButton.Visible = false;
             this.dataBindingFriendsButton.Click += new System.EventHandler(this.dataBindingFriendsButtonClick);
             // 
-            // adapterFriendsButton
-            // 
-            this.adapterFriendsButton.BackColor = System.Drawing.Color.Transparent;
-            this.adapterFriendsButton.BackgroundImage = global::FacebookVip.UI.Properties.Resources.friends;
-            this.adapterFriendsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.adapterFriendsButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.adapterFriendsButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.adapterFriendsButton.FlatAppearance.BorderSize = 0;
-            this.adapterFriendsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.adapterFriendsButton.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.adapterFriendsButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.adapterFriendsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.adapterFriendsButton.Location = new System.Drawing.Point(12, 406);
-            this.adapterFriendsButton.Name = "adapterFriendsButton";
-            this.adapterFriendsButton.Size = new System.Drawing.Size(190, 40);
-            this.adapterFriendsButton.TabIndex = 43;
-            this.adapterFriendsButton.Text = "Friends with\r\nAdapter";
-            this.adapterFriendsButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.adapterFriendsButton.UseVisualStyleBackColor = false;
-            this.adapterFriendsButton.Visible = false;
-            this.adapterFriendsButton.Click += new System.EventHandler(this.adapterFriendsButtonClick);
-            // 
             // menu
             // 
             this.menu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -626,7 +603,6 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1010, 746);
             this.Controls.Add(this.menu);
-            this.Controls.Add(this.adapterFriendsButton);
             this.Controls.Add(this.dataBindingFriendsButton);
             this.Controls.Add(this.loginSpinner);
             this.Controls.Add(this.userImage);
@@ -697,7 +673,6 @@
         private System.Windows.Forms.Label lastNameLabel1;
         private System.Windows.Forms.Label middleNameLabel1;
         private System.Windows.Forms.Label userNameLabel1;
-        private System.Windows.Forms.Button adapterFriendsButton;
         private System.Windows.Forms.Button menu;
     }
 }
