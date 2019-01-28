@@ -27,9 +27,9 @@ namespace FacebookVip.Logic.FileWriter
 
         public void Init() { }
 
-        public void WriteLine(string line)
+        public void WriteLine(string i_Line)
         {
-            file_lines.Add("* " + line);
+            file_lines.Add("* " + i_Line);
         }
     }
 }

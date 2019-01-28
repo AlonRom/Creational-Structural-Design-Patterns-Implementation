@@ -18,7 +18,7 @@ namespace FacebookVip.Logic.FileWriter
             strategy_writer = i_StrategyWriter;
         }
 
-        private IEnumerable<string> PrepareData(List<PostModel> i_UsersPosts)
+        private IEnumerable<string> prepareData(List<PostModel> i_UsersPosts)
         {
             strategy_writer.Init();
             foreach (PostModel post in i_UsersPosts)
@@ -41,7 +41,7 @@ namespace FacebookVip.Logic.FileWriter
 
         public void WritePostsToFile(List<PostModel> i_UsersPosts)
         {
-            IEnumerable<string> lines = PrepareData(i_UsersPosts);
+            IEnumerable<string> lines = prepareData(i_UsersPosts);
 
             string docPath =
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
